@@ -41,7 +41,7 @@ head(franceEES2009, n = 10)
 ```
 
 <p align="center">
-  <img src="https://github.com/yl17124/figures/blob/master/first_example_df1.png">
+  <img src="https://raw.githack.com/yl17124/asmcjr/yl17124-patch-2/images/first_example_df1.png">
 </p>
 
 ```r
@@ -52,7 +52,7 @@ example_result_france <- aldmck(franceEES2009, respondent=1,
 str(example_result_france)                        
 ```
 <p align="left">
-  <img width="650" height="270" src="https://github.com/yl17124/figures/blob/master/first_example_df2.png">
+  <img width="650" height="270" src="https://raw.githack.com/yl17124/asmcjr/yl17124-patch-2/images/first_example_df2.png">
 </p>
 
 ```r
@@ -65,7 +65,7 @@ print(example_result_graph)
 ```
 
 <p align="center">
-  <img width="500" height="500" src="https://github.com/yl17124/figures/blob/master/first_example_plot.png">
+  <img width="500" height="500" src="https://raw.githack.com/yl17124/asmcjr/yl17124-patch-2/images/first_example_plot.png">
 </p>
 
  <br />
@@ -78,7 +78,7 @@ head(legis_7th_Taiwan, n =10)
 ```
 
 <p align="center">
-  <img src="https://github.com/yl17124/figures/blob/master/second_example_df1.png">
+  <img src="https://raw.githack.com/yl17124/asmcjr/yl17124-patch-2/images/second_example_df1.png">
 </p>
 
 ```r
@@ -92,7 +92,7 @@ summary(pscl_df, verbose=FALSE)
 ```
 
 <p align="left">
-  <img width="520" height="395"  src="https://github.com/yl17124/figures/blob/master/second_example_pscl.png">
+  <img width="520" height="395"  src="https://raw.githack.com/yl17124/asmcjr/yl17124-patch-2/images/second_example_pscl.png">
 </p>
 
 
@@ -255,4 +255,4 @@ Execution halted
 
 
 ## Reference
-For citation from this book, run `citation("asmcjr")`. For more learning resources and those who want to learn how to use computational methods to understand the latent properties of your data, please join the course [Scaling Methods for Social Science](https://essexsummerschool.com/summer-school-facts/courses/2020-course-list/3l-ideal-point-estimation-item-response-theory-and-scaling-methods/) at [2020 ESSEX SUMMER SCHOOL](https://essexsummerschool.com/). 
+For citation from this book, run `citation("asmcjr")`. 
