@@ -19,7 +19,3 @@ library(devtools)
 devtools::install_github("uniofessex/asmcjr")
 ```
 
-
-## Reference
-For citation from this book, run `citation("asmcjr")`.  
-
