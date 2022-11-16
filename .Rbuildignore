@@ -5,7 +5,10 @@
 ^\.github$
 ^\.travis\.yml$
 ^codecov\.yml$
+<<<<<<< HEAD
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
 ^README\.Rmd$
+=======
+>>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087

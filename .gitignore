@@ -5,5 +5,8 @@ src/asmcjr.so
 .DS_store
 packrat/lib*/
 .DS_Store
+<<<<<<< HEAD
 docs
 inst/doc
+=======
+>>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087

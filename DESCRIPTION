@@ -7,6 +7,7 @@ Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="dave@quant
              person("Chris", "Hare", role="aut"), 
              person("Ryan", "Bakker", role="aut"), 
              person("Keith", "Poole", role="ctb"), 
+<<<<<<< HEAD
              person("Howard", "Rosenthal", role="ctb"),
              person("David", "Liao", role="ctb"))
 Description: Supports the book - 2nd Edition Analyzing Spatial Models of Choice and Judgment, CRC Press (2020). 
@@ -27,6 +28,14 @@ Imports:
     tibble,
     utils,
     lifecycle
+=======
+             person("Howard", "Rosenthal", role="ctb"), 
+             person("David", "Liao", role="ctb"))
+Description: Supports the book - Analyzing Spatial Models of Choice and Judgment in R, CRC Press (2014). 
+Depends: R(>= 3.5.0)
+Imports: ggplot2, basicspace, boot, MASS, stats, grDevices, MCMCpack, plyr, smacof, tibble, ellipse, utils, coda, graphics
+Suggests: rjags, covr
+>>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true

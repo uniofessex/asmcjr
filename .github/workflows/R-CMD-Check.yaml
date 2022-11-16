@@ -21,6 +21,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
+<<<<<<< HEAD
+=======
+          - {os: macOS-latest,   r: 'devel'}
+>>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087
           - {os: macOS-latest,   r: '4.0'}
           - {os: macOS-latest,   r: '3.6'}
           - {os: macOS-latest,   r: '3.5'}
@@ -88,10 +92,14 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_: false
+<<<<<<< HEAD
           _R_CHECK_DONTTEST_EXAMPLES_: false
           DISPLAY: 99.0
         run: |
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+=======
+        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+>>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087
         shell: Rscript {0}
 
       - name: Show testthat output
@@ -104,4 +112,8 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+<<<<<<< HEAD
           path: check
+=======
+          path: check
+>>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087

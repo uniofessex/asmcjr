@@ -3,7 +3,7 @@ gray.palette <- function(n, lower=.3, upper=.7){
     s <- seq(lower, upper, length=n)
     rgb(matrix(rep(s, each=3), ncol=3, byrow=T))
 }
-ggplot.resphist <- function(result, groupVar = NULL, facetVar=NULL, addStim = FALSE,
+plot_resphist <- function(result, groupVar = NULL, facetVar=NULL, addStim = FALSE,
     scaleDensity=TRUE, weights = c("all", "positive", "negative"),
     xlab = NULL, main = NULL, ylab = NULL, whichRes = NULL,
     dim = NULL, ...){
@@ -229,75 +229,92 @@ print.aldmck_ci <- function(x, ..., digits=3){
 }
 
 BAM <- function(data, polarity, zhatSave=TRUE, abSave=FALSE, resp.idealpts=FALSE, n.sample = 2500, ...){
-if(!("bamPrep" %in% class(data)))stop("Data should be output from the bamPrep function")
-args <- as.list(match.call(expand.dots = FALSE)$`...`)
-if(!("n.chains" %in% names(args)))args$n.chains = 2
-if(!("n.adapt" %in% names(args)))args$n.adapt = 10000
-if(!("inits" %in% names(args))){
-    orig <- aldmck(na.omit(data$stims), respondent=0, polarity=polarity, verbose=FALSE)
-    args$inits <- list()
-    for(i in 1:args$n.chains){
-        zhs <- orig$stimuli + rnorm(length(orig$stimuli), 0, 1)
-        zhs[polarity] <- -abs(zhs[polarity])
-        args$inits[[i]] <- list(zhatstar = zhs)
+if(requireNamespace("rjags")){
+  jmod <- get("jags.model", asNamespace("rjags"))
+  jcs <- get("coda.samples", asNamespace("rjags"))
+  jsum <- get("summary.mcarray", asNamespace("rjags"))
+  csum <- get("summary.mcmc.list", asNamespace("coda"))
+  sumsamp <- function(x){
+    if(!is.null(dim(x))){
+      jsum(x)  
     }
-}
-
-args$file <- system.file("templates/BAM_JAGScode.bug", package="asmcjr")
-lower <- rep(-100, ncol(data$stims))
-upper <- rep(100, ncol(data$stims))
-upper[polarity] <- 0
-args$data <- list('z'=data$stims, q = ncol(data$stims), N=nrow(data$stims), lower=lower, upper=upper)
-mod.sim <- do.call("jags.model", args)
-
-if(zhatSave & !abSave){
-    samples <- coda.samples(mod.sim,'zhat',  n.sample,  thin=1)
-    zhat <- samples
-    for(i in 1:length(zhat)){colnames(zhat[[i]]) <- colnames(data$stims)}
-    zhat.sum <- summary(zhat)
-    zhat.ci <- data.frame("stimulus" = factor(colnames(data$stims), levels=colnames(data$stims)[order(zhat.sum$statistics)]),
-                          "idealpt" = zhat.sum$statistics[,1],
-                          "sd" = zhat.sum$statistics[,2],
-                          "lower" = zhat.sum$quantiles[,1],
-                          "upper" = zhat.sum$quantiles[,5])
-    rownames(zhat.ci) <- NULL
-    class(zhat.ci) <- c("aldmck_ci", "data.frame")
-    res.list = list(zhat=zhat, zhat.ci = zhat.ci)
+    else{
+      csum(x)
     }
-if(abSave & !zhatSave){
-    samples <- coda.samples(mod.sim, c('a', 'b'),  n.sample,  thin=1)
-    a <- samples[,grep("^a", colnames(samples[[1]]))]
-    b <- samples[,grep("&b", colnames(samples[[1]]))]
-    res.list = list(a=a, b=b)
+  }
+  
+  if(!("bamPrep" %in% class(data)))stop("Data should be output from the bamPrep function")
+  args <- as.list(match.call(expand.dots = FALSE)$`...`)
+  if(!("n.chains" %in% names(args)))args$n.chains = 2
+  if(!("n.adapt" %in% names(args)))args$n.adapt = 10000
+  if(!("inits" %in% names(args))){
+      orig <- aldmck(na.omit(data$stims), respondent=0, polarity=polarity, verbose=FALSE)
+      args$inits <- list()
+      for(i in 1:args$n.chains){
+          zhs <- orig$stimuli + rnorm(length(orig$stimuli), 0, 1)
+          zhs[polarity] <- -abs(zhs[polarity])
+          args$inits[[i]] <- list(zhatstar = zhs)
+      }
+  }
+  
+  args$file <- system.file("templates/BAM_JAGScode.bug", package="asmcjr")
+  lower <- rep(-100, ncol(data$stims))
+  upper <- rep(100, ncol(data$stims))
+  upper[polarity] <- 0
+  args$data <- list('z'=data$stims, q = ncol(data$stims), N=nrow(data$stims), lower=lower, upper=upper)
+  mod.sim <- do.call("jmod", args)
+  
+  if(zhatSave & !abSave){
+      samples <- jcs(mod.sim,'zhat',  n.sample,  thin=1)
+      zhat <- samples
+      for(i in 1:length(zhat)){colnames(zhat[[i]]) <- colnames(data$stims)}
+      zhat.sum <- sumsamp(zhat)
+      zhat.ci <- data.frame("stimulus" = factor(colnames(data$stims), levels=colnames(data$stims)[order(zhat.sum$statistics)]),
+                            "idealpt" = zhat.sum$statistics[,1],
+                            "sd" = zhat.sum$statistics[,2],
+                            "lower" = zhat.sum$quantiles[,1],
+                            "upper" = zhat.sum$quantiles[,5])
+      rownames(zhat.ci) <- NULL
+      class(zhat.ci) <- c("aldmck_ci", "data.frame")
+      res.list = list(zhat=zhat, zhat.ci = zhat.ci)
+      }
+  if(abSave & !zhatSave){
+      samples <- jcs(mod.sim, c('a', 'b'),  n.sample,  thin=1)
+      a <- samples[,grep("^a", colnames(samples[[1]]))]
+      b <- samples[,grep("&b", colnames(samples[[1]]))]
+      res.list = list(a=a, b=b)
+  }
+  if(abSave & zhatSave){
+      samples <- jcs(mod.sim, c('zhat', 'a', 'b'),  n.sample,  thin=1)
+      zhat <- samples[,grep("^z", colnames(samples[[1]]))]
+      for(i in 1:length(zhat)){colnames(zhat[[i]]) <- colnames(data$stims)}
+      zhat.sum <- sumsamp(zhat)
+      zhat.ci <- data.frame("stimulus" = factor(colnames(data$stims), levels=colnames(data$stims)[order(zhat.sum$statistics)]),
+                            "idealpt" = zhat.sum$statistics[,1],
+                            "sd"= zhat.sum$statistics[,2],
+                            "lower" = zhat.sum$quantiles[,1],
+                            "upper" = zhat.sum$quantiles[,5])
+      rownames(zhat.ci) <- NULL
+      class(zhat.ci) <- c("aldmck_ci", "data.frame")
+      a <- samples[,grep("^a", colnames(samples[[1]]))]
+      b <- samples[,grep("^b", colnames(samples[[1]]))]
+      res.list  = list(zhat=zhat, zhat.ci = zhat.ci, a=a, b=b)
+  }
+  if(resp.idealpts){
+      amat <- do.call(rbind, res.list$a)
+      bmat <- do.call(rbind, res.list$b)
+      diffs <- t(apply(amat, 1, function(x)data$self-x))
+      resp.ideals <- diffs /bmat
+      resp.ideal.summary <-  t(apply(resp.ideals, 2, quantile, c(.025, .5, .975), na.rm=T))
+      resp.ideal.summary <- as.data.frame(resp.ideal.summary)
+      names(resp.ideal.summary) <- c("lower", "median", "upper")
+      res.list$resp.samples=resp.ideals
+      res.list$resp.summary = resp.ideal.summary
+  }
+  invisible(res.list)
+} else{
+  stop("You must install JAGS (https://sourceforge.net/projects/mcmc-jags/) and the rjags package to use this function.\n")
 }
-if(abSave & zhatSave){
-    samples <- coda.samples(mod.sim, c('zhat', 'a', 'b'),  n.sample,  thin=1)
-    zhat <- samples[,grep("^z", colnames(samples[[1]]))]
-    for(i in 1:length(zhat)){colnames(zhat[[i]]) <- colnames(data$stims)}
-    zhat.sum <- summary(zhat)
-    zhat.ci <- data.frame("stimulus" = factor(colnames(data$stims), levels=colnames(data$stims)[order(zhat.sum$statistics)]),
-                          "idealpt" = zhat.sum$statistics[,1],
-                          "sd"= zhat.sum$statistics[,2],
-                          "lower" = zhat.sum$quantiles[,1],
-                          "upper" = zhat.sum$quantiles[,5])
-    rownames(zhat.ci) <- NULL
-    class(zhat.ci) <- c("aldmck_ci", "data.frame")
-    a <- samples[,grep("^a", colnames(samples[[1]]))]
-    b <- samples[,grep("^b", colnames(samples[[1]]))]
-    res.list  = list(zhat=zhat, zhat.ci = zhat.ci, a=a, b=b)
-}
-if(resp.idealpts){
-    amat <- do.call(rbind, res.list$a)
-    bmat <- do.call(rbind, res.list$b)
-    diffs <- t(apply(amat, 1, function(x)data$self-x))
-    resp.ideals <- diffs /bmat
-    resp.ideal.summary <-  t(apply(resp.ideals, 2, quantile, c(.025, .5, .975), na.rm=T))
-    resp.ideal.summary <- as.data.frame(resp.ideal.summary)
-    names(resp.ideal.summary) <- c("lower", "median", "upper")
-    res.list$resp.samples=resp.ideals
-    res.list$resp.summary = resp.ideal.summary
-}
-invisible(res.list)
 }
 
 diffStims <- function(x, stims, digits=3, ...){
@@ -338,7 +355,7 @@ aldmckSE <- function(obj, data, ...){
     sigmaj
 }
 
-ggplot.blackbox <- function(result, dims, whichRes=NULL, groupVar=NULL, issueVector=NULL,
+plot_blackbox <- function(result, dims, whichRes=NULL, groupVar=NULL, issueVector=NULL,
     data=NULL, missing=NULL, rug=FALSE, xlab=NULL, main = NULL, ylab=NULL, nudgeX=NULL, nudgeY=NULL,...){
     wres <- ifelse(is.null(whichRes), max(dims), whichRes)
     dimdat <- result$individuals[[wres]][,dims]
@@ -418,7 +435,20 @@ doubleCenterRect <- function(x){
 
 
 BMDS <- function(data, posStims, negStims, z, fname=NULL, n.sample = 2500, ...){
-    args <- as.list(match.call(expand.dots = FALSE)$`...`)
+  if(requireNamespace("rjags")){  
+  jmod <- get("jags.model", asNamespace("rjags"))
+  jcs <- get("coda.samples", asNamespace("rjags"))
+  jsum <- get("summary.mcarray", asNamespace("rjags"))
+  csum <- get("summary.mcmc.list", asNamespace("coda"))
+  sumsamp <- function(x){
+    if(!is.null(dim(x))){
+      jsum(x)  
+    }
+    else{
+      csum(x)
+    }
+  }
+  args <- as.list(match.call(expand.dots = FALSE)$`...`)
     if(!("n.chains" %in% names(args)))args$n.chains = 2
     if(!("n.adapt" %in% names(args)))args$n.adapt = 10000
     if(!("inits" %in% names(args))){
@@ -461,10 +491,10 @@ BMDS <- function(data, posStims, negStims, z, fname=NULL, n.sample = 2500, ...){
     data <- as.matrix(data)
     args$file <- fname
     args$data <- list('N'=nrow(data), dstar = as.matrix(max(data)-data), z=z)
-    mod.sim <- do.call("jags.model", args)
-    samples <- coda.samples(mod.sim,'z',  n.sample,  thin=1)
+    mod.sim <- do.call("jmod", args)
+    samples <- jcs(mod.sim,'z',  n.sample, thin=1)
     zhat <- samples
-    zhat.sum <- summary(zhat)
+    zhat.sum <- sumsamp(zhat)
     zhat.ci <- data.frame("stimulus" = c(outer(colnames(data), c(" D1", " D2"), paste0)),
                               "idealpt" = zhat.sum$statistics[,1],
                               "sd" = zhat.sum$statistics[,2],
@@ -473,6 +503,9 @@ BMDS <- function(data, posStims, negStims, z, fname=NULL, n.sample = 2500, ...){
     rownames(zhat.ci) <- NULL
     res.list = list(zhat=zhat, zhat.ci = zhat.ci)
     invisible(res.list)
+  } else{
+    stop("You must install JAGS (https://sourceforge.net/projects/mcmc-jags/) and the rjags package for this function to work.\n")
+  }
 }
 
 mlsmu6 <- function(input, ndim=2, cutoff=5, tol=0.0005, maxit=50, id=NULL){
