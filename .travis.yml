@@ -7,22 +7,16 @@ r:
   - devel
   
 cache: packages
-<<<<<<< HEAD
 warnings_are_errors: false
-=======
 warnings_are_errors: true
->>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087
 
 sudo: true
 before_install:
   - sudo apt-get install jags
-<<<<<<< HEAD
   - sudo add-apt-repository ppa:marutter/rrutter -y
   - sudo apt-get update
   - sudo apt-get install r-cran-rjags  
-=======
   - sudo apt-get install r-cran-rjags
->>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087
 
 # for codecov
 r_packages:
@@ -31,7 +25,3 @@ r_packages:
 # only report codecov after build is successful
 after_success:
   - Rscript -e 'covr::codecov()'
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087
