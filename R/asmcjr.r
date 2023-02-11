@@ -1,3 +1,6 @@
+
+
+
 globalVariables(c("x", "y", "group", "pch", "idealpt", "Density", "stimulus",  "lower", "upper"))
 gray.palette <- function(n, lower=.3, upper=.7){
     s <- seq(lower, upper, length=n)
