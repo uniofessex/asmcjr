@@ -1,31 +1,21 @@
 citHeader("To cite 'asmcjr' in publications use:")
 
-citEntry(entry = "Manual",
-<<<<<<< HEAD
+citEntry(
+  entry = "Manual",
   title = "asmcjr: An R package for the book 2nd Edition Analyzing Spatial Models of Choice and Judgment",
-=======
-  title = "Analyzing Spatial Models of Choice and Judgment with R",
->>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087
-  author = personList(as.person("David A. Armstrong"),
-                      as.person("Christopher Hare"),
-                      as.person("Ryan Bakker"),
-                      as.person("Royce Carroll"),
-                      as.person("Christopher Hare"),
-                      as.person("Keith T. Poole"),
-<<<<<<< HEAD
-                      as.person("Howard Rosenthal"),
-                      as.person("David Liao")),
+  author = personList(
+    as.person("David A. Armstrong"),
+    as.person("Christopher Hare"),
+    as.person("Ryan Bakker"),
+    as.person("Royce Carroll"),
+    as.person("Keith T. Poole"),
+    as.person("Howard Rosenthal"),
+    as.person("Yen-Chieh Liao")
+  ),
   year = "2020",
-  note = "R package version 1.0.1",
-  textVersion  =  
-  paste("David A. Armstrong, II, Ryan Bakker, Royce Carroll, Christopher Hare, Keith T. Poole, Howard Rosenthal, David Liao (2020).",
-        "asmcjr: An R package for the book 2nd Edition Analyzing Spatial Models of Choice and Judgment")) 
-=======
-                      as.person("Howard Rosenthal")),
-  year = "2020",
-  note = "R package version 1.0.1",
-  textVersion  =  
-  paste("David A. Armstrong, II, Ryan Bakker, Royce Carroll, Christopher Hare, Keith T. Poole, Howard Rosenthal (2020)",
-        "Analyzing Spatial Models of Choice and Judgment with R", "CRC Press")) 
->>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087
-
+  note = "R package version 1.0.2",
+  textVersion = paste(
+    "David A. Armstrong, II, Ryan Bakker, Royce Carroll, Christopher Hare, Keith T. Poole, Howard Rosenthal, Yen-Chieh Liao (2024).",
+    "asmcjr: An R package for the book 2nd Edition Analyzing Spatial Models of Choice and Judgment, R package version 1.0.2"
+  )
+)
