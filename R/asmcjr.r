@@ -652,7 +652,7 @@ plot.mlsmu6 <- function(x, ..., selected.stims=NULL, ind.id.size=3, stim.id.size
 
 
 bayesunfold <-
-function(input, dims = 2, nsamp = 2000, burnin = 1000, cred.level = 0.9, slice.starts = c("lbfgs", "random"), print.lbfgs="console", print.slice="console", ...) 
+function(input, dims = 2, nsamp = 2000, burnin = 1000, cred.level = 0.9, slice.starts = c("lbfgs", "random"), print.lbfgs="console", print.slice="console", ...)
 {
 #
 if(cred.level > 1 | cred.level < 0){stop("cred.level must be between 0 and 1\n")}
@@ -864,7 +864,7 @@ sigma_squared_hat_sd <- sd(result4[[4]][(burnin+1):(burnin+nsamp)])
 #  SAMPLES
 #
 samples <- matrix(result4[[3]], ncol=NDIM, byrow=TRUE)
-## took out because wasn't needed. 
+## took out because wasn't needed.
 #samples <- cbind(samples, 0)
 #z.mean <- colMeans(samples[,1:(ncolX*NS)])
 #z.mat <- matrix(z.mean, byrow=TRUE, ncol=NS)
@@ -880,7 +880,7 @@ stim.mean <- aaply(stim.array, c(1,2), mean, na.rm=TRUE)
 stim.lower <- aaply(stim.array, c(1,2), quantile, ll, na.rm=TRUE)
 stim.upper <- aaply(stim.array, c(1,2), quantile, ul, na.rm=TRUE)
 
-## arrays the data as first column in columns 1:ncolX and 
+## arrays the data as first column in columns 1:ncolX and
 ## second column of stimuli in (ncolX+1):(ncolX*NS)
 stim.samples <- matrix(c(stim.array), ncol=ncolX*NS, byrow=TRUE)
 stim.samples <- stim.samples[-nrow(stim.samples), ]
@@ -894,13 +894,13 @@ for(j in 1:(nsamp-1)){
     individuals[[j]] <- matrix(c(samples[j,-(1:(ncolX*NS))], 0), ncol=NS, byrow=TRUE)
 #    individuals[[j]] <- rbind(individuals[[j]], c(0,0))
 }
-indiv.array <- array(as.numeric(unlist(individuals)), 
+indiv.array <- array(as.numeric(unlist(individuals)),
     dim=c(nrowX, NS, (nsamp-1)))
 indiv.mean <- aaply(indiv.array, c(1,2), mean, na.rm=TRUE)
 indiv.lower <- aaply(indiv.array, c(1,2), quantile, ll, na.rm=TRUE)
 indiv.upper <- aaply(indiv.array, c(1,2), quantile, ul, na.rm=TRUE)
 
-## arrays the data as first column in columns 1:nrowX and 
+## arrays the data as first column in columns 1:nrowX and
 ## second column of stimuli in (nrowX+1):(nrowX*NS)
 
 indiv.samples <- matrix(c(indiv.array), ncol=nrowX*NS, byrow=TRUE)
@@ -921,7 +921,7 @@ orig.res = list(stim.samples = stim.samples,
 	stimuli = list(mean = stim.mean, lower=stim.lower, upper=stim.upper),
 	individuals = list(mean = indiv.mean, lower=indiv.lower, upper=indiv.upper))
 
-### Results With Procrustes Roatation 
+### Results With Procrustes Roatation
 stim.rot <- matrix(NA, nrow=(nsamp-1), ncol=ncolX*2)
 indiv.rot <- matrix(NA, nrow=(nsamp-1), ncol=length(c(individuals[[1]])))
 for(i in 1:(nsamp-1)){
@@ -930,14 +930,14 @@ for(i in 1:(nsamp-1)){
     indiv.rot[i,] <- c(with(p,  s * individuals[[i]] %*% R + matrix(tt, nrow(individuals[[i]]), ncol(individuals[[i]]), byrow = TRUE)))
 }
 stim.mean <- matrix(colMeans(stim.rot, na.rm=TRUE), ncol=dims)
-stim.lower <- matrix(apply(stim.rot, 2, quantile, 
+stim.lower <- matrix(apply(stim.rot, 2, quantile,
     ll, na.rm=TRUE), ncol=dims)
-stim.upper <- matrix(apply(stim.rot, 2, quantile, 
+stim.upper <- matrix(apply(stim.rot, 2, quantile,
     ul, na.rm=TRUE), ncol=dims)
 indiv.mean <- matrix(colMeans(indiv.rot), ncol=dims)
-indiv.lower <- matrix(apply(indiv.rot, 2, quantile, 
+indiv.lower <- matrix(apply(indiv.rot, 2, quantile,
     ll, na.rm=TRUE), ncol=dims)
-indiv.upper <- matrix(apply(indiv.rot, 2, quantile, 
+indiv.upper <- matrix(apply(indiv.rot, 2, quantile,
     ul, na.rm=TRUE), ncol=dims)
 
 if(!is.null(colnames(input))){
@@ -959,12 +959,12 @@ rotated.res = list(stim.samples = stim.samples,
 
 
 
-BUobject <- list(retained.obs = keep, smacof.result = SMACOF.result, 
+BUobject <- list(retained.obs = keep, smacof.result = SMACOF.result,
     lbfgs.result = list(stimuli=lbfgs.stimuli, individuals=lbfgs.individuals),
-    samples = samples, result4 = result4, 
+    samples = samples, result4 = result4,
 	sigma_squared_hat = sigma_squared_hat,
-	sigma_squared_hat_sd = sigma_squared_hat_sd,	
-    unrotated = orig.res, 
+	sigma_squared_hat_sd = sigma_squared_hat_sd,
+    unrotated = orig.res,
     rotated = rotated.res)
 
 class(BUobject) <- "bayesunfold"
@@ -984,13 +984,13 @@ plot.bayesunfold <- function(x, ..., which.res =c("rotated", "unrotated"), label
     stims <- res$stimuli$mean
     rownames(stims) <- rownames(x$smacof.result$conf.col)
     indivs <- res$individuals$mean
-    stim.data <- as_tibble(stims, rownames="names") 
+    stim.data <- as_tibble(stims, rownames="names")
     names(stim.data)[2:3] <- c("D1", "D2")
     indiv.data <- as_tibble(res$individuals$mean, rownames=NULL)
     names(indiv.data)[1:2] <- c("D1", "D2")
-    stim.data <- add_column(stim.data, D1.lower=res$stimuli$lower[,1], D2.lower=res$stimuli$lower[,2], 
+    stim.data <- add_column(stim.data, D1.lower=res$stimuli$lower[,1], D2.lower=res$stimuli$lower[,2],
         D1.upper = res$stimuli$upper[,1], D2.upper = res$stimuli$upper[,2])
-    indiv.data <- add_column(indiv.data, D1.lower=res$individuals$lower[,1], D2.lower=res$individuals$lower[,2], 
+    indiv.data <- add_column(indiv.data, D1.lower=res$individuals$lower[,1], D2.lower=res$individuals$lower[,2],
         D1.upper = res$individuals$upper[,1], D2.upper = res$individuals$upper[,2])
     if(!is.null(individual.id)){
         indiv.data <- add_column(indiv.data, names=individual.id)
@@ -1007,7 +1007,7 @@ plot.bayesunfold <- function(x, ..., which.res =c("rotated", "unrotated"), label
     if(plot.stimuli & plot.individuals){
         if(is.null(individual.id)){
             if(lab == "text"){
-                g <- ggplot(stim.data, aes_string(x="D1", y="D2")) + geom_point(data=indiv.data, col="gray75", pch=1, cex=.5 ) + geom_text(aes(label=names, colour=names)) 
+                g <- ggplot(stim.data, aes_string(x="D1", y="D2")) + geom_point(data=indiv.data, col="gray75", pch=1, cex=.5 ) + geom_text(aes(label=names, colour=names))
             }
             if(lab == "color"){
                 g <- ggplot(stim.data, aes_string(x="D1", y="D2")) + geom_point(data=indiv.data, col="gray75", pch=1, cex=.5 ) + geom_point(aes(colour=names))
@@ -1015,7 +1015,7 @@ plot.bayesunfold <- function(x, ..., which.res =c("rotated", "unrotated"), label
         }
         else{
             if(lab == "text"){
-                g <- ggplot(stim.data, aes_string(x="D1", y="D2")) + geom_point(data=indiv.data, pch=1, cex=.5 ) + geom_text(aes(label=names, colour=names)) 
+                g <- ggplot(stim.data, aes_string(x="D1", y="D2")) + geom_point(data=indiv.data, pch=1, cex=.5 ) + geom_text(aes(label=names, colour=names))
             }
             if(lab == "color"){
                 g <- ggplot(stim.data, aes_string(x="D1", y="D2")) + geom_point(data=indiv.data, pch=1, cex=.5 ) + geom_point(aes(colour=names))

@@ -1,16 +1,16 @@
 Package: asmcjr
 Type: Package
 Title: 2nd Edition Analyzing Spatial Models of Choice and Judgment
-Version: 1.0.1
-Authors@R: c(person("Dave", "Armstrong", role=c("aut", "cre"), email="dave@quantoid.net"), 
-             person("Royce", "Carroll", role="aut"), 
-             person("Chris", "Hare", role="aut"), 
-             person("Ryan", "Bakker", role="aut"), 
+Version: 1.0.2
+Authors@R: c(person("Dave", "Armstrong", role = c("aut", "cre"), email = "dave@quantoid.net"), 
+             person("Royce", "Carroll", role = "aut"), 
+             person("Chris", "Hare", role = "aut"), 
+             person("Ryan", "Bakker", role = "aut"), 
              person("Keith", "Poole", role="ctb"), 
              person("Howard", "Rosenthal", role="ctb"),
-             person("David", "Liao", role="ctb"))
+             person("David", "Liao", role=c("ctb", "aut")))
 Description: Supports the book - 2nd Edition Analyzing Spatial Models of Choice and Judgment, CRC Press (2020). 
-Depends: R(>= 3.5.0), rjags
+Depends: R (>= 3.4.0), rjags
 Imports:
     boot,
     basicspace,
@@ -25,22 +25,18 @@ Imports:
     stats,
     smacof,
     tibble,
-    utils,
-    lifecycle
-
-Description: Supports the book - Analyzing Spatial Models of Choice and Judgment in R, CRC Press (2014). 
-Depends: R(>= 3.5.0)
-Imports: ggplot2, basicspace, boot, MASS, stats, grDevices, MCMCpack, plyr, smacof, tibble, ellipse, utils, coda, graphics
-Suggests: rjags, covr
-License: GPL (>=2)
+    utils
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)    
+License: GPL (>=3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
-Suggests:
-    covr,
-    knitr,
-    rmarkdown
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
-URL: https://github.com/davidaarmstrong/asmcjr
-BugReports: https://github.com/davidaarmstrong/asmcjr/issues
-RdMacros: lifecycle
+URL: https://github.com/uniofessex/asmcjr
+BugReports: https://github.com/uniofessex/asmcjr/issues
+Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3
+SystemRequirements: pandoc (>= 1.14) - http://pandoc.org

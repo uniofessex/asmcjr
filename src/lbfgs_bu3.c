@@ -3196,9 +3196,18 @@ void xsvdrotate(int kpnp, int kpnq, double XTRUE3[], double theta2[], double rma
 		ydummy[i]=XprimeX[i];
 	}
 //
-	dgesvd_("A","A", &kpnq, &kpnq, XprimeX, &lda, lambda,
-		  u, &ldu, vt, &ldvt, work, &lwork, &info);
+// double* rwork;
+// int* iwork;
 
+int* rwork;
+unsigned long int iwork;
+
+dgesvd_("A","A", &kpnq, &kpnq, XprimeX, &lda, lambda,
+        u, &ldu, vt, &ldvt, work, &lwork, rwork, iwork, info);
+
+// dgesvd_("A","A", &kpnq, &kpnq, XprimeX, &lda, lambda,
+//           u, &ldu, vt, &ldvt, work, &lwork, rwork, iwork, &info);
+          
 //	jp = fopen("heck2.txt","a");
 //	fprintf(jp,"Info = %i\n",info);
 //	fprintf(jp,"Singular Values\n");
