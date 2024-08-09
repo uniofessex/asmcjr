@@ -51,7 +51,10 @@ jobs:
       - name: Set CRAN mirror and install R package dependencies
         run: |
           Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org/")); install.packages("remotes"); remotes::install_cran("rcmdcheck"); if (!requireNamespace("basicspace", quietly = TRUE)) { remotes::install_github("cran/basicspace") } else { remotes::install_cran("basicspace") }; remotes::install_deps(dependencies = TRUE)'
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}  # Use the GitHub PAT
 
       - name: Check
         run: |
           Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
+
