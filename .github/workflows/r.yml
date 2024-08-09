@@ -5,6 +5,17 @@
 #
 # See https://github.com/r-lib/actions/tree/master/examples#readme for
 # additional example workflows available for the R community.
+name: R Package CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -33,11 +44,8 @@ jobs:
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
         run: |
-          Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org/")); install.packages("remotes"); remotes::install_github("cran/basicspace"); remotes::install_deps(dependencies = TRUE)'
+          Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org/")); install.packages("remotes"); remotes::install_github("cran/basicspace", force = TRUE); remotes::install_deps(dependencies = TRUE)'
 
       - name: Check
         run: |
           Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
-
-
-
