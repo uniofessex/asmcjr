@@ -14,12 +14,10 @@
 #' and `Probability`, which contains the probabilities formatted to the specified number of digits.
 #'
 #' @examples
-#' # Example with random data
-#' set.seed(123)
-#' x <- matrix(rnorm(1000), ncol=5)
-#' colnames(x) <- c("Stim1", "Stim2", "Stim3", "Stim4", "Stim5")
-#' diffStims(x, stims=c("Stim1", "Stim2", "Stim3"))
-#'
+#' \dontrun{
+#' data(bam.france)
+#' diffStims(bam.france$zhat, stims=c(3,4))
+#' }
 #' @export
 diffStims <- function(x, stims, digits=3, ...){
   if("mcmc.list" %in% class(x)){

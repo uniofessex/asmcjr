@@ -16,7 +16,7 @@
 #' data(bamdata)
 #' bam.france <- BAM(bamdata, polarity=2, n.adapt=2500, n.sample=5000, 
 #'                   zhat=TRUE, ab=TRUE, resp.idealpts=TRUE)
-#' summary(bam.france)
+#' summary(bam.france)}
 #' @export
 
 BAM <- function(data, polarity, zhatSave = TRUE, abSave = FALSE, resp.idealpts = FALSE, n.sample = 2500, ...) {

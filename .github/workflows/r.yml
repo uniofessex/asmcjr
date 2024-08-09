@@ -52,12 +52,7 @@ jobs:
           remotes::install_cran("rcmdcheck")
           
           # Attempt to install basicspace from CRAN or GitHub if not on CRAN
-          if (!requireNamespace("basicspace", quietly = TRUE)) {
-            remotes::install_github("username/basicspace")
-          } else {
-            remotes::install_cran("basicspace")
-          }
-          
+          remotes::install_cran("basicspace")
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 

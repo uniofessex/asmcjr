@@ -14,7 +14,7 @@
 #' @examples
 #' \dontrun{
 #' data(issues.sweden)
-#' boot.blackbox(issues.sweden, missing=8, dims=3, minscale=5, verbose=FALSE, posStimulus=13)
+#' boot.blackbox(issues.sweden, missing=8, dims=3, minscale=5, verbose=FALSE, posStimulus=13)}
 #' @export
 boot.blackbox <- function(data, missing, dims=1, minscale, verbose=FALSE, posStimulus = 1, R=100){
   dot.args <- as.list(match.call(expand.dots = FALSE)$`...`)
