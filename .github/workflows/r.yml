@@ -63,8 +63,7 @@ jobs:
 
           # Install other dependencies
           remotes::install_deps(dependencies = TRUE)
-        shell: Rscript
 
       - name: Check
-        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
-        shell: Rscript
+        run: |
+          rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
