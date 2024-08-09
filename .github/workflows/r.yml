@@ -5,7 +5,7 @@
 #
 # See https://github.com/r-lib/actions/tree/master/examples#readme for
 # additional example workflows available for the R community.
-name: R
+name: R Package CI
 
 on:
   push:
@@ -33,14 +33,14 @@ jobs:
           r-version: ${{ matrix.r-version }}
 
       - name: Install system dependencies on macOS
-        if: runner.os == 'macOS'
+        if: matrix.os == 'macos-latest'
         run: |
           brew install qpdf
           brew install pkg-config
           brew install checkbashisms
 
       - name: Install system dependencies on Windows
-        if: runner.os == 'Windows'
+        if: matrix.os == 'windows-latest'
         run: |
           choco install qpdf
           choco install pkgconfiglite
@@ -49,8 +49,15 @@ jobs:
       - name: Install R package dependencies
         run: |
           install.packages("remotes")
-          remotes::install_cran("rcmdcheck") # Install rcmdcheck
-          remotes::install_cran("basicspace") # Install basicspace before other dependencies
+          remotes::install_cran("rcmdcheck")
+          
+          # Attempt to install basicspace from CRAN or GitHub if not on CRAN
+          if (!requireNamespace("basicspace", quietly = TRUE)) {
+            remotes::install_github("username/basicspace")
+          } else {
+            remotes::install_cran("basicspace")
+          }
+          
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
