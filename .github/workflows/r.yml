@@ -49,6 +49,7 @@ jobs:
       - name: Install R package dependencies
         run: |
           install.packages("remotes")
+          remotes::install_cran("rcmdcheck") # Install rcmdcheck
           remotes::install_cran("basicspace") # Install basicspace before other dependencies
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
@@ -56,3 +57,4 @@ jobs:
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
         shell: Rscript {0}
+

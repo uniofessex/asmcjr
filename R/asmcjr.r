@@ -317,26 +317,26 @@
 #   stop("You must install JAGS (https://sourceforge.net/projects/mcmc-jags/) and the rjags package to use this function.\n")
 # }
 # }
-
-diffStims <- function(x, stims, digits=3, ...){
-    if("mcmc.list" %in% class(x)){
-        x <- do.call("rbind", x)
-    }
-    if(!(is.matrix(x) | is.data.frame(x)))stop("x must be a matrix or data frame of MCMC or resampled values\n")
-    x <- as.matrix(x)
-    if(!is.numeric(stims)){
-        stims <- match(stims, colnames(x))
-    }
-    combs <- combn(stims, 2)[,,drop=FALSE]
-    D <- matrix(0, ncol=ncol(combs), nrow=ncol(x))
-    D[cbind(combs[1,], 1:ncol(combs))] <- -1
-    D[cbind(combs[2,], 1:ncol(combs))] <- 1
-    diffs <- x %*%D
-    probs <- colMeans(diffs > 0)
-    comps <- paste("Pr(", colnames(x)[combs[2, ]], " > ", colnames(x)[combs[1,]], ")", sep="")
-    result <- data.frame('Comparison'=comps, 'Probability'=sprintf(paste0("%.", digits, "f"), probs))
-    result
-}
+# 
+# diffStims <- function(x, stims, digits=3, ...){
+#     if("mcmc.list" %in% class(x)){
+#         x <- do.call("rbind", x)
+#     }
+#     if(!(is.matrix(x) | is.data.frame(x)))stop("x must be a matrix or data frame of MCMC or resampled values\n")
+#     x <- as.matrix(x)
+#     if(!is.numeric(stims)){
+#         stims <- match(stims, colnames(x))
+#     }
+#     combs <- combn(stims, 2)[,,drop=FALSE]
+#     D <- matrix(0, ncol=ncol(combs), nrow=ncol(x))
+#     D[cbind(combs[1,], 1:ncol(combs))] <- -1
+#     D[cbind(combs[2,], 1:ncol(combs))] <- 1
+#     diffs <- x %*%D
+#     probs <- colMeans(diffs > 0)
+#     comps <- paste("Pr(", colnames(x)[combs[2, ]], " > ", colnames(x)[combs[1,]], ")", sep="")
+#     result <- data.frame('Comparison'=comps, 'Probability'=sprintf(paste0("%.", digits, "f"), probs))
+#     result
+# }
 
 aldmckSE <- function(obj, data, ...){
     tmp <- na.omit(cbind(obj$respondents[,1:2], data))
