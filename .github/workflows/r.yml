@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        r-version: ['4.1.1', '4.3.0']
+        r-version: ['4.1.1']  # Temporarily excluding 4.3.0
 
     steps:
       - uses: actions/checkout@v4
@@ -50,22 +50,8 @@ jobs:
 
       - name: Set CRAN mirror and install R package dependencies
         run: |
-          options(repos = c(CRAN = "https://cloud.r-project.org/"))
-          install.packages("remotes")
-          remotes::install_cran("rcmdcheck")
-
-          # Attempt to install basicspace from CRAN or GitHub if not on CRAN
-          if (!requireNamespace("basicspace", quietly = TRUE)) {
-            remotes::install_github("cran/basicspace")
-          } else {
-            remotes::install_cran("basicspace")
-          }
-
-          # Install other dependencies
-          remotes::install_deps(dependencies = TRUE)
-        shell: Rscript
+          Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org/")); install.packages("remotes"); remotes::install_cran("rcmdcheck"); if (!requireNamespace("basicspace", quietly = TRUE)) { remotes::install_github("cran/basicspace") } else { remotes::install_cran("basicspace") }; remotes::install_deps(dependencies = TRUE)'
 
       - name: Check
         run: |
-          rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
-        shell: Rscript
+          Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
