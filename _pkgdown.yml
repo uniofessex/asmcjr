@@ -16,7 +16,7 @@ authors:
     href: https://spia.uga.edu/faculty-member/keith-poole/
   Howard Rosenthal:
     href: https://as.nyu.edu/content/nyu-as/as/faculty/howard-l-rosenthal.html
-  David Liao:
+  Yen-Chieh Liao:
     href: https://github.com/davidycliao
 
 template:
@@ -25,7 +25,6 @@ template:
 
 development:
   mode: auto
-
 
 navbar:
   type: inverse
