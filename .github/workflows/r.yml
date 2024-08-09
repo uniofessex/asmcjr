@@ -21,8 +21,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest] # Added windows-latest to the matrix
-        r-version: ['4.1.1', '4.3.0'] # Use recent versions of R
+        os: [macos-latest, windows-latest]
+        r-version: ['4.1.1', '4.3.0']
 
     steps:
       - uses: actions/checkout@v4
@@ -48,7 +48,8 @@ jobs:
 
       - name: Install R package dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck"))
+          install.packages("remotes")
+          remotes::install_cran("basicspace") # Install basicspace before other dependencies
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
