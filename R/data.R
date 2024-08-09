@@ -10,9 +10,6 @@
 #'
 #' @usage data(result.france)
 #'
-#' @examples
-#' data(result.france)
-#' summary(result.france)
 "result.france"
 
 
@@ -22,13 +19,6 @@
 #'
 #' @format A matrix with rows representing respondents and columns representing different issues or variables.
 #' @source Sweden 2010 Election Study
-#' @examples
-#' data(issues.sweden)
-#' head(issues.sweden)
-#' 
-#' # Example usage in analysis
-#' result <- aldmck(issues.sweden, respondent=1, polarity=2, missing=c(77,88,89), verbose=FALSE)
-#' summary(result)
 "issues.sweden"
 
 
@@ -50,11 +40,6 @@
 #' This dataset is used as an input for the `blackbox_transpose` function to perform dimensional analysis.
 #'
 #' @source France 2009 European Election Study (EES)
-#' @examples
-#' \dontrun{
-#' data(rankings)
-#' original <- blackbox_transpose(rankings, missing = c(77, 88, 89), dims = 3, minscale = 5, verbose = FALSE)
-#' }
 "rankings"
 
 
