@@ -33,30 +33,38 @@ jobs:
           r-version: ${{ matrix.r-version }}
 
       - name: Install system dependencies on macOS
-        if: matrix.os == 'macos-latest'
+        if: runner.os == 'macOS'
         run: |
           brew install qpdf
           brew install pkg-config
           brew install checkbashisms
+          xcode-select --install || echo "Xcode already installed"
+          brew install gcc
 
       - name: Install system dependencies on Windows
-        if: matrix.os == 'windows-latest'
+        if: runner.os == 'Windows'
         run: |
           choco install qpdf
           choco install pkgconfiglite
           choco install make
 
-      - name: Install R package dependencies
+      - name: Set CRAN mirror and install R package dependencies
         run: |
+          options(repos = c(CRAN = "https://cloud.r-project.org/"))
           install.packages("remotes")
           remotes::install_cran("rcmdcheck")
-          
+
           # Attempt to install basicspace from CRAN or GitHub if not on CRAN
-          remotes::install_cran("basicspace")
+          if (!requireNamespace("basicspace", quietly = TRUE)) {
+            remotes::install_github("username/basicspace")
+          } else {
+            remotes::install_cran("basicspace")
+          }
+
+          # Install other dependencies
           remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
+        shell: Rscript
 
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
-        shell: Rscript {0}
-
+        shell: Rscript
