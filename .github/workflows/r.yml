@@ -45,7 +45,6 @@ jobs:
           GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
         run: |
           Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages('remotes');"
-          Rscript -e "remotes::install_github('cran/basicspace', dependencies = TRUE, force = TRUE)"
 
       - name: Check
         run: |
