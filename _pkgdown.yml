@@ -36,8 +36,6 @@ navbar:
       menu: 
       -  text: "Installation"
          href: articles/installation.html
-      -  text: "Potential Installation Errors"
-         href: articles/errors.html
       -  text: "Support"
          href: articles/support.html
     - icon: fa-project-diagram

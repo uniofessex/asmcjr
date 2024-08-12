@@ -11,7 +11,7 @@ package contains all of the data and functions to replicate the analyses
 in the book.
 
 <br />
-<img src="man/figures/book_image.jpg" width="200" align="center" />  
+<img src="https://raw.githack.com/uniofessex/asmcjr/master/man/figures/book_image.jpg" width="200" align="center" />  
  
 
 ## Installation
