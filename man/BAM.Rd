@@ -35,3 +35,10 @@ A list containing posterior samples and summaries for the estimated parameters.
 \description{
 This function performs Bayesian Aldrich-McKelvey (BAM) scaling using JAGS to estimate ideal points and optionally save intermediate parameters.
 }
+\examples{
+\dontrun{
+data(bamdata)
+bam.france <- BAM(bamdata, polarity=2, n.adapt=2500, n.sample=5000,
+                  zhat=TRUE, ab=TRUE, resp.idealpts=TRUE)
+}
+}

@@ -38,6 +38,7 @@ This function performs a bootstrap analysis on the Blackbox Transpose model, gen
 \examples{
 \dontrun{
 data(issues.sweden)
-result <- boot.blackbox_transpose(issues.sweden, missing = 8, dims = 2, minscale = 5, verbose = FALSE, posStimulus = 13, R = 100)
+result <- boot.blackbox_transpose(issues.sweden, missing = 8, 
+dims = 2, minscale = 5, verbose = FALSE, posStimulus = 13, R = 100)
 }
 }

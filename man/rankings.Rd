@@ -10,9 +10,6 @@ A numeric matrix with rows representing respondents and columns representing the
 \source{
 France 2009 European Election Study (EES)
 }
-\usage{
-rankings
-}
 \description{
 This dataset, \code{rankings}, contains the rankings data extracted from the France 2009 European Election Study (EES). It is a matrix of numeric rankings for various political parties.
 }
@@ -28,10 +25,3 @@ mode(rankings) <- "numeric"
 
 This dataset is used as an input for the \code{blackbox_transpose} function to perform dimensional analysis.
 }
-\examples{
-\dontrun{
-data(rankings)
-original <- blackbox_transpose(rankings, missing = c(77, 88, 89), dims = 3, minscale = 5, verbose = FALSE)
-}
-}
-\keyword{datasets}

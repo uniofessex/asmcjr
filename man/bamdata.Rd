@@ -14,19 +14,9 @@ A list of class \code{bamPrep} with two components:
 \source{
 France 2009 European Election Study (EES)
 }
-\usage{
-bamdata
-}
 \description{
 This dataset, \code{bamdata}, was prepared using the \code{bamPrep} function on the France 2009 European Election Study (EES) data. It is used for Bayesian Aldrich-McKelvey (BAM) scaling.
 }
 \details{
 The \code{bamdata} object was created by applying the \code{bamPrep} function to the \code{franceEES2009} dataset with specified missing values (\code{c(77, 88, 89)}), focusing on self-placement (\code{self = 1}), and requiring a minimum of 5 non-missing values per respondent.
 }
-\examples{
-\dontrun{
-data(bamdata)
-result <- BAM(bamdata, polarity = 1, zhatSave = TRUE)
-}
-}
-\keyword{datasets}
