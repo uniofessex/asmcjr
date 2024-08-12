@@ -1,9 +1,11 @@
-pandoc: 2.7.3
-pkgdown: 1.5.1.9000
-pkgdown_sha: eae56f08694abebf93cdfc0dd8e9ede06d8c815f
-articles: []
-last_built: 2020-08-12T11:27Z
+pandoc: 3.1.12.3
+pkgdown: 2.1.0
+pkgdown_sha: ~
+articles:
+  examples: examples.html
+  installation: installation.html
+  support: support.html
+last_built: 2024-08-12T17:21Z
 urls:
-  reference: https://yl17124.github.io/asmcjr//reference
-  article: https://yl17124.github.io/asmcjr//articles
-
+  reference: https://uniofessex.github.io/asmcjr/reference
+  article: https://uniofessex.github.io/asmcjr/articles
