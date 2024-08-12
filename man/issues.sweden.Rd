@@ -10,18 +10,6 @@ A matrix with rows representing respondents and columns representing different i
 \source{
 Sweden 2010 Election Study
 }
-\usage{
-issues.sweden
-}
 \description{
 This dataset, \code{issues.sweden}, is a matrix created from the \code{Sweden2010} dataset, specifically using columns 7 to 56. It contains issue-related data from Sweden's 2010 election study.
 }
-\examples{
-data(issues.sweden)
-head(issues.sweden)
-
-# Example usage in analysis
-result <- aldmck(issues.sweden, respondent=1, polarity=2, missing=c(77,88,89), verbose=FALSE)
-summary(result)
-}
-\keyword{datasets}

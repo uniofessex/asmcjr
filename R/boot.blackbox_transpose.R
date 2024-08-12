@@ -14,10 +14,10 @@
 #' @examples
 #' \dontrun{
 #' data(issues.sweden)
-#' result <- boot.blackbox_transpose(issues.sweden, missing = 8, dims = 2, minscale = 5, verbose = FALSE, posStimulus = 13, R = 100)
+#' result <- boot.blackbox_transpose(issues.sweden, missing = 8, 
+#' dims = 2, minscale = 5, verbose = FALSE, posStimulus = 13, R = 100)
 #' }
 #' @export
-#' 
 
 boot.blackbox_transpose <- function(data, missing, dims = 1, minscale, verbose = FALSE, posStimulus = 1, R = 100) {
   out <- array(dim = c(ncol(data), dims, R))

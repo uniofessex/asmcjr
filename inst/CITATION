@@ -12,7 +12,7 @@ citEntry(
     as.person("Howard Rosenthal"),
     as.person("Yen-Chieh Liao")
   ),
-  year = "2020",
+  year = "2024",
   note = "R package version 1.0.2",
   textVersion = paste(
     "David A. Armstrong, II, Ryan Bakker, Royce Carroll, Christopher Hare, Keith T. Poole, Howard Rosenthal, Yen-Chieh Liao (2024).",

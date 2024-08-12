@@ -12,7 +12,7 @@
 #'
 #' @return A data frame with two columns: `Comparison`, which contains the comparison labels (e.g., "Pr(stim2 > stim1)"), 
 #' and `Probability`, which contains the probabilities formatted to the specified number of digits.
-#'
+#' @importFrom utils combn
 #' @examples
 #' \dontrun{
 #' data(bam.france)

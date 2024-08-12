@@ -5,17 +5,15 @@
 \title{Bootstrap Aldmck Analysis}
 \usage{
 boot.aldmck(data, ..., boot.args = list(), plot = FALSE)
-
-boot.aldmck(data, ..., boot.args = list(), plot = FALSE)
 }
 \arguments{
-\item{data}{A dataframe containing the input data for the bootstrap analysis.}
+\item{data}{A dataframe containing the data to be bootstrapped.}
 
-\item{...}{Additional arguments to be passed to the \code{aldmck} function, which is used internally for analysis.}
+\item{...}{Additional arguments passed to the \code{aldmck} function.}
 
-\item{boot.args}{A list of arguments to be passed to the \code{boot} function, such as the number of bootstrap replicates (\code{R}).}
+\item{boot.args}{A list of arguments to be passed to the \code{boot} function.}
 
-\item{plot}{Logical, whether to plot the bootstrap results (default is FALSE).}
+\item{plot}{Logical, whether to plot the results (default is FALSE).}
 }
 \value{
 A list with two elements:
@@ -23,25 +21,14 @@ A list with two elements:
 \item{sumstats}{A dataframe containing the summary statistics: stimulus, ideal point, standard deviation, lower and upper bounds of the confidence interval.}
 \item{bootres}{The bootstrap results from the \code{boot} function.}
 }
-
-A list with two elements:
-\describe{
-\item{sumstats}{A dataframe with summary statistics: stimulus names, estimated ideal points, standard deviations, and confidence intervals (lower and upper bounds).}
-\item{bootres}{The full bootstrap results returned by the \code{boot} function.}
-}
 }
 \description{
 This function performs a bootstrap analysis on the Aldmck model, providing confidence intervals for the ideal points of stimuli.
-
-This function performs a bootstrap analysis on the Aldmck model, estimating confidence intervals for the ideal points of stimuli.
 }
 \examples{
 \dontrun{
 data(franceEES2009)
-boot.france <- boot.aldmck(franceEES2009, polarity = 2, respondent = 1, missing = c(77, 88, 89), verbose = FALSE, boot.args = list(R = 100))
-}
-\dontrun{
-data(franceEES2009)
-boot.france <- boot.aldmck(franceEES2009, polarity = 2, respondent = 1, missing = c(77, 88, 89), verbose = FALSE, boot.args = list(R = 100))
+boot.france <- boot.aldmck(franceEES2009, polarity = 2, respondent = 1, 
+missing = c(77, 88, 89), verbose = FALSE, boot.args = list(R = 100))
 }
 }

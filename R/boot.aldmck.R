@@ -12,10 +12,13 @@
 #'   \item{bootres}{The bootstrap results from the `boot` function.}
 #' }
 #' @importFrom basicspace aldmck
+#' @importFrom boot boot
+#' @importFrom stats sd
 #' @examples
 #' \dontrun{
 #' data(franceEES2009)
-#' boot.france <- boot.aldmck(franceEES2009, polarity = 2, respondent = 1, missing = c(77, 88, 89), verbose = FALSE, boot.args = list(R = 100))
+#' boot.france <- boot.aldmck(franceEES2009, polarity = 2, respondent = 1, 
+#' missing = c(77, 88, 89), verbose = FALSE, boot.args = list(R = 100))
 #' }
 #' @export
 boot.aldmck <- function(data, ..., boot.args = list(), plot = FALSE) {
