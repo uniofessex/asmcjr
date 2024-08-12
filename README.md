@@ -1,5 +1,5 @@
 
-## asmcjr <img src="man/figures/logo.png" width="140" align="right" /> <br />
+## asmcjr: Analyzing Spatial Models of Choice and Judgment <img src="man/figures/logo.png" width="140" align="right" /> <br />
 
 [![test-coverage.yaml](https://github.com/uniofessex/asmcjr/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/uniofessex/asmcjr/actions/workflows/test-coverage.yaml)
 
