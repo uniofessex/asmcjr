@@ -1,7 +1,7 @@
 Package: asmcjr
 Type: Package
 Title: 2nd Edition Analyzing Spatial Models of Choice and Judgment (2024)
-Version: 1.0.3
+Version: 1.0.2
 Authors@R: c(person("Dave", "Armstrong", role = c("aut", "cre"), email = "dave@quantoid.net"), 
              person("Royce", "Carroll", role = "aut"), 
              person("Chris", "Hare", role = "aut"), 
