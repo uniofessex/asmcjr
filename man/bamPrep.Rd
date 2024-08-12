@@ -25,6 +25,7 @@ This function preprocesses data for use in Bayesian Aldrich-McKelvey (BAM) scali
 }
 \examples{
 \dontrun{
+# Aldrich-Mckelvey scaling, with cutoff of 5 or more
 data(franceEES2009)
 bamdata <- bamPrep(franceEES2009, missing=c(77,88,89), self=1)
 }

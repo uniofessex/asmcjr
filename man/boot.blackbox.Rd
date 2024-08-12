@@ -35,3 +35,8 @@ An array of bootstrapped results with class \code{"bootbb"}.
 \description{
 This function performs a bootstrap analysis on the Blackbox model.
 }
+\examples{
+\dontrun{
+data(issues.sweden)
+boot.blackbox(issues.sweden, missing=8, dims=3, minscale=5, verbose=FALSE, posStimulus=13)}
+}

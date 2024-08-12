@@ -1,38 +1,40 @@
 Package: asmcjr
 Type: Package
-Title: 2nd Edition Analyzing Spatial Models of Choice and Judgment
-Version: 1.0.2
+Title: 2nd Edition Analyzing Spatial Models of Choice and Judgment (2024)
+Version: 1.0.3
 Authors@R: c(person("Dave", "Armstrong", role = c("aut", "cre"), email = "dave@quantoid.net"), 
              person("Royce", "Carroll", role = "aut"), 
              person("Chris", "Hare", role = "aut"), 
              person("Ryan", "Bakker", role = "aut"), 
              person("Keith", "Poole", role="ctb"), 
              person("Howard", "Rosenthal", role="ctb"),
-             person("David", "Liao", role=c("ctb", "aut")))
+             person("Yen-Chieh", "Liao", role=c("ctb", "aut"), email = "davidycliao@gmail.com"))
 Description: Supports the book - 2nd Edition Analyzing Spatial Models of Choice and Judgment, CRC Press (2020). 
-Depends: R (>= 3.4.0), rjags
+Depends: R (>= 3.6.0)
+Remotes: 
+    cran/basicspace,
+    wmay/dwnominate,
+    tzuliu/ooc
 Imports:
-    boot,
+    rjags,
+    stats,
     basicspace,
-    coda,
-    ellipse,
+    boot,
     ggplot2,
-    graphics,
     grDevices,
     MASS,
-    MCMCpack,
-    plyr,
-    stats,
-    smacof,
-    tibble,
     utils
-Suggests: 
+Suggests:
+    car,
+    smacof,
+    pscl,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)    
-License: GPL (>=3)
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
+LazyDataCompression: xz
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 URL: https://github.com/uniofessex/asmcjr
@@ -40,3 +42,5 @@ BugReports: https://github.com/uniofessex/asmcjr/issues
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 SystemRequirements: pandoc (>= 1.14) - http://pandoc.org
+
+

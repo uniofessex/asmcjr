@@ -17,8 +17,3 @@ This dataset contains the result of the \code{aldmck} analysis applied to the \c
 The \code{result.france} object is generated using the \code{aldmck} function with the following parameters:
 \code{result.france <- aldmck(franceEES2009, respondent = 1, polarity = 2, missing = c(77, 88, 89), verbose = FALSE)}
 }
-\examples{
-data(result.france)
-summary(result.france)
-}
-\keyword{datasets}

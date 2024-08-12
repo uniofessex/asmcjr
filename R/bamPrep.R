@@ -10,6 +10,7 @@
 #' @return A list with two components: `stims` (a matrix of stimuli placements) and `self` (a vector of self-placements).
 #' @examples
 #' \dontrun{
+#' # Aldrich-Mckelvey scaling, with cutoff of 5 or more
 #' data(franceEES2009)
 #' bamdata <- bamPrep(franceEES2009, missing=c(77,88,89), self=1)
 #' }
@@ -29,3 +30,37 @@ bamPrep <- function(x, nmin = 1, missing = NULL, self = 1, midpt = NULL) {
   class(out) <- c("bamPrep", "list")
   out
 }
+# 
+# bamPrep <- function(x, nmin = 1, missing = NULL, self = 1, midpt = NULL) {
+#   # Ensure input is numeric matrix or data frame
+#   x <- as.matrix(x)
+#   if (!is.numeric(x)) {
+#     stop("x must be a numeric data frame or matrix")
+#   }
+#   
+#   # Ensure valid self column
+#   if (self > ncol(x) || self < 1) {
+#     stop("self must be a valid column index within the range of the input data")
+#   }
+#   
+#   # Replace specified missing values with NA
+#   if (!is.null(missing)) {
+#     x[which(x %in% missing, arr.ind = TRUE)] <- NA
+#   }
+#   
+#   # Center the data
+#   if (is.null(midpt)) {
+#     x <- apply(x, 2, function(z) z - (min(z, na.rm = TRUE) + diff(range(z, na.rm = TRUE)) / 2))
+#   } else {
+#     x <- apply(x, 2, function(z) z - midpt)
+#   }
+#   
+#   # Filter rows based on minimum non-missing values
+#   nonmiss <- apply(x, 1, function(z) sum(!is.na(z)))
+#   x <- x[nonmiss >= nmin, ]
+#   
+#   # Separate self-placement from stimuli placements
+#   out <- list(stims = x[, -self], self = x[, self])
+#   class(out) <- c("bamPrep", "list")
+#   return(out)
+# }
