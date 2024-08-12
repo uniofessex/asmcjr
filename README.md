@@ -1,7 +1,7 @@
 
 ## asmcjr <img src="man/figures/logo.png" width="140" align="right" /> <br />
 
-[![codecov](https://codecov.io/gh/davidycliao/asmcjr/branch/master/graph/badge.svg?token=OJKOF5SX9X)](https://codecov.io/gh/davidycliao/asmcjr)
+[![test-coverage.yaml](https://github.com/uniofessex/asmcjr/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/uniofessex/asmcjr/actions/workflows/test-coverage.yaml)
 
 This package supports the book [“2nd Edition Analyzing Spatial Models of
 Choice and
