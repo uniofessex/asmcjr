@@ -9,29 +9,26 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-You will need lastest installation of [_R_](https://cran.r-project.org/mirrors.html) (preferably version 3.6 or above) and [RStudio](https://rstudio.com/products/rstudio/download/#download). You can install using the `install_github()` function from the `devtools` package. __asmcjr__ requires compilation, so Windows users will have to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/) first. For Mac users, you need to  make sure you have already installed latest [GNU Fortran(gfortran 8.2)](https://github.com/fxcoudert/gfortran-for-macOS/releases) and [Xcode Developer Tools](https://developer.apple.com/support/xcode/). Please also make sure you have installed [Clang (clang-8.0.0.pkg)](https://cran.r-project.org/bin/macosx/tools/) if you have not updated R to 4.0.0 version. In order to use __rjags__ package for the Bayesian framework analysis with __asmcjr__, both users  need to install [JAGS](https://sourceforge.net/projects/mcmc-jags/files/JAGS/) in advance. Therefore to install __asmcjr__ in your R environment, the __devtools__ package must also be installed and loaded in R beforehand. 
+You will need a stable installation of [R](https://cran.r-project.org/mirrors.html) (preferably version __4.4.1__) and [RStudio](https://rstudio.com/products/rstudio/download/#download). To install the `asmcjr` package, use the `install_github()` function from the `devtools` package. Since `asmcjr` requires compilation, ensure the following prerequisites are met:
 
-Before installing __asmcjr__ in [R](), please make sure you have those steps finished.
+### Prerequisites
 
-#### For macOS:
+#### macOS:
 - [x] [JAGS](https://sourceforge.net/projects/mcmc-jags/files/JAGS/)
-- [x] [GNU Fortran(gfortran 8.2)](https://github.com/fxcoudert/gfortran-for-macOS/releases)
+- [x] [GNU Fortran (gfortran 8.2)](https://github.com/fxcoudert/gfortran-for-macOS/releases)  
 - [x] [Xcode Developer Tools 11](https://developer.apple.com/support/xcode/)
-- [x] [Clang (clang-8.0.0)](https://cran.r-project.org/bin/macosx/tools/) if you have not updated R to 4.0.0 version.
-
-```
-install.packages("devtools", dependencies=TRUE)
-library(devtools)
-devtools::install_github("uniofessex/asmcjr")
-```
 
 
-#### For Windows:
-- [x] [JAGS](https://sourceforge.net/projects/mcmc-jags/files/JAGS/)
-- [x] [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
+#### Windows:
+- [x]  [JAGS](https://sourceforge.net/projects/mcmc-jags/files/JAGS/)
+- [x]  [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
 
-```
-install.packages("devtools", dependencies=TRUE)
+### Installation Steps
+
+Ensure the `devtools` package is installed and loaded:
+
+```r
+install.packages("devtools", dependencies = TRUE)
 library(devtools)
 devtools::install_github("uniofessex/asmcjr")
 ```

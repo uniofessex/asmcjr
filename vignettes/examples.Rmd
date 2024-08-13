@@ -1,52 +1,82 @@
 ---
-title: "Examples of Use"
+title: "Analyzing Issue Scales"
 # author: "Yen-Chieh Liao"
 # date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Examples of Use}
+  %\VignetteIndexEntry{Analyzing Issue Scales}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 
-## Bayesian Aldrich-Mckelvey Scaling
+## Example 1: 2009 European Election Study (French Module)
 
-```r
+#### Plot Stimuli Locations
+
+```{r}
+library(asmcjr)
 data(franceEES2009)
-head(franceEES2009, n = 10)
+head(franceEES2009)
 ```
 
-<p align="center">
-  <img src="https://raw.githack.com/uniofessex/asmcjr/master/man/figures/first_example_df1.png">
-</p>
-
-```r
-library(dplyr)
-library(asmcjr)
-aldmck(franceEES2009, respondent=1,
-       polarity = 2,missing = c(77,88,89), verbose = FALSE) %>% 
-  str()                       
+```{r}
+# Running Bayesian Aldrich-Mckelvey scaling on France EES 
+library(basicspace)
+result.france <- aldmck(franceEES2009, respondent=1, polarity=2,
+     missing=c(77,88,89), verbose=FALSE)
 ```
-<p align="left">
-  <img width="650" height="270" src="https://raw.githack.com/uniofessex/asmcjr/master/man/figures/first_example_df2.png">
-</p>
 
-
-```r
-library(dplyr)
-library(asmcjr)
+```{r warning=TRUE}
+# plot stimuli locations in addition to ideal point density
 library(ggplot2)
-aldmck(franceEES2009, respondent=1,
-       polarity = 2,missing = c(77,88,89), verbose = FALSE) %>% 
-  str() %>%
-  ggplot.resphist(addStim = TRUE, weights = "negative", xlab = "Left-Right") +
-  theme(legend.position = "bottom", aspect.ratio = 1) +
-  guides(shape = guide_legend(override.aes = list(size = 4),nrow = 3)) +
-  labs(shape = "Party", colour = "Party")
+plot_resphist(result.france, addStim=TRUE, xlab = "Left-Right") +
+  theme(legend.position="bottom", aspect.ratio=1) +
+  guides(shape = guide_legend(override.aes = list(size = 4), nrow=3)) +
+ labs(shape="Party", colour="Party")
 ```
 
-<p align="center">
-  <img width="500" height="500" src="https://raw.githack.com/uniofessex/asmcjr/master/man/figures/first_example_plot.png">
-</p>
+####  Isolating Negative Weights
+
+```{r warning=TRUE}
+plot_resphist(result.france, addStim=TRUE, weights="negative",
+              xlab = "Left-Right")  +
+   theme(legend.position="bottom", aspect.ratio=1) +
+   guides(shape = guide_legend(override.aes = list(size = 4),
+                               nrow=3)) +
+   labs(shape="Party", colour="Party")
+```
+
+
+## Example 2: 1968 American National Election Study Urban Unrest and Vietnam War Scales
+
+####Running Bayesian Aldrich-Mckelvey
+```{r message=FALSE, warning=FALSE}
+data(nes1968_urbanunrest)
+# Creating object with US president left-right dimensions
+urban <- as.matrix(nes1968_urbanunrest[,-1])
+# Running Bayesian Aldrich-Mckelvey scaling on President positions
+library(basicspace)
+result.urb <- aldmck(urban, polarity=2, respondent=5,
+                     missing=c(8,9), verbose=FALSE)
+summary(result.urb)
+```
+#### Extracting `vote.choice` Column
+
+```{r message=FALSE, warning=FALSE}
+# recode so that only Humphrey, Nixon and Wallace are present
+vote <- car:::recode(nes1968_urbanunrest[,1], "3='Humphrey'; 5 = 'Nixon'; 6 = 'Wallace'; else=NA",
+                     as.factor=FALSE)
+# Convert vote to factor with appropriate levels
+vote <- factor(vote, levels=c("Humphrey", "Nixon", "Wallace"))
+# Plot population distribution by vote choice
+plot_resphist(result.urb, groupVar=vote, addStim=TRUE,
+              xlab="Liberal-Conservative")  +
+  theme(legend.position="bottom", aspect.ratio=1)  +
+  guides(shape = guide_legend(override.aes =
+                                list(size = 4, color=c("gray25", "gray50", "gray75"))),
+  colour = "none") +
+  xlim(c(-2,2)) +
+  labs(shape="Candidate")
+```
 

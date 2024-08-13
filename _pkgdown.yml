@@ -1,7 +1,7 @@
 url: https://uniofessex.github.io/asmcjr/
 
 home:
-  title: "2nd Edition Analyzing Spatial Models of Choice and Judgment"
+  title: Analyzing Spatial Models of Choice and Judgment
 
 authors:
   Dave Armstrong:
@@ -16,12 +16,22 @@ authors:
     href: https://spia.uga.edu/faculty-member/keith-poole/
   Howard Rosenthal:
     href: https://as.nyu.edu/content/nyu-as/as/faculty/howard-l-rosenthal.html
-  Yen-Chieh Liao:
-    href: https://github.com/davidycliao
+  Yen-Chieh (David) Liao:
+    href: https://davidycliao.github.io
 
 template:
+  bootstrap: 5
+  light-switch: true
   params:
-    ganalytics: UA-172937037-1
+    ganalytics: G-94XX640249  
+  bslib:
+    primary: "#0054AD"
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+    danger: "#A6081A"
+  includes:
+    in_header:
+      <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 
 development:
   mode: auto
@@ -32,27 +42,159 @@ navbar:
     - icon: fa-home
       href: index.html
     - icon: fa-rocket
-      text: "How To"
-      menu: 
+      text: "Get Start"
+      menu:
       -  text: "Installation"
          href: articles/installation.html
       -  text: "Support"
          href: articles/support.html
     - icon: fa-project-diagram
-      text: "Examples of Use"
+      text: "Examples in the Book"
       href: articles/examples.html
-
+  
+    - icon: fa-project-diagram
+      text: Codes and Examples
+      menu:
+      - text: "Analyzing Issue Scales"
+        href: articles/examples.html
+      - text: "Similarities and Dissimilarities Data (Coming soon)"
+        href: 
+      - text: "Rating Scale Data (Coming soon)"
+        href: 
+      - text: "Binary Choice Data (Coming soon)"
+        href: 
+      - text: "Bayesian Scaling Models (Coming soon)"
 
   right:
     - icon: fa-newspaper-o
-      text: "news"
+      text: "News"
       href: news/index.html
-    - icon: fa-file-code-o 
-      text: "functions"
+    - icon: fa-file-code-o
+      text: "Reference"
       href: reference/index.html
     - icon: fa-github fa-lg
       text: "GitHub"
       href: https://github.com/uniofessex/asmcjr
-      
-   
 
+
+
+reference:
+- title: Helper Functions
+  desc: <div class="text-justify"></div>
+- contents:
+  - BAM
+  - BMDS
+  - aldmckSE
+  - bamPrep
+  - boot.aldmck
+  - boot.blackbox
+  - boot.blackbox_transpose
+  - diffStims
+  - doubleCenter
+  - doubleCenterRect
+  - gray.palette
+  - mlsmu6
+  - plot
+  - plot_blackbox
+  - plot_resphist
+  
+  
+- title: Dataset
+  desc: <div class="text-justify">Dataset used in the book. </div>
+- contents:
+  - ANES1986
+  - ANES2004
+  - ANES2004_OOC
+  - CDS2000
+  - SOTUcorpus
+  - Sweden2010
+  - anes.input
+  - bam.france
+  - bamdata
+  - candidatetherms2008
+  - denmarkEES2009
+  - france4
+  - franceEES2009
+  - hr108
+  - hr111
+  - input
+  - input2
+  - interest1981
+  - issues
+  - issues.sweden
+  - legis_7th_Taiwan
+  - mexicoCSES2000
+  - mlsmu6_out
+  - nations
+  - nes1968_urbanunrest
+  - nes1968_vietnam
+  - original
+  - presvote2008
+  - rankings
+  - mexicoCSES2006
+  - rc_ep
+  - rcv_ep1
+  - french.parties.individuals
+  - rcx
+  - result.france
+  - result.repdem
+  - senate.90
+  - ches_eu
+# 
+# url: https://uniofessex.github.io/asmcjr/
+# 
+# home:
+#   title: "2nd Edition Analyzing Spatial Models of Choice and Judgment"
+# 
+# authors:
+#   Dave Armstrong:
+#     href: https://github.com/davidaarmstrong
+#   Ryan Bakker:
+#     href: https://www.essex.ac.uk/people/bakke28107/ryan-bakker
+#   Royce Carroll:
+#     href: https://www.essex.ac.uk/people/carro40801/royce-carroll
+#   Chris Hare:
+#     href: https://www.christopherdhare.com/
+#   Keith Poole: 
+#     href: https://spia.uga.edu/faculty-member/keith-poole/
+#   Howard Rosenthal:
+#     href: https://as.nyu.edu/content/nyu-as/as/faculty/howard-l-rosenthal.html
+#   Yen-Chieh Liao:
+#     href: https://github.com/davidycliao
+# 
+# template:
+#   params:
+#     ganalytics: G-94XX640249
+#     
+# development:
+#   mode: auto
+# 
+# navbar:
+#   type: inverse
+#   left:
+#     - icon: fa-home
+#       href: index.html
+#     - icon: fa-rocket
+#       text: "How To"
+#       menu: 
+#       -  text: "Installation"
+#          href: articles/installation.html
+#       -  text: "Support"
+#          href: articles/support.html
+#     - icon: fa-project-diagram
+#       text: "Examples of Use"
+#       href: articles/examples.html
+# 
+#   right:
+#     - icon: fa-newspaper-o
+#       text: "news"
+#       href: news/index.html
+#     - icon: fa-file-code-o 
+#       text: "functions"
+#       href: reference/index.html
+#     - icon: fa-github fa-lg
+#       text: "GitHub"
+#       href: https://github.com/uniofessex/asmcjr
+#       
+#    
+# 
