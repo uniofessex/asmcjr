@@ -10,6 +10,6 @@ vignette: >
 ---
 
 
-For more learning resources and those who want to learn how to use computational methods to understand the latent properties of your data, please join the course [Scaling Methods for Social Science](https://essexsummerschool.com/summer-school-facts/courses/2020-course-list/3l-ideal-point-estimation-item-response-theory-and-scaling-methods/) at 2024 [ESSEX SUMMER SCHOOL](https://essexsummerschool.com/). 
+For additional learning resources and to explore how computational methods can be used to uncover the latent properties of your data, consider enrolling in the course [3L Ideal Point Estimation, Item Response Theory, and Scaling Methods for Surveys and Behaviour](https://essexsummerschool.com/summer-school-facts/courses/ess-2024-course-list/3l-ideal-point-estimation-item-response-theory-and-scaling-methods/) at [ESSEX SUMMER SCHOOL](https://essexsummerschool.com/). 
 
 <img src="https://raw.githack.com/uniofessex/asmcjr/master/man/figures/esslogo.png" width="140" align="right" /> <br /> 
