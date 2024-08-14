@@ -20,6 +20,7 @@
 <url><loc>https://uniofessex.github.io/asmcjr/reference/bam.france.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/bamPrep.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/bamdata.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/binary.comparisons.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/boot.aldmck.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/boot.blackbox.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/boot.blackbox_transpose.html</loc></url>
@@ -31,6 +32,7 @@
 <url><loc>https://uniofessex.github.io/asmcjr/reference/france4.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/franceEES2009.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/french.parties.individuals.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/geweke.ggplot.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/gray.palette.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/hr108.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/hr111.html</loc></url>
@@ -41,6 +43,7 @@
 <url><loc>https://uniofessex.github.io/asmcjr/reference/issues.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/issues.sweden.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/legis_7th_Taiwan.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/makeCutlineAngles.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/mexicoCSES2000.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/mexicoCSES2006.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/mlsmu6.html</loc></url>
@@ -50,10 +53,15 @@
 <url><loc>https://uniofessex.github.io/asmcjr/reference/nes1968_vietnam.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/original.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/plot.mlsmu6.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/plot_OCcutlines2.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/plot_blackbox.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/plot_oc_rollcall.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/plot_resphist.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/plot_rollcall.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/plot_wnom_coords.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/presvote2008.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/rankings.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/rc.errors.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/rc_ep.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/rcv_ep1.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/rcx.html</loc></url>
