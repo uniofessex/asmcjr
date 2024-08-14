@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     strategy:
       matrix:
         os: [windows-latest]
@@ -33,7 +33,6 @@ jobs:
           r-version: ${{ matrix.r-version }}
 
       - name: Install system dependencies on Windows
-        if: runner.os == 'Windows'
         run: |
           choco install qpdf
           choco install pkgconfiglite
@@ -42,9 +41,10 @@ jobs:
 
       - name: Set CRAN mirror and install R package dependencies
         env:
-          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # 使用新的 Secret 名称 MY_GITHUB_PAT
         run: |
-          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('remotes', 'knitr'));"
+          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('remotes', 'rjags', 'ggplot2', 'knitr'));"
+          Rscript -e "remotes::install_github('cran/basicspace')"
 
       - name: Install rcmdcheck package
         run: |
@@ -57,10 +57,11 @@ jobs:
       - name: Test (optional)
         run: |
           Rscript -e "devtools::test()"
-  shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
-  env:
-    _R_INSTALL_TIME_PATCHES_: no
-    R_LIBS_USER: D:\a\_temp\Library
-    TZ: UTC
-    _R_CHECK_SYSTEM_CLOCK_: FALSE
-    NOT_CRAN: true
+
+    shell: pwsh
+    env:
+      _R_INSTALL_TIME_PATCHES_: no
+      R_LIBS_USER: ${{ runner.temp }}/Library
+      TZ: UTC
+      _R_CHECK_SYSTEM_CLOCK_: FALSE
+      NOT_CRAN: true

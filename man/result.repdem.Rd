@@ -17,5 +17,5 @@ The object \code{result.repdem} contains the results of applying the \code{black
 \dontrun{
 data(result.repdem)
 }
-
 }
+\keyword{datasets}

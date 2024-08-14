@@ -11,11 +11,6 @@ binary.comparisons(obj)
 }
 \value{
 A matrix of the same number of rows as \code{obj}, with columns representing the comparisons between pairs of the original columns. The resulting values are encoded as:
-\itemize{
-\item 6: If the value in the second column is greater than the value in the first column.
-\item 1: If the value in the first column is greater than the value in the second column.
-\item 9: If the values are equal or if either value is \code{NA}.
-}
 The columns of the returned matrix are named according to the pair of columns being compared, joined by an underscore.
 }
 \description{
@@ -26,7 +21,7 @@ The function is specifically designed for use with the \code{candidatetherms2008
 \examples{
 \dontrun{
 data(candidatetherms2008)
-result <- binary.comparisons(candidatetherms2008)
-print(result)
+X <- binary.comparisons(candidatetherms2008)
+print(X[1:5,1:4])
 }
 }

@@ -28,3 +28,4 @@ anes.input <- as.matrix(anes.input)
 data(anes.input)
 }
 }
+\keyword{datasets}

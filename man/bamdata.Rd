@@ -20,3 +20,4 @@ This dataset, \code{bamdata}, was prepared using the \code{bamPrep} function on 
 \details{
 The \code{bamdata} object was created by applying the \code{bamPrep} function to the \code{franceEES2009} dataset with specified missing values (\code{c(77, 88, 89)}), focusing on self-placement (\code{self = 1}), and requiring a minimum of 5 non-missing values per respondent.
 }
+\keyword{datasets}
