@@ -25,3 +25,4 @@ mode(rankings) <- "numeric"
 
 This dataset is used as an input for the \code{blackbox_transpose} function to perform dimensional analysis.
 }
+\keyword{datasets}

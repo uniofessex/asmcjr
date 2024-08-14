@@ -18,3 +18,4 @@ This object, \code{issues}, is a matrix extracted from the \code{CDS2000} datase
 data(issues)
 }
 }
+\keyword{datasets}

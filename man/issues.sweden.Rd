@@ -13,3 +13,4 @@ Sweden 2010 Election Study
 \description{
 This dataset, \code{issues.sweden}, is a matrix created from the \code{Sweden2010} dataset, specifically using columns 7 to 56. It contains issue-related data from Sweden's 2010 election study.
 }
+\keyword{datasets}

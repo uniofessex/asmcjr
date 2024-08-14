@@ -29,3 +29,4 @@ data(ANES1968)
 summary(ANES1968)
 }
 }
+\keyword{datasets}

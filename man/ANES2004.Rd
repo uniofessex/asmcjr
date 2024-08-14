@@ -42,3 +42,4 @@ data(ANES2004)
 summary(ANES2004)
 }
 }
+\keyword{datasets}
