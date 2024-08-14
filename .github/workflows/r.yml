@@ -41,7 +41,7 @@ jobs:
 
       - name: Set CRAN mirror and install R package dependencies
         env:
-          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # 使用新的 Secret 名称 MY_GITHUB_PAT
         run: |
           Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('remotes', 'rjags', 'ggplot2', 'knitr'));"
           Rscript -e "remotes::install_github('cran/basicspace')"
