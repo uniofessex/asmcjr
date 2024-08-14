@@ -11,11 +11,10 @@
 #' @param lwd A numeric value specifying the line width of the cutlines. Defaults to `2`.
 #' @param ... Additional graphical parameters passed to the `symbols` function.
 #'
-#' @return This function does not return a value but produces a plot as a side effect.
+#' @return This function does not return a value but produces a object for plot.
 #'
 #' @details
-#' The function checks that the input object `x` is of class `OCobject` and that it contains two dimensions for plotting. If the `lines` parameter is a single integer, it will randomly select that many cutlines to display. If `lines` is a vector, it will use those specific rows from the roll call data to plot the cutlines.
-#'
+#' The function checks that the input object `x` is of class `OCobject` and that it contains two dimensions for plotting. If the `lines` parameter is a single integer, it will randomly select that many cutlines to display. If `lines` is a vector, it will use those specific rows from the roll call data to plot the cutlines.#' @importFrom yourpackage add_OCcutline
 #' @examples
 #' \dontrun{
 #' # Assuming `oc_result` is an OCobject with 2D results

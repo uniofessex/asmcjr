@@ -74,7 +74,7 @@ navbar:
       text: Codes and Examples
       menu:
       - text: "Chapter 2: Analyzing Issue Scales"
-        href: articles/examples.html
+        href: articles/ch2.html
       - text: "Chapter 3: Similarities and Dissimilarities Data (Coming soon)"
         href: 
       - text: "Chapter 4: Rating Scale Data (Coming soon)"

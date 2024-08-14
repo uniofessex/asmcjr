@@ -20,6 +20,7 @@ Imports:
     stats,
     basicspace,
     boot,
+    coda,
     ggplot2,
     grDevices,
     MASS,
@@ -31,6 +32,7 @@ Suggests:
     wnominate,
     pscl,
     knitr,
+    perm,
     rmarkdown,
     testthat (>= 3.0.0)    
 License: GPL (>= 3)
