@@ -8,7 +8,7 @@ Authors@R: c(person("Dave", "Armstrong", role = c("aut", "cre"), email = "dave@q
              person("Ryan", "Bakker", role = "aut"), 
              person("Keith", "Poole", role="ctb"), 
              person("Howard", "Rosenthal", role="ctb"),
-             person("Yen-Chieh", "Liao", role=c("ctb", "aut"), email = "davidycliao@gmail.com"))
+             person("Yen-Chieh", "Liao", role=c("ctb", "aut"),  comment = c(ORCID = "0000-0002-2465-3749"), email = "davidycliao@gmail.com"))
 Description: Supports the book - 2nd Edition Analyzing Spatial Models of Choice and Judgment, CRC Press (2020). 
 Depends: R (>= 3.6.0)
 Remotes: 
@@ -27,6 +27,7 @@ Imports:
 Suggests:
     car,
     smacof,
+    wnominate,
     pscl,
     knitr,
     rmarkdown,

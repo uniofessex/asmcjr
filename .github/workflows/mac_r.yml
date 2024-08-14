@@ -5,7 +5,7 @@
 #
 # See https://github.com/r-lib/actions/tree/master/examples#readme for
 # additional example workflows available for the R community.
-name: R Package CI for Windows
+name: R Package CI for MacOS
 
 on:
   push:
@@ -18,10 +18,10 @@ permissions:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [macos-latest]
         r-version: ['4.1.1']
 
     steps:
@@ -32,13 +32,12 @@ jobs:
         with:
           r-version: ${{ matrix.r-version }}
 
-      - name: Install system dependencies on Windows
-        if: runner.os == 'Windows'
+      - name: Install system dependencies on MacOS
         run: |
-          choco install qpdf
-          choco install pkgconfiglite
-          choco install make
-          choco install miktex # Install LaTeX
+          brew install pkg-config
+          brew install qpdf
+          brew install ghostscript
+          brew install --cask mactex-no-gui # Install LaTeX
 
       - name: Set CRAN mirror and install R package dependencies
         env:
@@ -57,10 +56,10 @@ jobs:
       - name: Test (optional)
         run: |
           Rscript -e "devtools::test()"
-  shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+
   env:
     _R_INSTALL_TIME_PATCHES_: no
-    R_LIBS_USER: D:\a\_temp\Library
+    R_LIBS_USER: ${{ runner.temp }}/Library
     TZ: UTC
     _R_CHECK_SYSTEM_CLOCK_: FALSE
     NOT_CRAN: true

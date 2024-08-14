@@ -17,8 +17,9 @@ the analyses presented in the book.
 ### Installation
 
 You will need a stable installation of
-[R](https://cran.r-project.org/mirrors.html) (preferably version 4.4.1)
-and [RStudio](https://rstudio.com/products/rstudio/download/#download).
+[R](https://cran.r-project.org/mirrors.html) (preferably version
+**4.4.1**) and
+[RStudio](https://rstudio.com/products/rstudio/download/#download).
 Visit [Installation](articles/installation.html) for further
 instructions.
 

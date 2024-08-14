@@ -16,8 +16,9 @@ authors:
     href: https://spia.uga.edu/faculty-member/keith-poole/
   Howard Rosenthal:
     href: https://as.nyu.edu/content/nyu-as/as/faculty/howard-l-rosenthal.html
-  Yen-Chieh (David) Liao:
+  Yen-Chieh Liao:
     href: https://davidycliao.github.io
+    orcid: https://orcid.org/0000-0002-2465-3749
 
 template:
   bootstrap: 5
@@ -36,48 +37,6 @@ template:
 development:
   mode: auto
 
-navbar:
-  type: inverse
-  left:
-    - icon: fa-home
-      href: index.html
-    - icon: fa-rocket
-      text: "Get Start"
-      menu:
-      -  text: "Installation"
-         href: articles/installation.html
-      -  text: "Support"
-         href: articles/support.html
-    - icon: fa-project-diagram
-      text: "Examples in the Book"
-      href: articles/examples.html
-  
-    - icon: fa-project-diagram
-      text: Codes and Examples
-      menu:
-      - text: "Analyzing Issue Scales"
-        href: articles/examples.html
-      - text: "Similarities and Dissimilarities Data (Coming soon)"
-        href: 
-      - text: "Rating Scale Data (Coming soon)"
-        href: 
-      - text: "Binary Choice Data (Coming soon)"
-        href: 
-      - text: "Bayesian Scaling Models (Coming soon)"
-
-  right:
-    - icon: fa-newspaper-o
-      text: "News"
-      href: news/index.html
-    - icon: fa-file-code-o
-      text: "Reference"
-      href: reference/index.html
-    - icon: fa-github fa-lg
-      text: "GitHub"
-      href: https://github.com/uniofessex/asmcjr
-
-
-
 reference:
 - title: Helper Functions
   desc: <div class="text-justify"></div>
@@ -94,52 +53,89 @@ reference:
   - doubleCenterRect
   - gray.palette
   - mlsmu6
-  - plot
   - plot_blackbox
   - plot_resphist
-  
-  
-- title: Dataset
-  desc: <div class="text-justify">Dataset used in the book. </div>
-- contents:
-  - ANES1986
-  - ANES2004
-  - ANES2004_OOC
-  - CDS2000
-  - SOTUcorpus
-  - Sweden2010
-  - anes.input
-  - bam.france
-  - bamdata
-  - candidatetherms2008
-  - denmarkEES2009
-  - france4
-  - franceEES2009
-  - hr108
-  - hr111
-  - input
-  - input2
-  - interest1981
-  - issues
-  - issues.sweden
-  - legis_7th_Taiwan
-  - mexicoCSES2000
-  - mlsmu6_out
-  - nations
-  - nes1968_urbanunrest
-  - nes1968_vietnam
-  - original
-  - presvote2008
-  - rankings
-  - mexicoCSES2006
-  - rc_ep
-  - rcv_ep1
-  - french.parties.individuals
-  - rcx
-  - result.france
-  - result.repdem
-  - senate.90
-  - ches_eu
+  - plot_oc_rollcall
+
+
+navbar:
+  type: inverse
+  left:
+    - icon: fa-home
+      href: index.html
+    - icon: fa-rocket
+      text: "Get Start"
+      menu:
+      -  text: "Installation"
+         href: articles/installation.html
+      -  text: "Support"
+         href: articles/support.html
+    - icon: fa-project-diagram
+      text: Codes and Examples
+      menu:
+      - text: "Chapter 2: Analyzing Issue Scales"
+        href: articles/examples.html
+      - text: "Chapter 3: Similarities and Dissimilarities Data (Coming soon)"
+        href: 
+      - text: "Chapter 4: Rating Scale Data (Coming soon)"
+        href: 
+      - text: "Chapter 5: Binary Choice Data (Coming soon)"
+        href: 
+      - text: "Chapter 6: Bayesian Scaling Models (Coming soon)"
+
+  right:
+    - icon: fa-newspaper-o
+      text: "News"
+      href: news/index.html
+    - icon: fa-file-code-o
+      text: "Reference"
+      href: reference/index.html
+    - icon: fa-github fa-lg
+      text: "GitHub"
+      href: https://github.com/uniofessex/asmcjr
+
+
+
+# - title: Dataset
+#   desc: <div class="text-justify">Dataset used in the book. </div>
+# - contents:
+#   - ANES1968
+#   - ANES2004
+#   - ANES2004_OOC
+#   - CDS2000
+#   - SOTUcorpus
+#   - Sweden2010
+#   - anes.input
+#   - bam.france
+#   - bamdata
+#   - candidatetherms2008
+#   - denmarkEES2009
+#   - france4
+#   - franceEES2009
+#   - hr108
+#   - hr111
+#   - input
+#   - input2
+#   - interest1981
+#   - issues
+#   - issues.sweden
+#   - legis_7th_Taiwan
+#   - mexicoCSES2000
+#   - mlsmu6_out
+#   - nes1968_urbanunrest
+#   - nes1968_vietnam
+#   - original
+#   - presvote2008
+#   - rankings
+#   - mexicoCSES2006
+#   - rc_ep
+#   - rcv_ep1
+#   - french.parties.individuals
+#   - rcx
+#   - result.france
+#   - result.repdem
+#   - senate.90
+#   - ches_eu
 # 
 # url: https://uniofessex.github.io/asmcjr/
 # 
