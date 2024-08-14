@@ -43,7 +43,8 @@ jobs:
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
         run: |
-          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('remotes', 'knitr'));"
+          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('remotes', 'rjags', 'ggplot2', 'knitr'));"
+          Rscript -e "remotes::install_github('cran/basicspace')"
 
       - name: Install rcmdcheck package
         run: |
