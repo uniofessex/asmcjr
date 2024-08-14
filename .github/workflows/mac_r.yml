@@ -38,6 +38,10 @@ jobs:
         with:
           r-version: ${{ matrix.r-version }}
 
+      - name: Install remotes package
+        run: |
+          Rscript -e "install.packages('remotes')"
+
       - name: Install basicspace from GitHub
         run: |
           Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"
@@ -46,7 +50,7 @@ jobs:
         env:
           GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # 使用新的 Secret 名称 MY_GITHUB_PAT
         run: |
-          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('remotes', 'rjags', 'ggplot2', 'knitr'));"
+          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('rjags', 'ggplot2', 'knitr'));"
 
       - name: Install rcmdcheck package
         run: |
