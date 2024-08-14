@@ -23,7 +23,8 @@ Imports:
     ggplot2,
     grDevices,
     MASS,
-    utils
+    utils,
+    ellipse
 Suggests:
     car,
     smacof,

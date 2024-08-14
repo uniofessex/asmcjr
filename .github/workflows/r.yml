@@ -46,13 +46,15 @@ jobs:
         shell: Rscript {0}
 
       - name: Install basicspace from GitHub
+        env:
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # 使用正确的 PAT
         run: |
-          Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"
+          Rscript -e "remotes::install_github('username/basicspace', force = TRUE)"  # 使用正确的 GitHub 路径
         shell: Rscript {0}
 
       - name: Set CRAN mirror and install other R package dependencies
         env:
-          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # 使用新的 Secret 名称 MY_GITHUB_PAT
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # 使用正确的 PAT
         run: |
           Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('rjags', 'ggplot2', 'knitr'));"
         shell: Rscript {0}
