@@ -38,6 +38,7 @@ jobs:
           choco install pkgconfiglite
           choco install make
           choco install miktex # Install LaTeX
+        shell: cmd
 
       - name: Set CRAN mirror and install R package dependencies
         env:
@@ -45,23 +46,26 @@ jobs:
         run: |
           Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('remotes', 'rjags', 'ggplot2', 'knitr'));"
           Rscript -e "remotes::install_github('cran/basicspace')"
+        shell: Rscript {0}
 
       - name: Install rcmdcheck package
         run: |
           Rscript -e "install.packages('rcmdcheck')"
+        shell: Rscript {0}
 
       - name: Check
         run: |
           Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
+        shell: Rscript {0}
 
       - name: Test (optional)
         run: |
           Rscript -e "devtools::test()"
+        shell: Rscript {0}
 
-    shell: pwsh
     env:
       _R_INSTALL_TIME_PATCHES_: no
-      R_LIBS_USER: ${{ runner.temp }}/Library
+      R_LIBS_USER: ${{ env.TEMP }}/Library  # 修改 runner.temp 为 env.TEMP
       TZ: UTC
       _R_CHECK_SYSTEM_CLOCK_: FALSE
       NOT_CRAN: true
