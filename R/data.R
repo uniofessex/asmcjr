@@ -9,7 +9,7 @@
 #' @format An object of class \code{"aldmck"}.
 #'
 #' @usage data(result.france)
-#'
+#' @keywords datasets
 #' @name result.france
 #' @docType data
 NULL
@@ -22,6 +22,7 @@ NULL
 #' @format A matrix with rows representing respondents and columns representing different issues or variables.
 #' @source Sweden 2010 Election Study
 #' @name issues.sweden
+#' @keywords datasets
 #' @docType data
 NULL
 
@@ -42,7 +43,7 @@ NULL
 #' }
 #'
 #' This dataset is used as an input for the `blackbox_transpose` function to perform dimensional analysis.
-#'
+#' @keywords datasets
 #' @source France 2009 European Election Study (EES)
 #' @name rankings
 #' @docType data
@@ -60,7 +61,7 @@ NULL
 #' }
 #' @details
 #' The `bamdata` object was created by applying the `bamPrep` function to the `franceEES2009` dataset with specified missing values (`c(77, 88, 89)`), focusing on self-placement (`self = 1`), and requiring a minimum of 5 non-missing values per respondent.
-#'
+#' @keywords datasets
 #' @source France 2009 European Election Study (EES)
 #' @name bamdata
 #' @docType data
@@ -114,6 +115,7 @@ NULL
 #' \dontrun{
 #' data(issues)
 #' }
+#' @keywords datasets
 #' @name issues
 #' @docType data
 NULL
@@ -131,7 +133,7 @@ NULL
 #' \dontrun{
 #' data(result.repdem)
 #' }
-#' 
+#' @keywords datasets
 #' @name result.repdem
 #' @docType data
 NULL
@@ -253,6 +255,7 @@ NULL
 #' }
 #' @name anes.input
 #' @docType data
+#' @keywords datasets
 NULL
 
 
@@ -281,6 +284,7 @@ NULL
 #' summary(ANES1968)
 #' }
 #' @name ANES1968
+#' @keywords datasets
 #' @docType data
 NULL
 
@@ -322,6 +326,7 @@ NULL
 #' }
 #' @name ANES2004
 #' @docType data
+#' @keywords datasets
 NULL
 
 

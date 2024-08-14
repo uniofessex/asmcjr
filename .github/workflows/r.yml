@@ -40,12 +40,23 @@ jobs:
           choco install miktex # Install LaTeX
         shell: cmd
 
-      - name: Set CRAN mirror and install R package dependencies
-        env:
-          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # 使用新的 Secret 名称 MY_GITHUB_PAT
+      - name: Install remotes package
         run: |
-          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('remotes', 'rjags', 'ggplot2', 'knitr'));"
-          Rscript -e "remotes::install_github('cran/basicspace')"
+          Rscript -e "install.packages('remotes')"
+        shell: Rscript {0}
+
+      - name: Install basicspace from GitHub
+        env:
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # 使用正确的 PAT
+        run: |
+          Rscript -e "remotes::install_github('username/basicspace', force = TRUE)"  # 使用正确的 GitHub 路径
+        shell: Rscript {0}
+
+      - name: Set CRAN mirror and install other R package dependencies
+        env:
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # 使用正确的 PAT
+        run: |
+          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('rjags', 'ggplot2', 'knitr'));"
         shell: Rscript {0}
 
       - name: Install rcmdcheck package
@@ -65,7 +76,7 @@ jobs:
 
     env:
       _R_INSTALL_TIME_PATCHES_: no
-      R_LIBS_USER: ${{ env.TEMP }}/Library  # 修改 runner.temp 为 env.TEMP
+      R_LIBS_USER: ${{ runner.temp }}/Library  # 使用正确的临时路径
       TZ: UTC
       _R_CHECK_SYSTEM_CLOCK_: FALSE
       NOT_CRAN: true
