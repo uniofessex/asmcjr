@@ -87,11 +87,8 @@
     
     
 <div class="section level2">
-<h2 id="example-1-2009-european-election-study-french-module">Example 1: 2009 European Election Study (French Module)<a class="anchor" aria-label="anchor" href="#example-1-2009-european-election-study-french-module"></a>
+<h2 id="example-1-2009-european-election-study-french-module">2.1.2 Example 1: 2009 European Election Study (French Module)<a class="anchor" aria-label="anchor" href="#example-1-2009-european-election-study-french-module"></a>
 </h2>
-<div class="section level4">
-<h4 id="plot-stimuli-locations">Plot Stimuli Locations<a class="anchor" aria-label="anchor" href="#plot-stimuli-locations"></a>
-</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/uniofessex/asmcjr" class="external-link">asmcjr</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">franceEES2009</span><span class="op">)</span></span>
@@ -111,8 +108,7 @@
 <span><span class="co">## [5,]             77         77</span></span>
 <span><span class="co">## [6,]             89          5</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Running Bayesian Aldrich-Mckelvey scaling on France EES </span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">basicspace</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">basicspace</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: tools</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## ## BASIC SPACE SCALING PACKAGE</span></span></code></pre>
@@ -126,6 +122,16 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot stimuli locations in addition to ideal point density</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="co"># plot density of ideal points</span></span>
+<span> <span class="fu"><a href="../reference/plot_resphist.html">plot_resphist</a></span><span class="op">(</span><span class="va">result.france</span>, xlab<span class="op">=</span><span class="st">"Left-Right"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-3-1.png" alt="FIGURE 2.1: Aldrich-McKelvey Scaling of Left-Right Self- Placements of French Respondents (2009 European Election Study)" width="700"><p class="caption">
+FIGURE 2.1: Aldrich-McKelvey Scaling of Left-Right Self- Placements of
+French Respondents (2009 European Election Study)
+</p>
+</div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># plot stimuli locations in addition to ideal point density</span></span>
 <span><span class="fu"><a href="../reference/plot_resphist.html">plot_resphist</a></span><span class="op">(</span><span class="va">result.france</span>, addStim<span class="op">=</span><span class="cn">TRUE</span>, xlab <span class="op">=</span> <span class="st">"Left-Right"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"bottom"</span>, aspect.ratio<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>override.aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -138,28 +144,50 @@
 <span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
 <span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
-<p><img src="ch2_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-4-1.png" alt="FIGURE 2.2: Aldrich-McKelvey Scaling of Left-Right Placements of French Political Parties (2009 European Election Study)" width="700"><p class="caption">
+FIGURE 2.2: Aldrich-McKelvey Scaling of Left-Right Placements of French
+Political Parties (2009 European Election Study)
+</p>
 </div>
-<div class="section level4">
-<h4 id="isolating-negative-weights">Isolating Negative Weights<a class="anchor" aria-label="anchor" href="#isolating-negative-weights"></a>
-</h4>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_resphist.html">plot_resphist</a></span><span class="op">(</span><span class="va">result.france</span>, addStim<span class="op">=</span><span class="cn">TRUE</span>, weights<span class="op">=</span><span class="st">"negative"</span>,</span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># isolate positive weights</span></span>
+<span><span class="fu"><a href="../reference/plot_resphist.html">plot_resphist</a></span><span class="op">(</span><span class="va">result.france</span>, addStim<span class="op">=</span><span class="cn">TRUE</span>, weights<span class="op">=</span><span class="st">"positive"</span>,</span>
 <span>              xlab <span class="op">=</span> <span class="st">"Left-Right"</span><span class="op">)</span>  <span class="op">+</span></span>
-<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"bottom"</span>, aspect.ratio<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>override.aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>                               nrow<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape<span class="op">=</span><span class="st">"Party"</span>, colour<span class="op">=</span><span class="st">"Party"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ch2_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"bottom"</span>, aspect.ratio<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>override.aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape<span class="op">=</span><span class="st">"Party"</span>, colour<span class="op">=</span><span class="st">"Party"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-5-1.png" alt="FIGURE 2.3: Aldrich-McKelvey Scaling of Left-Right Placements of French Political Parties: Positive Weights (2009 European Election Study)" width="700"><p class="caption">
+FIGURE 2.3: Aldrich-McKelvey Scaling of Left-Right Placements of French
+Political Parties: Positive Weights (2009 European Election Study)
+</p>
+</div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># isolate positive weights</span></span>
+<span><span class="fu"><a href="../reference/plot_resphist.html">plot_resphist</a></span><span class="op">(</span><span class="va">result.france</span>, addStim<span class="op">=</span><span class="cn">TRUE</span>, </span>
+<span>              weights<span class="op">=</span><span class="st">"negative"</span>, xlab <span class="op">=</span> <span class="st">"Left-Right"</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"bottom"</span>, aspect.ratio<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>override.aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape<span class="op">=</span><span class="st">"Party"</span>, colour<span class="op">=</span><span class="st">"Party"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-6-1.png" alt="FIGURE 2.3: Aldrich-McKelvey Scaling of Left-Right Placements of French Political Parties: Negative Weights (2009 European Election Study)" width="700"><p class="caption">
+FIGURE 2.3: Aldrich-McKelvey Scaling of Left-Right Placements of French
+Political Parties: Negative Weights (2009 European Election Study)
+</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="example-2-1968-american-national-election-study-urban-unrest-and-vietnam-war-scales">Example 2: 1968 American National Election Study Urban Unrest and
-Vietnam War Scales<a class="anchor" aria-label="anchor" href="#example-2-1968-american-national-election-study-urban-unrest-and-vietnam-war-scales"></a>
+<h2 id="example-2-1968-american-national-election-study-urban-unrest-and-vietnam-war-scales">2.1.3 Example 2: 1968 American National Election Study Urban Unrest
+and Vietnam War Scales<a class="anchor" aria-label="anchor" href="#example-2-1968-american-national-election-study-urban-unrest-and-vietnam-war-scales"></a>
 </h2>
-<p>####Running Bayesian Aldrich-Mckelvey</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">nes1968_urbanunrest</span><span class="op">)</span></span>
+<div class="section level4">
+<h4 id="urban-unrest">Urban Unrest<a class="anchor" aria-label="anchor" href="#urban-unrest"></a>
+</h4>
+<p>Running Bayesian Aldrich-Mckelvey</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Loading 'nes1968_urbanunrest' </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">nes1968_urbanunrest</span><span class="op">)</span></span>
 <span><span class="co"># Creating object with US president left-right dimensions</span></span>
 <span><span class="va">urban</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">nes1968_urbanunrest</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co"># Running Bayesian Aldrich-Mckelvey scaling on President positions</span></span>
@@ -183,16 +211,15 @@ Vietnam War Scales<a class="anchor" aria-label="anchor" href="#example-2-1968-am
 <span><span class="co">## Johnson    -0.399</span></span>
 <span><span class="co">## Nixon       0.015</span></span>
 <span><span class="co">## Wallace     0.811</span></span></code></pre>
-<div class="section level4">
-<h4 id="extracting-vote-choice-column">Extracting <code>vote.choice</code> Column<a class="anchor" aria-label="anchor" href="#extracting-vote-choice-column"></a>
-</h4>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<p>Extracting <code>vote.choice</code> Column</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># recode so that only Humphrey, Nixon and Wallace are present</span></span>
 <span><span class="va">vote</span> <span class="op">&lt;-</span> <span class="fu">car</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/recode.html" class="external-link">recode</a></span><span class="op">(</span><span class="va">nes1968_urbanunrest</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="st">"3='Humphrey'; 5 = 'Nixon'; 6 = 'Wallace'; else=NA"</span>,</span>
 <span>                     as.factor<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co"># Convert vote to factor with appropriate levels</span></span>
-<span><span class="va">vote</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">vote</span>, levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Humphrey"</span>, <span class="st">"Nixon"</span>, <span class="st">"Wallace"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># Plot population distribution by vote choice</span></span>
+<span><span class="va">vote</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">vote</span>, levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Humphrey"</span>, <span class="st">"Nixon"</span>, <span class="st">"Wallace"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot population distribution by vote choice</span></span>
 <span><span class="fu"><a href="../reference/plot_resphist.html">plot_resphist</a></span><span class="op">(</span><span class="va">result.urb</span>, groupVar<span class="op">=</span><span class="va">vote</span>, addStim<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>              xlab<span class="op">=</span><span class="st">"Liberal-Conservative"</span><span class="op">)</span>  <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"bottom"</span>, aspect.ratio<span class="op">=</span><span class="fl">1</span><span class="op">)</span>  <span class="op">+</span></span>
@@ -201,7 +228,550 @@ Vietnam War Scales<a class="anchor" aria-label="anchor" href="#example-2-1968-am
 <span>  colour <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape<span class="op">=</span><span class="st">"Candidate"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ch2_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<pre><code><span><span class="co">## Warning: Removed 451 rows containing missing values or values outside the scale range</span></span>
+<span><span class="co">## (`geom_line()`).</span></span></code></pre>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-9-1.png" alt="FIGURE 2.5: Aldrich-McKelvey Scaling of Urban Unrest Scale: Candidates and Voters (1968 American National Election Study)" width="700"><p class="caption">
+FIGURE 2.5: Aldrich-McKelvey Scaling of Urban Unrest Scale: Candidates
+and Voters (1968 American National Election Study)
+</p>
+</div>
+</div>
+<div class="section level4">
+<h4 id="vietnam-war-scales">Vietnam War Scales<a class="anchor" aria-label="anchor" href="#vietnam-war-scales"></a>
+</h4>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">nes1968_vietnam</span><span class="op">)</span></span>
+<span><span class="va">vietnam</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">nes1968_vietnam</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co"># Aldrich-Mckelvey function for vietnam dataset</span></span>
+<span><span class="va">result.viet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/basicspace/man/aldmck.html" class="external-link">aldmck</a></span><span class="op">(</span><span class="va">vietnam</span>, polarity<span class="op">=</span><span class="fl">2</span>, respondent<span class="op">=</span><span class="fl">5</span>,</span>
+<span>                      missing<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">9</span><span class="op">)</span>, verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">result.viet</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## SUMMARY OF ALDRICH-MCKELVEY OBJECT</span></span>
+<span><span class="co">## ----------------------------------</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Number of Stimuli: 4</span></span>
+<span><span class="co">## Number of Respondents Scaled: 1031</span></span>
+<span><span class="co">## Number of Respondents (Positive Weights): 800</span></span>
+<span><span class="co">## Number of Respondents (Negative Weights): 231</span></span>
+<span><span class="co">## Reduction of normalized variance of perceptions: 0.19 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##          Location</span></span>
+<span><span class="co">## Humphrey   -0.436</span></span>
+<span><span class="co">## Johnson    -0.330</span></span>
+<span><span class="co">## Nixon      -0.068</span></span>
+<span><span class="co">## Wallace     0.834</span></span></code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot population distribution by vote choice</span></span>
+<span><span class="fu"><a href="../reference/plot_resphist.html">plot_resphist</a></span><span class="op">(</span><span class="va">result.urb</span>, groupVar<span class="op">=</span><span class="va">vote</span>, addStim<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>              xlab<span class="op">=</span><span class="st">"Liberal-Conservative"</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"bottom"</span>, aspect.ratio<span class="op">=</span><span class="fl">1</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>override.aes <span class="op">=</span></span>
+<span>                                <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span>, color<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gray25"</span>, <span class="st">"gray50"</span>, <span class="st">"gray75"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  colour <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape<span class="op">=</span><span class="st">"Candidate"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Removed 451 rows containing missing values or values outside the scale range</span></span>
+<span><span class="co">## (`geom_line()`).</span></span></code></pre>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-11-1.png" alt="FIGURE 2.6: Aldrich-McKelvey Scaling of Vietnam War Scale: Candidates and Voters (1968 American National Election Study)" width="700"><p class="caption">
+FIGURE 2.6: Aldrich-McKelvey Scaling of Vietnam War Scale: Candidates
+and Voters (1968 American National Election Study)
+</p>
+</div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">boot.france</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boot.aldmck.html">boot.aldmck</a></span><span class="op">(</span><span class="va">franceEES2009</span>,</span>
+<span>                            polarity<span class="op">=</span><span class="fl">2</span>, respondent<span class="op">=</span><span class="fl">1</span>, missing<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">77</span>,<span class="fl">88</span>,<span class="fl">89</span><span class="op">)</span>,</span>
+<span>                            verbose<span class="op">=</span><span class="cn">FALSE</span>, boot.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>R<span class="op">=</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">boot.france</span><span class="op">$</span><span class="va">sumstats</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">idealpt</span>, y <span class="op">=</span> <span class="va">stimulus</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0.2) +</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Left-Right"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span>, aspect.ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-13-1.png" alt="FIGURE 2.7: Aldrich-McKelvey Scaling of Left-Right Placements of French Political Parties (2009 European Election Study) with Bootstrapped Standard Errors" width="700"><p class="caption">
+FIGURE 2.7: Aldrich-McKelvey Scaling of Left-Right Placements of French
+Political Parties (2009 European Election Study) with Bootstrapped
+Standard Errors
+</p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="example-1-2000-convention-delegate-study">2.2.1 Example 1: 2000 Convention Delegate Study<a class="anchor" aria-label="anchor" href="#example-1-2000-convention-delegate-study"></a>
+</h2>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">basicspace</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">CDS2000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CDS2000</span><span class="op">[</span>,<span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      Lib-Con Abortion Govt Services Defense Spending</span></span>
+<span><span class="co">## [1,]       3        4             5                4</span></span>
+<span><span class="co">## [2,]       2        4             5                6</span></span>
+<span><span class="co">## [3,]       1        4             7                6</span></span>
+<span><span class="co">## [4,]       2       99             6                5</span></span>
+<span><span class="co">## [5,]       4        4             7                1</span></span>
+<span><span class="co">## [6,]       4        4             7                4</span></span></code></pre>
+<p>Blackbox syntax of Republican-Democrat left-right scale</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">issues</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">CDS2000</span><span class="op">[</span>,<span class="fl">5</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">result.repdem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/basicspace/man/blackbox.html" class="external-link">blackbox</a></span><span class="op">(</span><span class="va">issues</span>,</span>
+<span>                          missing<span class="op">=</span><span class="fl">99</span>, dims<span class="op">=</span><span class="fl">3</span>, minscale<span class="op">=</span><span class="fl">5</span>, verbose<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Beginning Blackbox Scaling...10 stimuli have been provided.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Blackbox estimation completed successfully.</span></span></code></pre>
+<p>Recode party: Democrats = 1; Republicans = 2</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">party</span> <span class="op">&lt;-</span> <span class="fu">car</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/recode.html" class="external-link">recode</a></span><span class="op">(</span><span class="va">CDS2000</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,</span>
+<span>                      <span class="st">"1='Democrat'; 2='Republican'; else=NA"</span>,</span>
+<span>                      as.factor<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_blackbox.html">plot_blackbox</a></span><span class="op">(</span><span class="va">result.repdem</span>, dims<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, groupVar<span class="op">=</span><span class="va">party</span>,</span>
+<span>              xlab<span class="op">=</span> <span class="st">"First Dimension\n(Left-Right)"</span>,</span>
+<span>              ylab<span class="op">=</span><span class="st">"Second Dimension"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"bottom"</span>, aspect.ratio<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>shape<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>override.aes<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>colour<span class="op">=</span><span class="st">"Party"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-17-1.png" alt="FIGURE 2.8: Basic Space (Blackbox) Scaling of US Party Conven- tion Delegates (2000 Convention Delegate Study)" width="700"><p class="caption">
+FIGURE 2.8: Basic Space (Blackbox) Scaling of US Party Conven- tion
+Delegates (2000 Convention Delegate Study)
+</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="example-2-2010-swedish-parliamentary-candidate-survey">2.2.2 Example 2: 2010 Swedish Parliamentary Candidate Survey<a class="anchor" aria-label="anchor" href="#example-2-2010-swedish-parliamentary-candidate-survey"></a>
+</h2>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">basicspace</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Sweden2010</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Sweden2010</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      id elected         party.name party.code govt.party left.right.self.fivept</span></span>
+<span><span class="co">## 1 39681       0 Conservative Party        300          1                      5</span></span>
+<span><span class="co">## 2 17735       1 Conservative Party        300          1                      5</span></span>
+<span><span class="co">## 3 41923       0 Conservative Party        300          1                      4</span></span>
+<span><span class="co">## 4 43665       0 Conservative Party        300          1                      5</span></span>
+<span><span class="co">## 5 15867       0 Conservative Party        300          1                      5</span></span>
+<span><span class="co">## 6 39829       0 Conservative Party        300          1                      4</span></span>
+<span><span class="co">##   congestion.taxes highspeed.trains</span></span>
+<span><span class="co">## 1                3                2</span></span>
+<span><span class="co">## 2                3                3</span></span>
+<span><span class="co">## 3                4                1</span></span>
+<span><span class="co">## 4                4                2</span></span>
+<span><span class="co">## 5                3                3</span></span>
+<span><span class="co">## 6                2                2</span></span></code></pre>
+<p>Blacbox Scaling for Sweden issue scale</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract issues scales and convert to numeric</span></span>
+<span><span class="va">issues.sweden</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">Sweden2010</span><span class="op">[</span>,<span class="fl">7</span><span class="op">:</span><span class="fl">56</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mode.html" class="external-link">mode</a></span><span class="op">(</span><span class="va">issues.sweden</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"numeric"</span></span>
+<span><span class="co"># Blacbox syntax for Sweden issue scale</span></span>
+<span><span class="va">result.sweden</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/basicspace/man/blackbox.html" class="external-link">blackbox</a></span><span class="op">(</span><span class="va">issues.sweden</span>, missing<span class="op">=</span><span class="fl">8</span>,</span>
+<span>                          dims<span class="op">=</span><span class="fl">3</span>, minscale<span class="op">=</span><span class="fl">5</span>, verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="co"># change polarity of scores</span></span>
+<span> <span class="kw">if</span><span class="op">(</span><span class="va">result.sweden</span><span class="op">$</span><span class="va">individuals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">13</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span></span>
+<span> <span class="va">result.sweden</span><span class="op">$</span><span class="va">individuals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span></span>
+<span>     <span class="va">result.sweden</span><span class="op">$</span><span class="va">individuals</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1</span></span>
+<span> <span class="va">result.sweden</span><span class="op">$</span><span class="va">fits</span></span></code></pre></div>
+<pre><code><span><span class="co">##                  SSE SSE.explained   percent        SE  singular</span></span>
+<span><span class="co">## Dimension 1 81259.51      91466.73 52.954739 0.8069252 255.24828</span></span>
+<span><span class="co">## Dimension 2 73388.39      99337.86  4.556993 0.7755642  92.78285</span></span>
+<span><span class="co">## Dimension 3 67238.03     105488.22  3.560756 0.7509879  85.00461</span></span></code></pre>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">result.sweden</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">16</span><span class="op">:</span><span class="fl">25</span>,<span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##                                 N     c     w1    R2</span></span>
+<span><span class="co">## property.taxes.wealthy       2594 2.271  3.615 0.787</span></span>
+<span><span class="co">## wealth.tax                   2621 1.983  3.420 0.793</span></span>
+<span><span class="co">## tax.wealthy                  2652 2.337  3.635 0.820</span></span>
+<span><span class="co">## tax.pensions                 2561 3.013  1.951 0.364</span></span>
+<span><span class="co">## household.services.deduction 2663 2.956 -3.726 0.809</span></span>
+<span><span class="co">## work.income.tax              2617 2.992 -2.553 0.588</span></span>
+<span><span class="co">## sex.purchase                 2544 1.454 -0.736 0.084</span></span>
+<span><span class="co">## DUI.penalty                  2537 3.384 -0.437 0.033</span></span>
+<span><span class="co">## criminal.sentences           2497 3.103 -1.461 0.278</span></span>
+<span><span class="co">## wiretaps                     2393 2.786  2.732 0.553</span></span></code></pre>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">elected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">Sweden2010</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">party.name.sweden</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">Sweden2010</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_resphist.html">plot_resphist</a></span><span class="op">(</span><span class="va">result.sweden</span>, groupVar<span class="op">=</span><span class="va">party.name.sweden</span>, dim<span class="op">=</span><span class="fl">1</span>,</span>
+<span>              scaleDensity<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">stimulus</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-22-1.png" alt="FIGURE 2.11: Basic Space (Blackbox) Scaling of 2010 Swedish Parliamentary Candidate Data (Candidates by Party)" width="700"><p class="caption">
+FIGURE 2.11: Basic Space (Blackbox) Scaling of 2010 Swedish
+Parliamentary Candidate Data (Candidates by Party)
+</p>
+</div>
+<p>Density plot syntax and comparison of defeated/elected candidates</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Keep only the parties of elected candidates, set others to NA</span></span>
+<span><span class="va">party.name.sweden</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">elected</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span><span class="fu"><a href="../reference/plot_resphist.html">plot_resphist</a></span><span class="op">(</span><span class="va">result.sweden</span>, groupVar<span class="op">=</span><span class="va">party.name.sweden</span>, dim<span class="op">=</span><span class="fl">1</span>,  scaleDensity<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">stimulus</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-23-1.png" alt="FIGURE 2.12: Basic Space (Blackbox) Scaling of 2010 Swedish Parliamentary Candidate Data (Elected and Defeated Candidates by Party)" width="700"><p class="caption">
+FIGURE 2.12: Basic Space (Blackbox) Scaling of 2010 Swedish
+Parliamentary Candidate Data (Elected and Defeated Candidates by Party)
+</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="estimating-bootstrapped-standard-errors-for-black-box-scaling">2.2.3 Estimating Bootstrapped Standard Errors for Black Box
+Scaling<a class="anchor" aria-label="anchor" href="#estimating-bootstrapped-standard-errors-for-black-box-scaling"></a>
+</h2>
+<div class="section level4">
+<h4 id="the-2010-swedish-parliamentary-candidate-data">The 2010 Swedish parliamentary candidate data<a class="anchor" aria-label="anchor" href="#the-2010-swedish-parliamentary-candidate-data"></a>
+</h4>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Candidate point estimates blackbox scaling</span></span>
+<span><span class="va">outbb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boot.blackbox.html">boot.blackbox</a></span><span class="op">(</span><span class="va">issues.sweden</span>, missing<span class="op">=</span><span class="fl">8</span>, dims<span class="op">=</span><span class="fl">3</span>, minscale<span class="op">=</span><span class="fl">5</span>,</span>
+<span>                      verbose<span class="op">=</span><span class="cn">FALSE</span>, posStimulus<span class="op">=</span><span class="fl">13</span><span class="op">)</span></span></code></pre></div>
+<p>Matrix creation for Swedish candidates</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">first.dim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>   point <span class="op">=</span> <span class="va">result.sweden</span><span class="op">$</span><span class="va">individuals</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,</span>
+<span>   se <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">outbb</span><span class="op">[</span>,<span class="fl">1</span>,<span class="op">]</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span></span>
+<span> <span class="op">)</span></span>
+<span><span class="va">first.dim</span><span class="op">$</span><span class="va">lower</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">first.dim</span>, <span class="va">point</span> <span class="op">-</span> <span class="fl">1.96</span><span class="op">*</span><span class="va">se</span><span class="op">)</span></span>
+<span><span class="va">first.dim</span><span class="op">$</span><span class="va">upper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">first.dim</span>, <span class="va">point</span> <span class="op">+</span> <span class="fl">1.96</span><span class="op">*</span><span class="va">se</span><span class="op">)</span></span>
+<span><span class="va">first.dim</span><span class="op">$</span><span class="va">elected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">elected</span>, levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,</span>
+<span>                            labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Not Elected"</span>, <span class="st">"Elected"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">first.dim</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    point         se      lower       upper     elected</span></span>
+<span><span class="co">## 1 -0.355 0.10567674 -0.5621264 -0.14787359 Not Elected</span></span>
+<span><span class="co">## 2 -0.383 0.10634592 -0.5914380 -0.17456200     Elected</span></span>
+<span><span class="co">## 3 -0.335 0.09235433 -0.5160145 -0.15398551 Not Elected</span></span>
+<span><span class="co">## 4 -0.359 0.09925504 -0.5535399 -0.16446012 Not Elected</span></span>
+<span><span class="co">## 5 -0.206 0.09182988 -0.3859866 -0.02601343 Not Elected</span></span>
+<span><span class="co">## 6 -0.072 0.06757198 -0.2044411  0.06044109 Not Elected</span></span></code></pre>
+<p>Plot for the distribution of first dimensions bootstrapped SE</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">first.dim</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">se</span>, group<span class="op">=</span><span class="va">elected</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html" class="external-link">stat_density</a></span><span class="op">(</span>geom<span class="op">=</span><span class="st">"line"</span>, bw<span class="op">=</span><span class="fl">.005</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">elected</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>aspect.ratio<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Standard Error"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-27-1.png" alt="FIGURE 2.13: Basic Space (Blackbox) Scaling of 2010 Swedish Parliamentary Candidate Data with Boostrapped Standard Errors (Elected and Defeated Candidates)" width="700"><p class="caption">
+FIGURE 2.13: Basic Space (Blackbox) Scaling of 2010 Swedish
+Parliamentary Candidate Data with Boostrapped Standard Errors (Elected
+and Defeated Candidates)
+</p>
+</div>
+<p>To determine whether the difference between the two distributions is
+statistically significant, we compute a permutation test for the
+difference in standard errors variances.</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Variance test syntax</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">perm</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">first.dim</span><span class="op">$</span><span class="va">elected</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"No"</span>, <span class="st">"Yes"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/perm/man/perm.html" class="external-link">permTS</a></span><span class="op">(</span><span class="va">se</span> <span class="op">~</span> <span class="va">elected</span>, data<span class="op">=</span><span class="va">first.dim</span>,</span>
+<span>      alternative<span class="op">=</span><span class="st">"greater"</span>, method<span class="op">=</span><span class="st">"exact.mc"</span>,</span>
+<span>      control<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/perm/man/permControl.html" class="external-link">permControl</a></span><span class="op">(</span>nmc<span class="op">=</span><span class="fl">10</span><span class="op">^</span><span class="fl">4</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">##  Exact Permutation Test Estimated by Monte Carlo</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  se by elected</span></span>
+<span><span class="co">## p-value = 0.96</span></span>
+<span><span class="co">## alternative hypothesis: true mean elected=No - mean elected=Yes is greater than 0</span></span>
+<span><span class="co">## sample estimates:</span></span>
+<span><span class="co">## mean elected=No - mean elected=Yes </span></span>
+<span><span class="co">##                       -0.002516503 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## p-value estimated from 9999 Monte Carlo replications</span></span>
+<span><span class="co">## 99 percent confidence interval on p-value:</span></span>
+<span><span class="co">##  0.9546745 0.9648740</span></span></code></pre>
+</div>
+</div>
+<div class="section level2">
+<h2 id="example-1-2000-and-2006-comparative-study-of-elec--toral-systems-mexican-modules">2.3.1 Example 1: 2000 and 2006 Comparative Study of Elec- toral
+Systems (Mexican Modules)<a class="anchor" aria-label="anchor" href="#example-1-2000-and-2006-comparative-study-of-elec--toral-systems-mexican-modules"></a>
+</h2>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mexicoCSES2000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mexicoCSES2006</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mexicoCSES2000</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      PAN PRI PRD PT Greens PARM</span></span>
+<span><span class="co">## [1,]  11   6   1 99      6   99</span></span>
+<span><span class="co">## [2,]  11   6   5  5      5    5</span></span>
+<span><span class="co">## [3,]  10   4   3  3      8    3</span></span>
+<span><span class="co">## [4,]   8   9   7 99     99   99</span></span>
+<span><span class="co">## [5,]   9   5   3  4     99   99</span></span>
+<span><span class="co">## [6,]   9   6   1  1      9   99</span></span></code></pre>
+<p>Blackbox syntax for two datasets, with data cleaning arguments</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">basicspace</span><span class="op">)</span></span>
+<span><span class="va">result_2000</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/basicspace/man/blackbox_transpose.html" class="external-link">blackbox_transpose</a></span><span class="op">(</span><span class="va">mexicoCSES2000</span>, missing<span class="op">=</span><span class="fl">99</span>,</span>
+<span>                                  dims<span class="op">=</span><span class="fl">3</span>, minscale<span class="op">=</span><span class="fl">5</span>, verbose<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">result_2006</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/basicspace/man/blackbox_transpose.html" class="external-link">blackbox_transpose</a></span><span class="op">(</span><span class="va">mexicoCSES2006</span>, missing<span class="op">=</span><span class="fl">99</span>,</span>
+<span>                                  dims<span class="op">=</span><span class="fl">3</span>, minscale<span class="op">=</span><span class="fl">5</span>, verbose<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>Multiplying here to avoid negative scores</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract and transform dimensions for the year 2000</span></span>
+<span><span class="va">first.dim.2000</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">result_2000</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
+<span><span class="va">second.dim.2000</span> <span class="op">&lt;-</span> <span class="va">result_2000</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Extract and transform dimensions for the year 2006</span></span>
+<span><span class="va">first.dim.2006</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">result_2006</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
+<span><span class="va">second.dim.2006</span> <span class="op">&lt;-</span> <span class="va">result_2006</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Create a data frame for plotting</span></span>
+<span><span class="va">plot.df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  dim1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">first.dim.2000</span>, <span class="va">first.dim.2006</span><span class="op">)</span>,</span>
+<span>  dim2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">second.dim.2000</span>, <span class="va">second.dim.2006</span><span class="op">)</span>,</span>
+<span>  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">2006</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">first.dim.2000</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">first.dim.2006</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  party <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">result_2000</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">result_2006</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add nudge values for adjusting labels in the plot</span></span>
+<span><span class="va">plot.df</span><span class="op">$</span><span class="va">nudge_x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">0.125</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.13</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">0.225</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">plot.df</span><span class="op">$</span><span class="va">nudge_y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span>, <span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span>, <span class="op">-</span><span class="fl">0.05</span>, <span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">0.05</span>, <span class="op">-</span><span class="fl">0.05</span>, <span class="op">-</span><span class="fl">0.05</span>, <span class="fl">0.03</span>, <span class="fl">0.05</span>, <span class="op">-</span><span class="fl">0.05</span>, <span class="op">-</span><span class="fl">0.025</span>, <span class="fl">0.05</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Display the first few rows of the data frame</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">plot.df</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##     dim1   dim2 year  party nudge_x nudge_y</span></span>
+<span><span class="co">## 1  0.811 -0.292 2000    PAN   0.000   -0.05</span></span>
+<span><span class="co">## 2  0.120  0.903 2000    PRI   0.000   -0.05</span></span>
+<span><span class="co">## 3 -0.268 -0.100 2000    PRD   0.000    0.05</span></span>
+<span><span class="co">## 4 -0.338 -0.181 2000     PT   0.000   -0.05</span></span>
+<span><span class="co">## 5  0.048 -0.195 2000 Greens   0.000   -0.05</span></span>
+<span><span class="co">## 6 -0.373 -0.134 2000   PARM  -0.125    0.00</span></span></code></pre>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">plot.df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dim1</span>, y<span class="op">=</span><span class="va">dim2</span>, group<span class="op">=</span><span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label<span class="op">=</span><span class="va">party</span><span class="op">)</span>, nudge_y<span class="op">=</span><span class="va">plot.df</span><span class="op">$</span><span class="va">nudge_y</span>, size<span class="op">=</span><span class="fl">3</span>,</span>
+<span>           nudge_x<span class="op">=</span><span class="va">plot.df</span><span class="op">$</span><span class="va">nudge_x</span>, group<span class="op">=</span><span class="va">plot.df</span><span class="op">$</span><span class="va">year</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">year</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">.55</span>,<span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">.55</span>,<span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"First Dimension"</span>, y<span class="op">=</span><span class="st">"Second Dimension"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-33-1.png" alt="FIGURE 2.14: Basic Space (Blackbox Transpose) Scaling of Left- Right Placements of Mexican Political Parties (2000 and 2006 Com- parative Study of Electoral Systems)" width="700"><p class="caption">
+FIGURE 2.14: Basic Space (Blackbox Transpose) Scaling of Left- Right
+Placements of Mexican Political Parties (2000 and 2006 Com- parative
+Study of Electoral Systems)
+</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="estimating-bootstrapped-standard-errors-for-black-box-transpose-scaling">2.3.2 Estimating Bootstrapped Standard Errors for Black Box
+Transpose Scaling<a class="anchor" aria-label="anchor" href="#estimating-bootstrapped-standard-errors-for-black-box-transpose-scaling"></a>
+</h2>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">franceEES2009</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mode.html" class="external-link">mode</a></span><span class="op">(</span><span class="va">rankings</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"numeric"</span></span>
+<span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/basicspace/man/blackbox_transpose.html" class="external-link">blackbox_transpose</a></span><span class="op">(</span><span class="va">rankings</span>,</span>
+<span>                     missing<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">77</span>,<span class="fl">88</span>,<span class="fl">89</span><span class="op">)</span>, dims<span class="op">=</span><span class="fl">3</span>, minscale<span class="op">=</span><span class="fl">5</span>, verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Reverse check for the first stimulus</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="va">original</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">original</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">original</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Print the fits from the original object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">original</span><span class="op">$</span><span class="va">fits</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##                   SSE SSE.explained   percent       SE  singular</span></span>
+<span><span class="co">## Dimension 1 15662.524      57751.39 78.665454 1.751592 241.07084</span></span>
+<span><span class="co">## Dimension 2 10224.214      63189.70  7.407739 1.562470  86.24658</span></span>
+<span><span class="co">## Dimension 3  7177.296      66236.61  4.150327 1.481290  62.02679</span></span></code></pre>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">outbbt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boot.blackbox_transpose.html">boot.blackbox_transpose</a></span><span class="op">(</span><span class="va">rankings</span>, missing<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">77</span>,<span class="fl">88</span>,<span class="fl">89</span><span class="op">)</span>,</span>
+<span>                                  dims<span class="op">=</span><span class="fl">3</span>, minscale<span class="op">=</span><span class="fl">5</span>, verbose<span class="op">=</span><span class="cn">FALSE</span>, R<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a data frame for the bootstrapped results</span></span>
+<span><span class="va">france.boot.bbt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  party <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">rankings</span><span class="op">)</span>,</span>
+<span>  point <span class="op">=</span> <span class="va">original</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>,</span>
+<span>  se <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">outbbt</span><span class="op">[</span>, <span class="fl">1</span>, <span class="op">]</span>, <span class="fl">1</span>, <span class="va">sd</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate the confidence intervals</span></span>
+<span><span class="va">france.boot.bbt</span><span class="op">$</span><span class="va">lower</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">france.boot.bbt</span>, <span class="va">point</span> <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">se</span><span class="op">)</span></span>
+<span><span class="va">france.boot.bbt</span><span class="op">$</span><span class="va">upper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">france.boot.bbt</span>, <span class="va">point</span> <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">se</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Display the resulting data frame</span></span>
+<span><span class="va">france.boot.bbt</span></span></code></pre></div>
+<pre><code><span><span class="co">##            party  point         se       lower       upper</span></span>
+<span><span class="co">## 1   Extreme Left -0.453 0.03615660 -0.52386694 -0.38213306</span></span>
+<span><span class="co">## 2      Communist -0.327 0.01961632 -0.36544799 -0.28855201</span></span>
+<span><span class="co">## 3      Socialist -0.089 0.01190378 -0.11233141 -0.06566859</span></span>
+<span><span class="co">## 4         Greens -0.025 0.04033981 -0.10406602  0.05406602</span></span>
+<span><span class="co">## 5   UDF (Bayrou)  0.115 0.02334952  0.06923494  0.16076506</span></span>
+<span><span class="co">## 6  UMP (Sarkozy)  0.456 0.07369735  0.31155319  0.60044681</span></span>
+<span><span class="co">## 7 National Front  0.612 0.07037258  0.47406974  0.74993026</span></span>
+<span><span class="co">## 8     Left Party -0.290 0.01281796 -0.31512319 -0.26487681</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="ordered-optimal-classification">2.4 Ordered Optimal Classification<a class="anchor" aria-label="anchor" href="#ordered-optimal-classification"></a>
+</h2>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/uniofessex/asmcjr" class="external-link">asmcjr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ANES2004_OOC</span><span class="op">)</span></span>
+<span><span class="va">issuescales</span> <span class="op">&lt;-</span> <span class="va">ANES2004</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">issuescales</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   libcon diplomacy iraqwar govtspend defense bushtaxcuts healthinsurance</span></span>
+<span><span class="co">## 1      4        NA      NA         3       7          NA               7</span></span>
+<span><span class="co">## 2      4         4       4         6       5           1               2</span></span>
+<span><span class="co">## 3      6         1       1         3       5           1               4</span></span>
+<span><span class="co">## 4      4         7       3         7       2           3               1</span></span>
+<span><span class="co">## 5      6         5       1         3       5           1               5</span></span>
+<span><span class="co">## 6      6         1       4         6       6           4               2</span></span>
+<span><span class="co">##   govtjobs aidblacks govtfundsabortion partialbirthabortion environmentjobs</span></span>
+<span><span class="co">## 1        7         7                 1                   NA               2</span></span>
+<span><span class="co">## 2        3         6                 4                    1               3</span></span>
+<span><span class="co">## 3        4         5                 4                    1               4</span></span>
+<span><span class="co">## 4        1         1                 3                   NA              NA</span></span>
+<span><span class="co">## 5        6         6                 4                    1               4</span></span>
+<span><span class="co">## 6        5         7                 4                    1              NA</span></span>
+<span><span class="co">##   deathpenalty gunregulations</span></span>
+<span><span class="co">## 1            1              1</span></span>
+<span><span class="co">## 2            4              1</span></span>
+<span><span class="co">## 3            2              1</span></span>
+<span><span class="co">## 4            4              3</span></span>
+<span><span class="co">## 5            2              3</span></span>
+<span><span class="co">## 6            4              3</span></span></code></pre>
+<p>The command below performs OOC on the 2004 ANES issue scale data in
+two dimensions:</p>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">issue.result</span> <span class="op">&lt;-</span> <span class="va">ooc.result</span><span class="op">$</span><span class="va">issues.unique</span></span>
+<span></span>
+<span><span class="co"># Set the row names of issue.result using the column names from issuescales</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">issue.result</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">issuescales</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print selected columns from issue.result</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">issue.result</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"normVectorAngle2D"</span>, <span class="st">"wrongScale"</span>, </span>
+<span>                       <span class="st">"correctScale"</span>, <span class="st">"errorsNull"</span>, <span class="st">"PREScale"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##                      normVectorAngle2D wrongScale correctScale errorsNull</span></span>
+<span><span class="co">## libcon                        5.308387        365          555        623</span></span>
+<span><span class="co">## diplomacy                   -14.617062        505          536        774</span></span>
+<span><span class="co">## iraqwar                      -1.432234        334          855        596</span></span>
+<span><span class="co">## govtspend                    37.532690        501          559        776</span></span>
+<span><span class="co">## defense                      -3.807150        528          533        761</span></span>
+<span><span class="co">## bushtaxcuts                 -19.485846        219          560        456</span></span>
+<span><span class="co">## healthinsurance              46.666181        371          741        892</span></span>
+<span><span class="co">## govtjobs                     42.263435        348          755        878</span></span>
+<span><span class="co">## aidblacks                    36.393860        457          616        798</span></span>
+<span><span class="co">## govtfundsabortion           -20.912765        472          669        603</span></span>
+<span><span class="co">## partialbirthabortion        -32.859434        286          839        503</span></span>
+<span><span class="co">## environmentjobs             -15.768729        529          490        744</span></span>
+<span><span class="co">## deathpenalty                -18.939594        546          617        599</span></span>
+<span><span class="co">## gunregulations               -7.835209        518          683        669</span></span>
+<span><span class="co">##                       PREScale</span></span>
+<span><span class="co">## libcon               0.4141252</span></span>
+<span><span class="co">## diplomacy            0.3475452</span></span>
+<span><span class="co">## iraqwar              0.4395973</span></span>
+<span><span class="co">## govtspend            0.3543814</span></span>
+<span><span class="co">## defense              0.3061761</span></span>
+<span><span class="co">## bushtaxcuts          0.5197368</span></span>
+<span><span class="co">## healthinsurance      0.5840807</span></span>
+<span><span class="co">## govtjobs             0.6036446</span></span>
+<span><span class="co">## aidblacks            0.4273183</span></span>
+<span><span class="co">## govtfundsabortion    0.2172471</span></span>
+<span><span class="co">## partialbirthabortion 0.4314115</span></span>
+<span><span class="co">## environmentjobs      0.2889785</span></span>
+<span><span class="co">## deathpenalty         0.0884808</span></span>
+<span><span class="co">## gunregulations       0.2257100</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="using-anchoring-vignettes">2.5 Using Anchoring Vignettes<a class="anchor" aria-label="anchor" href="#using-anchoring-vignettes"></a>
+</h2>
+<p>calculate party means and standard deviations across all CHES
+experts</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the asmcjr package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/uniofessex/asmcjr" class="external-link">asmcjr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load the ches_eu dataset</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ches_eu</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate the column means of sub.europe, ignoring NA values</span></span>
+<span><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">sub.europe</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate the standard deviations of the columns in sub.europe, ignoring NA values</span></span>
+<span><span class="va">sds2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">sub.europe</span>, <span class="fl">2</span>, <span class="va">sd</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert sub.europe to a matrix</span></span>
+<span><span class="va">sub.europe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">sub.europe</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Ensure the mode of sub.europe is numeric</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mode.html" class="external-link">mode</a></span><span class="op">(</span><span class="va">sub.europe</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"numeric"</span></span></code></pre></div>
+<p>Call the blackbox_transpose</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">basicspace</span><span class="op">)</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/basicspace/man/blackbox_transpose.html" class="external-link">blackbox_transpose</a></span><span class="op">(</span><span class="va">sub.europe</span>,dims<span class="op">=</span><span class="fl">3</span>,</span>
+<span>                             minscale<span class="op">=</span><span class="fl">5</span>,verbose<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Beginning Blackbox Transpose Scaling...118 stimuli have been provided.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Blackbox-Transpose estimation completed successfully.</span></span></code></pre>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a data frame europe.dat containing x, y coordinates, means, party names, and types</span></span>
+<span><span class="va">europe.dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="op">-</span><span class="va">result</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,  <span class="co"># Negate the second column of stimuli and assign to x</span></span>
+<span>  y <span class="op">=</span> <span class="va">result</span><span class="op">$</span><span class="va">stimuli</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>,   <span class="co"># Use the third column of stimuli for y</span></span>
+<span>  means <span class="op">=</span> <span class="va">means</span>,                 <span class="co"># Add the means calculated earlier</span></span>
+<span>  party <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">sub.europe</span><span class="op">)</span>,  <span class="co"># Use the column names of sub.europe as party names</span></span>
+<span>  type <span class="op">=</span> <span class="fu">car</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/recode.html" class="external-link">recode</a></span><span class="op">(</span><span class="va">means</span>,     <span class="co"># Recode means into categories: Left, Moderate, and Right</span></span>
+<span>    <span class="st">"lo:3 = 'Left'; 3:7 = 'Moderate'; 7:hi = 'Right'"</span>,</span>
+<span>    as.factor <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Separate europe.dat into two data frames: parties.dat and vignette.dat</span></span>
+<span><span class="va">parties.dat</span> <span class="op">&lt;-</span> <span class="va">europe.dat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="op">]</span>  <span class="co"># Exclude the first three rows for parties.dat</span></span>
+<span><span class="va">vignette.dat</span> <span class="op">&lt;-</span> <span class="va">europe.dat</span><span class="op">[</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="op">]</span>  <span class="co"># Include only the first three rows for vignette.dat</span></span>
+<span></span>
+<span><span class="co"># Extract fit values from the result object</span></span>
+<span><span class="va">onedim</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">fits</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span>  <span class="co"># Extract the one-dimensional fit value</span></span>
+<span><span class="va">twodim</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">fits</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">]</span>  <span class="co"># Extract the two-dimensional fit value</span></span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">parties.dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">type</span>, color <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>  </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="../reference/gray.palette.html">gray.palette</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  </span>
+<span>  <span class="co"># Add text labels "A", "B", and "C" to the points in vignette.dat</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">vignette.dat</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>,</span>
+<span>            show.legend <span class="op">=</span> <span class="cn">FALSE</span>, size <span class="op">=</span> <span class="fl">10</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"First Dimension (fit = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">onedim</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"%)"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Second Dimension (fit = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">twodim</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"%)"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span>, aspect.ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"Party Group"</span>, shape <span class="op">=</span> <span class="st">"Party Group"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-45-1.png" alt="FIGURE 2.16: Result of Blackbox Transpose with Anchoring Vignettes" width="700"><p class="caption">
+FIGURE 2.16: Result of Blackbox Transpose with Anchoring Vignettes
+</p>
+</div>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">parties.dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>, y<span class="op">=</span><span class="va">means</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"loess"</span>, color<span class="op">=</span><span class="st">"black"</span>, lwd<span class="op">=</span><span class="fl">.5</span>, se<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape<span class="op">=</span><span class="va">type</span>, color<span class="op">=</span><span class="va">type</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values<span class="op">=</span><span class="fu"><a href="../reference/gray.palette.html">gray.palette</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"First Dimension Coordinates"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Mean Party Placement"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"bottom"</span>, aspect.ratio<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>shape<span class="op">=</span><span class="st">"Party Group"</span>, colour<span class="op">=</span><span class="st">"Party Group"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ch2_files/figure-html/unnamed-chunk-46-1.png" alt="FIGURE 2.17: Result of Blackbox Transpose versus Mean Placementes" width="700"><p class="caption">
+FIGURE 2.17: Result of Blackbox Transpose versus Mean Placementes
+</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

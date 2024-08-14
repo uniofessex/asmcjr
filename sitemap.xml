@@ -15,6 +15,7 @@
 <url><loc>https://uniofessex.github.io/asmcjr/reference/CDS2000.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/SOTUcorpus.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/Sweden2010.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/add_OCcutline.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/aldmckSE.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/anes.input.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/bam.france.html</loc></url>
@@ -48,10 +49,12 @@
 <url><loc>https://uniofessex.github.io/asmcjr/reference/mexicoCSES2006.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/mlsmu6.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/mlsmu6_out.html</loc></url>
-<url><loc>https://uniofessex.github.io/asmcjr/reference/nation.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/nations.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/nes1968_urbanunrest.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/nes1968_vietnam.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/original.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/outbb.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/outbbt.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/plot.mlsmu6.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/plot_OCcutlines2.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/plot_blackbox.html</loc></url>
@@ -67,6 +70,8 @@
 <url><loc>https://uniofessex.github.io/asmcjr/reference/rcx.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/result.france.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/result.repdem.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/result_2000.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/result_2006.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/senate.90.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/sub.europe.html</loc></url>
 </urlset>
