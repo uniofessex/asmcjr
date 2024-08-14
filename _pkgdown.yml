@@ -37,25 +37,25 @@ template:
 development:
   mode: auto
 
-reference:
-- title: Helper Functions
-  desc: <div class="text-justify"></div>
-- contents:
-  - BAM
-  - BMDS
-  - aldmckSE
-  - bamPrep
-  - boot.aldmck
-  - boot.blackbox
-  - boot.blackbox_transpose
-  - diffStims
-  - doubleCenter
-  - doubleCenterRect
-  - gray.palette
-  - mlsmu6
-  - plot_blackbox
-  - plot_resphist
-  - plot_oc_rollcall
+# reference:
+# - title: Helper Functions
+#   desc: <div class="text-justify"></div>
+# - contents:
+#   - BAM
+#   - BMDS
+#   - aldmckSE
+#   - bamPrep
+#   - boot.aldmck
+#   - boot.blackbox
+#   - boot.blackbox_transpose
+#   - diffStims
+#   - doubleCenter
+#   - doubleCenterRect
+#   - gray.palette
+#   - mlsmu6
+#   - plot_blackbox
+#   - plot_resphist
+#   - plot_oc_rollcall
 
 
 navbar:
