@@ -27,6 +27,7 @@ Imports:
 Suggests:
     car,
     smacof,
+    wnominate,
     pscl,
     knitr,
     rmarkdown,
