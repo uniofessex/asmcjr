@@ -57,9 +57,3 @@ jobs:
         run: |
           Rscript -e "devtools::test()"
 
-  env:
-    _R_INSTALL_TIME_PATCHES_: no
-    R_LIBS_USER: ${{ runner.temp }}/Library
-    TZ: UTC
-    _R_CHECK_SYSTEM_CLOCK_: FALSE
-    NOT_CRAN: true

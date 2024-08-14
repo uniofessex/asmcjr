@@ -58,9 +58,3 @@ jobs:
         run: |
           Rscript -e "devtools::test()"
   shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
-  env:
-    _R_INSTALL_TIME_PATCHES_: no
-    R_LIBS_USER: D:\a\_temp\Library
-    TZ: UTC
-    _R_CHECK_SYSTEM_CLOCK_: FALSE
-    NOT_CRAN: true
