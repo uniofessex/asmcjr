@@ -9,7 +9,7 @@ output: github_document
 This package supports the book ["2nd Edition: Analyzing Spatial Models of Choice and Judgment"](https://www.routledge.com/Analyzing-Spatial-Models-of-Choice-and-Judgment/II-Bakker-Carroll-Hare-Poole-Rosenthal/p/book/9781138715332). In this second edition, much of the R code has been streamlined. The package contains all of the data and functions necessary to replicate the analyses presented in the book.
 
 <br />
-<img src="https://raw.githack.com/uniofessex/asmcjr/master/man/figures/book_image.jpg" width="200" align="center" />  
+<img src="https://raw.githack.com/uniofessex/asmcjr/master/man/figures/book.jpg" width="200" align="center" />  
 &nbsp;
 
 ### Installation
