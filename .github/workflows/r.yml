@@ -46,6 +46,10 @@ jobs:
         run: |
           Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages('remotes');"
 
+      - name: Install rcmdcheck package
+        run: |
+          Rscript -e "install.packages('rcmdcheck')"
+
       - name: Check
         run: |
           Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
@@ -53,6 +57,3 @@ jobs:
       - name: Test (optional)
         run: |
           Rscript -e "devtools::test()"
-
-
-
