@@ -18,7 +18,7 @@ authors:
     href: https://as.nyu.edu/content/nyu-as/as/faculty/howard-l-rosenthal.html
   Yen-Chieh Liao:
     href: https://davidycliao.github.io
-    ocid: https://orcid.org/0000-0002-2465-3749
+    orcid: https://orcid.org/0000-0002-2465-3749
 
 template:
   bootstrap: 5
@@ -36,6 +36,27 @@ template:
 
 development:
   mode: auto
+
+reference:
+- title: Helper Functions
+  desc: <div class="text-justify"></div>
+- contents:
+  - BAM
+  - BMDS
+  - aldmckSE
+  - bamPrep
+  - boot.aldmck
+  - boot.blackbox
+  - boot.blackbox_transpose
+  - diffStims
+  - doubleCenter
+  - doubleCenterRect
+  - gray.palette
+  - mlsmu6
+  - plot_blackbox
+  - plot_resphist
+  - plot_oc_rollcall
+
 
 navbar:
   type: inverse
@@ -73,27 +94,8 @@ navbar:
       text: "GitHub"
       href: https://github.com/uniofessex/asmcjr
 
-# 
-# reference:
-# - title: Helper Functions
-#   desc: <div class="text-justify"></div>
-# - contents:
-#   - BAM
-#   - BMDS
-#   - aldmckSE
-#   - bamPrep
-#   - boot.aldmck
-#   - boot.blackbox
-#   - boot.blackbox_transpose
-#   - diffStims
-#   - doubleCenter
-#   - doubleCenterRect
-#   - gray.palette
-#   - mlsmu6
-#   - plot_blackbox
-#   - plot_resphist
-#   
-#   
+
+
 # - title: Dataset
 #   desc: <div class="text-justify">Dataset used in the book. </div>
 # - contents:
