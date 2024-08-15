@@ -1,11 +1,13 @@
-pandoc: 3.1.12.3
+pandoc: '3.3'
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   ch2: ch2.html
+  ch4: ch4.html
+  ch5: ch5.html
   installation: installation.html
   support: support.html
-last_built: 2024-08-14T15:06Z
+last_built: 2024-08-15T13:40Z
 urls:
   reference: https://uniofessex.github.io/asmcjr/reference
   article: https://uniofessex.github.io/asmcjr/articles

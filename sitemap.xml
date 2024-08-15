@@ -1,6 +1,8 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://uniofessex.github.io/asmcjr/404.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/articles/ch2.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/articles/ch4.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/articles/ch5.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/articles/index.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/articles/installation.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/articles/support.html</loc></url>
@@ -21,6 +23,7 @@
 <url><loc>https://uniofessex.github.io/asmcjr/reference/bam.france.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/bamPrep.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/bamdata.html</loc></url>
+<url><loc>https://uniofessex.github.io/asmcjr/reference/bayesunfold.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/binary.comparisons.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/boot.aldmck.html</loc></url>
 <url><loc>https://uniofessex.github.io/asmcjr/reference/boot.blackbox.html</loc></url>

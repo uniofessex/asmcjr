@@ -39,7 +39,7 @@ is not segmented by legislative session."><meta property="og:image" content="htt
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-codes-and-examples" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="fa fa-project-diagram"></span> Codes and Examples</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-codes-and-examples"><li><a class="dropdown-item" href="../articles/ch2.html">Chapter 2: Analyzing Issue Scales</a></li>
     <li><h6 class="dropdown-header" data-toc-skip>Chapter 3: Similarities and Dissimilarities Data (Coming soon)</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Chapter 4: Rating Scale Data (Coming soon)</h6></li>
+    <li><a class="dropdown-item" href="../articles/ch4.html">Chapter 4: Rating Scale Data (In progress)</a></li>
     <li><h6 class="dropdown-header" data-toc-skip>Chapter 5: Binary Choice Data (Coming soon)</h6></li>
     <li><h6 class="dropdown-header" data-toc-skip>Chapter 6: Bayesian Scaling Models (Coming soon)</h6></li>
     <li><h6 class="dropdown-header" data-toc-skip>Special Topics &amp; Applications (Coming soon)</h6></li>
@@ -74,26 +74,23 @@ is not segmented by legislative session.</p>
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>A data frame with the following variables:</p><dl><dt>NAME</dt>
-<dd><p>Name of the deputy (legislator).</p></dd>
+    <p>A data frame with the following variables:</p><dl><dt>CASEID</dt>
+<dd><p>Unique identifier for each deputy's party affiliation. Changes if the deputy switches parties.</p></dd>
 
 <dt>MID</dt>
-<dd><p>Deputy ID, which remains constant even if the deputy switches party.</p></dd>
+<dd><p>Unique ID for each deputy that remains constant even if the deputy switches party.</p></dd>
 
-<dt>CASEID</dt>
-<dd><p>Deputy ID, which is unique for each party affiliation if the deputy switches party.</p></dd>
+<dt>NAME</dt>
+<dd><p>Name of the deputy (legislator).</p></dd>
 
 <dt>PAR</dt>
 <dd><p>Party affiliation of the deputy.</p></dd>
 
 <dt>PARSEQ</dt>
-<dd><p>Sequence of party affiliation for deputies who switched parties.</p></dd>
+<dd><p>Sequence number of the party affiliation for deputies who switched parties.</p></dd>
 
-<dt>VOTE1</dt>
-<dd><p>Result of the first roll call vote (and so on for subsequent votes).</p></dd>
-
-<dt>...</dt>
-<dd><p>Other variables representing additional roll call votes.</p></dd>
+<dt>V1001, V1002, ..., V3172</dt>
+<dd><p>Results of the roll call votes, with each variable representing the result of a specific roll call vote.</p></dd>
 
 
 </dl></div>
