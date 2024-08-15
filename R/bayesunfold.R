@@ -314,12 +314,12 @@ bayesunfold <- function(input, dims = 2, nsamp = 2000, burnin = 1000, cred.level
 # }
 
   # Check if the shared object file 'lbfgs_bu3.so' is loaded
-  if (!"lbfgs_bu3.so" %in% getLoadedDLLs()) {
-    message("The shared object file 'src/lbfgs_bu3.so' is not loaded.")
-    message("Please manually load it using the following command:")
-    message("dyn.load('src/lbfgs_bu3.so')")
+  if (!"lbfgs_bu3.so" %in% names(getLoadedDLLs())) {
+    stop("Error: The shared object file 'src/lbfgs_bu3.so' is not loaded.\n",
+         "Please load it manually using the following command:\n",
+         "dyn.load('src/lbfgs_bu3.so')")
   } else {
-    message("'lbfgs_bu3.so' is already attached.")
+    message("'lbfgs_bu3.so' is successfully loaded.")
   }
   
   # Input validation
