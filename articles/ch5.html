@@ -94,9 +94,16 @@
 <h4 id="accessing-dw-nominate-scores">5.3.3 Accessing DW-NOMINATE Scores<a class="anchor" aria-label="anchor" href="#accessing-dw-nominate-scores"></a>
 </h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/uniofessex/asmcjr" class="external-link">asmcjr</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">rcx</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/uniofessex/asmcjr" class="external-link">asmcjr</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Registered S3 methods overwritten by 'asmcjr':</span></span>
+<span><span class="co">##   method           from</span></span>
+<span><span class="co">##   end.mcmc.list    coda</span></span>
+<span><span class="co">##   start.mcmc.list  coda</span></span>
+<span><span class="co">##   window.mcmc      coda</span></span>
+<span><span class="co">##   window.mcmc.list coda</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">rcx</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># select the Congress terms of interest</span></span>
 <span><span class="va">ncong</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">110</span><span class="op">)</span></span>
 <span></span>
@@ -110,7 +117,7 @@
 <span>  congress <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"House"</span>, <span class="va">rcx</span><span class="op">$</span><span class="va">cong</span><span class="op">[</span><span class="va">sub</span><span class="op">]</span><span class="op">)</span>,  <span class="co"># Create a factor for the Congress</span></span>
 <span>                    levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"House 90"</span>, <span class="st">"House 100"</span>, <span class="st">"House 110"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Ensure that 'party' is a factor</span></span>
@@ -134,7 +141,7 @@ FIGURE 5.2: Partisan Polarization in the 90th, 100th, and 110th Houses
 <div class="section level4">
 <h4 id="example-1-the-108th-us-house">5.3.5 Example 1: The 108th US House<a class="anchor" aria-label="anchor" href="#example-1-the-108th-us-house"></a>
 </h4>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">wnominate</span><span class="op">)</span></span>
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wnominate/man/wnominate.html" class="external-link">wnominate</a></span><span class="op">(</span><span class="va">hr108</span>, ubeta<span class="op">=</span><span class="fl">15</span>, uweights<span class="op">=</span><span class="fl">0.5</span>, dims<span class="op">=</span><span class="fl">2</span>,</span>
 <span>                    minvotes<span class="op">=</span><span class="fl">20</span>, lop<span class="op">=</span><span class="fl">0.025</span>, trials<span class="op">=</span><span class="fl">1</span>, polarity<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span>, verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -169,9 +176,9 @@ FIGURE 5.2: Partisan Polarization in the 90th, 100th, and 110th Houses
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## W-NOMINATE estimation completed successfully.</span></span>
-<span><span class="co">## W-NOMINATE took 95.345 seconds to execute.</span></span></code></pre>
+<span><span class="co">## W-NOMINATE took 92.825 seconds to execute.</span></span></code></pre>
 <p>Create a grouping variable based on partyCode and icpsrState.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">legislators</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">group</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">legislators</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">partyCode</span> <span class="op">==</span> <span class="fl">100</span> <span class="op">&amp;</span> <span class="va">icpsrState</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span><span class="op">:</span><span class="fl">51</span>, <span class="fl">53</span>, <span class="fl">54</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="va">group</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">legislators</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">partyCode</span> <span class="op">==</span> <span class="fl">100</span> <span class="op">&amp;</span> <span class="va">icpsrState</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">39</span>, <span class="fl">52</span>, <span class="fl">55</span><span class="op">:</span><span class="fl">82</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
@@ -182,7 +189,7 @@ FIGURE 5.2: Partisan Polarization in the 90th, 100th, and 110th Houses
 <span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">group</span>, levels <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
 <span>                labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Southern Dems"</span>, <span class="st">"Northern Dems"</span>,</span>
 <span>                           <span class="st">"Republicans"</span>, <span class="st">"Independents"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="co"># Plot using plot_wnom_coords with customized colors and shapes</span></span>
 <span><span class="fu"><a href="../reference/plot_wnom_coords.html">plot_wnom_coords</a></span><span class="op">(</span><span class="va">result</span>, shapeVar <span class="op">=</span> <span class="va">group</span>, dropNV <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
@@ -204,7 +211,7 @@ House of Representatives
 </p>
 </div>
 <p>Shows the roll call choices of all voting legislators.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate the weight based on the result's weights</span></span>
 <span><span class="va">weight</span> <span class="op">&lt;-</span>  <span class="va">result</span><span class="op">$</span><span class="va">weights</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">/</span> <span class="va">result</span><span class="op">$</span><span class="va">weights</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span></span>
@@ -231,7 +238,7 @@ Partial-Birth Abortion Ban Act of 2003, All Legislators
 </div>
 <p>We can calculate the PRE (Proportional Reduction in Error) statistic
 and display it in the plot below the number of errors as below:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rc.errors.html">rc.errors</a></span><span class="op">(</span><span class="va">result</span>, <span class="va">hr108</span>, <span class="fl">528</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tot.errors"</span>, <span class="st">"PRE"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## $tot.errors</span></span>
 <span><span class="co">## yea_error nay_error </span></span>
@@ -241,7 +248,7 @@ and display it in the plot below the number of errors as below:</p>
 <span><span class="co">## [1] 0.7464789</span></span></code></pre>
 <p>To plot only those legislators who committed voting errors, we can
 use the plot_rollcall() function from above.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rollcall.html">plot_rollcall</a></span><span class="op">(</span><span class="va">result</span>, <span class="va">hr108</span>, <span class="va">wnom.dat</span>, <span class="fl">528</span>,</span>
 <span>             shapeVar<span class="op">=</span><span class="va">wnom.dat</span><span class="op">$</span><span class="va">group</span>, onlyErrors<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_shape_manual</a></span><span class="op">(</span>values<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="st">"N"</span>, <span class="st">"R"</span><span class="op">)</span>, name<span class="op">=</span><span class="st">"Party Group"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -262,7 +269,7 @@ Partial-Birth Abortion Ban Act of 2003, Errors Only
 </h4>
 <p>The Coombs mesh also illustrates how cutting planes intersect to form
 polytopes (bounded regions in the space).</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">angles</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCutlineAngles.html">makeCutlineAngles</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">angles</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      angle       N1W         N2W</span></span>
@@ -272,14 +279,14 @@ polytopes (bounded regions in the space).</p>
 <span><span class="co">## 4 70.74404 0.9440547 -0.32978881</span></span>
 <span><span class="co">## 5 87.50801 0.9990543 -0.04347964</span></span>
 <span><span class="co">## 6       NA        NA          NA</span></span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">angles</span><span class="op">[</span><span class="fl">528</span>,<span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##         angle       N1W      N2W</span></span>
 <span><span class="co">## 528 -42.01419 0.6693147 0.742979</span></span></code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">angles</span><span class="op">$</span><span class="va">angle</span><span class="op">)</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 68.5467</span></span></code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">angles</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -299,7 +306,7 @@ FIGURE 5.7: Histogram of Cutting Line Angles of Roll Call Votes in the
 <h4 id="example-2-the-first-european-parliament-using-the-parametric-bootstrap">5.3.6 Example 2: The First European Parliament (Using the Parametric
 Bootstrap)<a class="anchor" aria-label="anchor" href="#example-2-the-first-european-parliament-using-the-parametric-bootstrap"></a>
 </h4>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">wnominate</span><span class="op">)</span></span>
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/wnominate/man/wnominate.html" class="external-link">wnominate</a></span><span class="op">(</span><span class="va">rc_ep</span>, ubeta<span class="op">=</span><span class="fl">15</span>, uweights<span class="op">=</span><span class="fl">0.5</span>, dims<span class="op">=</span><span class="fl">2</span>, minvotes<span class="op">=</span><span class="fl">20</span>,</span>
 <span>                    lop<span class="op">=</span><span class="fl">0.025</span>, trials<span class="op">=</span><span class="fl">5</span>, polarity<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>,<span class="fl">25</span><span class="op">)</span>, verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -334,16 +341,143 @@ Bootstrap)<a class="anchor" aria-label="anchor" href="#example-2-the-first-europ
 <span><span class="co">##      Starting bootstrap iterations...</span></span>
 <span><span class="co">## ...      Computing standard errors...</span></span>
 <span><span class="co">## W-NOMINATE estimation completed successfully.</span></span>
-<span><span class="co">## W-NOMINATE took 345.574 seconds to execute.</span></span></code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_wnom_coords.html">plot_wnom_coords</a></span><span class="op">(</span><span class="va">result</span>, shapeVar <span class="op">=</span> <span class="cn">NULL</span>, dropNV<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span>                 ptSize<span class="op">=</span><span class="fl">4</span>, ci<span class="op">=</span><span class="cn">FALSE</span>, level<span class="op">=</span><span class="fl">.95</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co">## W-NOMINATE took 1138.505 seconds to execute.</span></span></code></pre>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_wnom_coords.html">plot_wnom_coords</a></span><span class="op">(</span><span class="va">result</span>, shapeVar <span class="op">=</span> <span class="va">result</span><span class="op">$</span><span class="va">legislators</span><span class="op">$</span><span class="va">MS</span>, </span>
+<span>                 dropNV <span class="op">=</span> <span class="cn">FALSE</span>, ptSize <span class="op">=</span> <span class="fl">4</span>, ci <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_shape.html" class="external-link">scale_shape_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Party Group"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: The shape palette can deal with a maximum of 6 discrete values because more</span></span>
+<span><span class="co">## than 6 becomes difficult to discriminate</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> you have requested 11 values. Consider specifying shapes manually if you need</span></span>
+<span><span class="co">##   that many have them.</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 191 rows containing missing values or values outside the scale range</span></span>
+<span><span class="co">## (`geom_point()`).</span></span></code></pre>
 <div class="figure">
 <img src="ch5_files/figure-html/unnamed-chunk-15-1.png" alt="FIGURE 5.8: W-NOMINATE Ideal Point Estimates of Members of the First European Parliament" width="700"><p class="caption">
 FIGURE 5.8: W-NOMINATE Ideal Point Estimates of Members of the First
 European Parliament
 </p>
 </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="nonparametric-methods---optimal-classification">5.4 Nonparametric Methods - Optimal Classification<a class="anchor" aria-label="anchor" href="#nonparametric-methods---optimal-classification"></a>
+</h2>
+<div class="section level4">
+<h4 id="example-1-the-french-national-assembly-during-the-fourth-republic">5.4.2 Example 1: The French National Assembly during the Fourth
+Republic<a class="anchor" aria-label="anchor" href="#example-1-the-french-national-assembly-during-the-fourth-republic"></a>
+</h4>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/uniofessex/asmcjr" class="external-link">asmcjr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">france4</span><span class="op">)</span></span>
+<span><span class="va">rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pscl/man/rollcall.html" class="external-link">rollcall</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">france4</span><span class="op">[</span>,<span class="fl">6</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">france4</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>   yea<span class="op">=</span><span class="fl">1</span>,</span>
+<span>   nay<span class="op">=</span><span class="fl">6</span>,</span>
+<span>   missing<span class="op">=</span><span class="fl">7</span>,</span>
+<span>   notInLegis<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">9</span><span class="op">)</span>,</span>
+<span>   legis.names<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">france4</span><span class="op">$</span><span class="va">NAME</span>,<span class="va">france4</span><span class="op">$</span><span class="va">CASEID</span>,sep<span class="op">=</span><span class="st">""</span><span class="op">)</span>,</span>
+<span>   vote.names<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">france4</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">france4</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>   legis.data<span class="op">=</span><span class="va">france4</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,</span>
+<span>   vote.data<span class="op">=</span><span class="cn">NULL</span>,</span>
+<span>   desc<span class="op">=</span><span class="st">"National Assembly of the French Fourth Republic"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://legacy.voteview.com/oc_in_R.htm" class="external-link">oc</a></span><span class="op">)</span></span>
+<span><span class="va">result1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/oc/man/oc.html" class="external-link">oc</a></span><span class="op">(</span><span class="va">rc</span>, dims<span class="op">=</span><span class="fl">1</span>, minvotes<span class="op">=</span><span class="fl">20</span>, lop<span class="op">=</span><span class="fl">0.025</span>,</span>
+<span>     polarity<span class="op">=</span><span class="fl">2</span>, verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Preparing to run Optimal Classification...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Checking data...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      ... 112 of 1566 total members dropped.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      Votes dropped:</span></span>
+<span><span class="co">##      ... 34 of 889 total votes dropped.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Running Optimal Classification...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      Generating Start Coordinates...</span></span>
+<span><span class="co">##      Running Edith Algorithm...</span></span>
+<span><span class="co">##      Permuting adjacent legislator pairs...</span></span>
+<span><span class="co">##      Permuting adjacent legislator triples...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal Classification completed successfully.</span></span>
+<span><span class="co">## Optimal Classification took 934.042 seconds to execute.</span></span></code></pre>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">result2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/oc/man/oc.html" class="external-link">oc</a></span><span class="op">(</span><span class="va">rc</span>, dims<span class="op">=</span><span class="fl">2</span>, minvotes<span class="op">=</span><span class="fl">20</span>, lop<span class="op">=</span><span class="fl">0.025</span>,</span>
+<span>              polarity<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Preparing to run Optimal Classification...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Checking data...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      ... 112 of 1566 total members dropped.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      Votes dropped:</span></span>
+<span><span class="co">##      ... 34 of 889 total votes dropped.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Running Optimal Classification...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      Generating Start Coordinates...</span></span>
+<span><span class="co">##      Running Edith Algorithm...</span></span>
+<span><span class="co">##      Getting normal vectors...</span></span>
+<span><span class="co">##      Getting legislator coordinates...</span></span>
+<span><span class="co">##      Getting normal vectors...</span></span>
+<span><span class="co">##      Getting legislator coordinates...</span></span>
+<span><span class="co">##      Getting normal vectors...</span></span>
+<span><span class="co">##      Getting legislator coordinates...</span></span>
+<span><span class="co">##      Getting normal vectors...</span></span>
+<span><span class="co">##      Getting legislator coordinates...</span></span>
+<span><span class="co">##      Getting normal vectors...</span></span>
+<span><span class="co">##      Getting legislator coordinates...</span></span>
+<span><span class="co">##      Getting normal vectors...</span></span>
+<span><span class="co">##      Getting legislator coordinates...</span></span>
+<span><span class="co">##      Getting normal vectors...</span></span>
+<span><span class="co">##      Getting legislator coordinates...</span></span>
+<span><span class="co">##      Getting normal vectors...</span></span>
+<span><span class="co">##      Getting legislator coordinates...</span></span>
+<span><span class="co">##      Getting normal vectors...</span></span>
+<span><span class="co">##      Getting legislator coordinates...</span></span>
+<span><span class="co">##      Getting normal vectors...</span></span>
+<span><span class="co">##      Getting legislator coordinates...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal Classification completed successfully.</span></span>
+<span><span class="co">## Optimal Classification took 235.42 seconds to execute.</span></span></code></pre>
+<!-- ```{r} -->
+<!-- fits <- cbind(result1$fits, result2$fits) -->
+<!-- colnames(fits) <- c("1 Dim", "2 Dim") -->
+<!-- rownames(fits) <- c("% Correct", "APRE") -->
+<!-- # Convert degrees to radians -->
+<!-- deg2rad <- function(x) x * pi / 180  -->
+<!-- # 45 degrees in radians -->
+<!-- rad45 <- deg2rad(45) -->
+<!-- # Calculate 45-degree rotation matrix -->
+<!-- A <- matrix(c(cos(rad45), -sin(rad45), -->
+<!--               sin(rad45), cos(rad45)), -->
+<!--             nrow = 2, ncol = 2, byrow = TRUE)   -->
+<!-- ``` -->
+<!-- ```{r warning=TRUE, fig.cap="FIGURE 5.10: Optimal Classification Ideal Point Estimates of Deputies of the French Fourth Republic"} -->
+<!-- pb <- rc$legis.data$PAR -->
+<!-- pb <- car::recode(pb, '1="Communitst"; 2="Socialists"; -->
+<!--                   5="Christian Dems"; 7 = "Poujadists"; else=NA', -->
+<!--       as.factor=TRUE) -->
+<!-- plot_oc_coords(result, pb, dropNV=, ptSize=3, rotMat=A) + -->
+<!--    theme_bw() + -->
+<!--    coord_fixed() + -->
+<!--    scale_shape_manual(values=c("C", "S", "D", "P"), -->
+<!--        labels= c("Communist", "Socialist", -->
+<!--                  "Christian Dem", "Poujadists"), -->
+<!--        name = "Party") + -->
+<!--    scale_color_manual(values=gray.colors(5), -->
+<!--        labels= c("Communist", "Socialist", -->
+<!--                  "Christian Dem", "Poujadists"), -->
+<!--        name = "Party")+ -->
+<!--  labs(x="First Dimension", y="Second Dimension") + -->
+<!--  theme(aspect.ratio=1, legend.position="bottom") -->
+<!-- ``` -->
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
