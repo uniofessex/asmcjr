@@ -159,14 +159,81 @@ ggplot(angles, aes(x=angle)) +
 
 
 #### 5.3.6 Example 2: The First European Parliament (Using the Parametric Bootstrap)
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(wnominate)
 result <- wnominate(rc_ep, ubeta=15, uweights=0.5, dims=2, minvotes=20,
                     lop=0.025, trials=5, polarity=c(25,25), verbose=FALSE)
 ```
 
 ```{r warning=TRUE, fig.cap="FIGURE 5.8: W-NOMINATE Ideal Point Estimates of Members of the First European Parliament"}
-plot_wnom_coords(result, shapeVar = NULL, dropNV=TRUE,
-                 ptSize=4, ci=FALSE, level=.95)
+library(ggplot2)
+plot_wnom_coords(result, shapeVar = result$legislators$MS, 
+                 dropNV = FALSE, ptSize = 4, ci = FALSE) +
+  scale_shape_discrete(name = "Party Group")
 ```
+
+
+## 5.4 Nonparametric Methods - Optimal Classification
+#### 5.4.2 Example 1: The French National Assembly during the Fourth Republic
+
+```{r}
+library(asmcjr)
+data(france4)
+rc <- rollcall(data=france4[,6:ncol(france4)],
+   yea=1,
+   nay=6,
+   missing=7,
+   notInLegis=c(8,9),
+   legis.names=paste(france4$NAME,france4$CASEID,sep=""),
+   vote.names=colnames(france4[6:ncol(france4)]),
+   legis.data=france4[,2:5],
+   vote.data=NULL,
+   desc="National Assembly of the French Fourth Republic")
+```
+
+```{r message=FALSE, warning=FALSE}
+library(oc)
+result1 <- oc(rc, dims=1, minvotes=20, lop=0.025,
+     polarity=2, verbose=FALSE)
+result2 <- oc(rc, dims=2, minvotes=20, lop=0.025,
+              polarity=c(2,2), verbose=FALSE)
+```
+
+<!-- ```{r} -->
+<!-- fits <- cbind(result1$fits, result2$fits) -->
+<!-- colnames(fits) <- c("1 Dim", "2 Dim") -->
+<!-- rownames(fits) <- c("% Correct", "APRE") -->
+
+<!-- # Convert degrees to radians -->
+<!-- deg2rad <- function(x) x * pi / 180  -->
+<!-- # 45 degrees in radians -->
+<!-- rad45 <- deg2rad(45) -->
+<!-- # Calculate 45-degree rotation matrix -->
+<!-- A <- matrix(c(cos(rad45), -sin(rad45), -->
+<!--               sin(rad45), cos(rad45)), -->
+<!--             nrow = 2, ncol = 2, byrow = TRUE)   -->
+<!-- ``` -->
+
+
+<!-- ```{r warning=TRUE, fig.cap="FIGURE 5.10: Optimal Classification Ideal Point Estimates of Deputies of the French Fourth Republic"} -->
+<!-- pb <- rc$legis.data$PAR -->
+<!-- pb <- car::recode(pb, '1="Communitst"; 2="Socialists"; -->
+<!--                   5="Christian Dems"; 7 = "Poujadists"; else=NA', -->
+<!--       as.factor=TRUE) -->
+
+<!-- plot_oc_coords(result, pb, dropNV=, ptSize=3, rotMat=A) + -->
+<!--    theme_bw() + -->
+<!--    coord_fixed() + -->
+<!--    scale_shape_manual(values=c("C", "S", "D", "P"), -->
+<!--        labels= c("Communist", "Socialist", -->
+<!--                  "Christian Dem", "Poujadists"), -->
+<!--        name = "Party") + -->
+<!--    scale_color_manual(values=gray.colors(5), -->
+<!--        labels= c("Communist", "Socialist", -->
+<!--                  "Christian Dem", "Poujadists"), -->
+<!--        name = "Party")+ -->
+<!--  labs(x="First Dimension", y="Second Dimension") + -->
+<!--  theme(aspect.ratio=1, legend.position="bottom") -->
+<!-- ``` -->
+
 
