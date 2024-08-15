@@ -7,13 +7,12 @@
 \format{
 A data frame with the following variables:
 \describe{
+\item{CASEID}{Unique identifier for each deputy's party affiliation. Changes if the deputy switches parties.}
+\item{MID}{Unique ID for each deputy that remains constant even if the deputy switches party.}
 \item{NAME}{Name of the deputy (legislator).}
-\item{MID}{Deputy ID, which remains constant even if the deputy switches party.}
-\item{CASEID}{Deputy ID, which is unique for each party affiliation if the deputy switches party.}
 \item{PAR}{Party affiliation of the deputy.}
-\item{PARSEQ}{Sequence of party affiliation for deputies who switched parties.}
-\item{VOTE1}{Result of the first roll call vote (and so on for subsequent votes).}
-\item{...}{Other variables representing additional roll call votes.}
+\item{PARSEQ}{Sequence number of the party affiliation for deputies who switched parties.}
+\item{V1001, V1002, ..., V3172}{Results of the roll call votes, with each variable representing the result of a specific roll call vote.}
 }
 }
 \source{

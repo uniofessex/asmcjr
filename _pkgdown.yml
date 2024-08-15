@@ -74,15 +74,17 @@ navbar:
       text: Codes and Examples
       menu:
       - text: "Chapter 2: Analyzing Issue Scales"
-        href: articles/examples.html
+        href: articles/ch2.html
       - text: "Chapter 3: Similarities and Dissimilarities Data (Coming soon)"
         href: 
-      - text: "Chapter 4: Rating Scale Data (Coming soon)"
-        href: 
+      - text: "Chapter 4: Rating Scale Data (In progress)"
+        href: articles/ch4.html
       - text: "Chapter 5: Binary Choice Data (Coming soon)"
-        href: 
+        href: articles/ch5.html
       - text: "Chapter 6: Bayesian Scaling Models (Coming soon)"
-
+        href: 
+      - text: "Special Topics & Applications (Coming soon)"
+        href: 
   right:
     - icon: fa-newspaper-o
       text: "News"

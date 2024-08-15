@@ -15,7 +15,7 @@ You will need a stable installation of [R](https://cran.r-project.org/mirrors.ht
 
 #### macOS:
 - [x] [JAGS](https://sourceforge.net/projects/mcmc-jags/files/JAGS/)
-- [x] [GNU Fortran (gfortran 8.2)](https://github.com/fxcoudert/gfortran-for-macOS/releases)  
+- [x] [GNU Fortran (gfortran 14.1) for Sonoma (macOS 14)](https://github.com/fxcoudert/gfortran-for-macOS/releases)  
 - [x] [Xcode Developer Tools 11](https://developer.apple.com/support/xcode/)
 
 

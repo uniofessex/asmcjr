@@ -18,19 +18,24 @@ Remotes:
 Imports:
     rjags,
     stats,
+    smacof,
     basicspace,
     boot,
+    coda,
     ggplot2,
     grDevices,
     MASS,
     utils,
-    ellipse
+    ellipse,
+    plyr,
+    vegan
 Suggests:
     car,
-    smacof,
+    ooc,
     wnominate,
     pscl,
     knitr,
+    perm,
     rmarkdown,
     testthat (>= 3.0.0)    
 License: GPL (>= 3)

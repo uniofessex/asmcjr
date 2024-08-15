@@ -21,7 +21,8 @@ geweke.ggplot(x, frac1 = 0.1, frac2 = 0.5, nbins = 20, pvalue = 0.05)
 A \code{ggplot} object that displays the Geweke diagnostic Z-scores for each segment of the MCMC chains. The plot includes horizontal lines indicating the confidence limits.
 }
 \description{
-The \code{geweke.ggplot} function creates a Geweke diagnostic plot for MCMC chains using \code{ggplot2}. It calculates the Geweke diagnostic for segments of the MCMC chain and visualizes the Z-scores over the first iteration in each segment.
+The \code{geweke.ggplot} function creates a Geweke diagnostic plot for MCMC chains using \code{ggplot2}.
+It calculates the Geweke diagnostic for segments of the MCMC chain and visualizes the Z-scores over the first iteration in each segment.
 }
 \details{
 The function splits the MCMC chain into segments, computes the Geweke diagnostic for each segment, and then plots the Z-scores. The Z-scores are compared against the standard normal quantiles, and segments outside the confidence limits indicate potential non-convergence.
@@ -33,5 +34,4 @@ data(line)
 geweke_plot <- geweke.ggplot(line)
 print(geweke_plot)
 }
-
 }

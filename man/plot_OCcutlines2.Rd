@@ -33,13 +33,13 @@ plot_OCcutlines2(
 \item{...}{Additional graphical parameters passed to the \code{symbols} function.}
 }
 \value{
-This function does not return a value but produces a plot as a side effect.
+This function does not return a value but produces a object for plot.
 }
 \description{
 The \code{plot_OCcutlines2} function plots cutlines for a 2D Optimal Classification (OC) object. It visualizes the decision boundaries (cutlines) in a two-dimensional space based on the OC analysis results.
 }
 \details{
-The function checks that the input object \code{x} is of class \code{OCobject} and that it contains two dimensions for plotting. If the \code{lines} parameter is a single integer, it will randomly select that many cutlines to display. If \code{lines} is a vector, it will use those specific rows from the roll call data to plot the cutlines.
+The function checks that the input object \code{x} is of class \code{OCobject} and that it contains two dimensions for plotting. If the \code{lines} parameter is a single integer, it will randomly select that many cutlines to display. If \code{lines} is a vector, it will use those specific rows from the roll call data to plot the cutlines.#' @importFrom yourpackage add_OCcutline
 }
 \examples{
 \dontrun{

@@ -1,0 +1,484 @@
+---
+title: "Analyzing Issue Scales"
+# author: "Yen-Chieh Liao"
+# date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Analyzing Issue Scales}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+## 2.1.2 Example 1: 2009 European Election Study (French Module)
+
+```{r}
+library(asmcjr)
+data(franceEES2009)
+head(franceEES2009)
+```
+
+```{r}
+library(basicspace)
+result.france <- aldmck(franceEES2009, respondent=1, polarity=2,
+     missing=c(77,88,89), verbose=FALSE)
+```
+
+```{r warning=TRUE, fig.cap="FIGURE 2.1: Aldrich-McKelvey Scaling of Left-Right Self- Placements of French Respondents (2009 European Election Study)"}
+# plot stimuli locations in addition to ideal point density
+library(ggplot2)
+# plot density of ideal points
+plot_resphist(result.france, xlab="Left-Right")
+```
+
+```{r warning=TRUE, fig.cap="FIGURE 2.2: Aldrich-McKelvey Scaling of Left-Right Placements of French Political Parties (2009 European Election Study)"}
+# plot stimuli locations in addition to ideal point density
+plot_resphist(result.france, addStim=TRUE, xlab = "Left-Right") +
+  theme(legend.position="bottom", aspect.ratio=1) +
+  guides(shape = guide_legend(override.aes = list(size = 4), nrow=3)) +
+ labs(shape="Party", colour="Party")
+```
+
+```{r warning=TRUE, fig.cap="FIGURE 2.3: Aldrich-McKelvey Scaling of Left-Right Placements of French Political Parties: Positive Weights (2009 European Election Study)"}
+# isolate positive weights
+plot_resphist(result.france, addStim=TRUE, weights="positive",
+              xlab = "Left-Right")  +
+  theme(legend.position="bottom", aspect.ratio=1) +
+  guides(shape = guide_legend(override.aes = list(size = 4), nrow=3)) +
+  labs(shape="Party", colour="Party")
+```
+
+```{r warning=TRUE, fig.cap="FIGURE 2.3: Aldrich-McKelvey Scaling of Left-Right Placements of French Political Parties: Negative Weights (2009 European Election Study)"}
+# isolate positive weights
+plot_resphist(result.france, addStim=TRUE, 
+              weights="negative", xlab = "Left-Right")  +
+  theme(legend.position="bottom", aspect.ratio=1) +
+  guides(shape = guide_legend(override.aes = list(size = 4), nrow=3)) +
+  labs(shape="Party", colour="Party")
+```
+
+
+## 2.1.3 Example 2: 1968 American National Election Study Urban Unrest and Vietnam War Scales
+
+#### Urban Unrest
+Running Bayesian Aldrich-Mckelvey
+```{r message=FALSE, warning=FALSE}
+# Loading 'nes1968_urbanunrest' 
+data(nes1968_urbanunrest)
+# Creating object with US president left-right dimensions
+urban <- as.matrix(nes1968_urbanunrest[,-1])
+# Running Bayesian Aldrich-Mckelvey scaling on President positions
+library(basicspace)
+result.urb <- aldmck(urban, polarity=2, respondent=5,
+                     missing=c(8,9), verbose=FALSE)
+summary(result.urb)
+```
+Extracting `vote.choice` Column
+```{r message=FALSE, warning=FALSE}
+# recode so that only Humphrey, Nixon and Wallace are present
+vote <- car:::recode(nes1968_urbanunrest[,1], "3='Humphrey'; 5 = 'Nixon'; 6 = 'Wallace'; else=NA",
+                     as.factor=FALSE)
+# Convert vote to factor with appropriate levels
+vote <- factor(vote, levels=c("Humphrey", "Nixon", "Wallace"))
+```
+
+
+```{r warning=TRUE, fig.cap="FIGURE 2.5: Aldrich-McKelvey Scaling of Urban Unrest Scale: Candidates and Voters (1968 American National Election Study)"}
+# Plot population distribution by vote choice
+plot_resphist(result.urb, groupVar=vote, addStim=TRUE,
+              xlab="Liberal-Conservative")  +
+  theme(legend.position="bottom", aspect.ratio=1)  +
+  guides(shape = guide_legend(override.aes =
+                                list(size = 4, color=c("gray25", "gray50", "gray75"))),
+  colour = "none") +
+  xlim(c(-2,2)) +
+  labs(shape="Candidate")
+```
+#### Vietnam War Scales
+```{r}
+data(nes1968_vietnam)
+vietnam <- as.matrix(nes1968_vietnam[,-1])
+# Aldrich-Mckelvey function for vietnam dataset
+result.viet <- aldmck(vietnam, polarity=2, respondent=5,
+                      missing=c(8,9), verbose=FALSE)
+summary(result.viet)
+```
+
+```{r warning=TRUE, fig.cap="FIGURE 2.6: Aldrich-McKelvey Scaling of Vietnam War Scale: Candidates and Voters (1968 American National Election Study)"}
+# Plot population distribution by vote choice
+plot_resphist(result.urb, groupVar=vote, addStim=TRUE,
+              xlab="Liberal-Conservative")  +
+  theme(legend.position="bottom", aspect.ratio=1)  +
+  guides(shape = guide_legend(override.aes =
+                                list(size = 4, color=c("gray25", "gray50", "gray75"))),
+  colour = "none") +
+  xlim(c(-2,2)) +
+  labs(shape="Candidate")
+```
+
+```{r}
+boot.france  <- boot.aldmck(franceEES2009,
+                            polarity=2, respondent=1, missing=c(77,88,89),
+                            verbose=FALSE, boot.args = list(R=100))
+```
+
+
+```{r warning=TRUE, fig.cap="FIGURE 2.7: Aldrich-McKelvey Scaling of Left-Right Placements of French Political Parties (2009 European Election Study) with Bootstrapped Standard Errors"}
+library(ggplot2)
+ggplot(boot.france$sumstats, aes(x = idealpt, y = stimulus)) +
+  geom_point() +
+  # geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0.2) +
+  xlab("Left-Right") +
+  ylab(NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom", aspect.ratio = 1) 
+```
+
+
+## 2.2.1 Example 1: 2000 Convention Delegate Study
+
+```{r}
+library(basicspace)
+data(CDS2000)
+head(CDS2000[,5:8])
+```
+Blackbox syntax of Republican-Democrat left-right scale
+```{r}
+issues <- as.matrix(CDS2000[,5:14])
+result.repdem <- blackbox(issues,
+                          missing=99, dims=3, minscale=5, verbose=TRUE)
+```
+Recode party: Democrats = 1; Republicans = 2
+```{r}
+party <- car:::recode(CDS2000[,1],
+                      "1='Democrat'; 2='Republican'; else=NA",
+                      as.factor=TRUE)
+```
+
+
+```{r message=FALSE, warning=FALSE, fig.cap="FIGURE 2.8: Basic Space (Blackbox) Scaling of US Party Conven- tion Delegates (2000 Convention Delegate Study)"}
+plot_blackbox(result.repdem, dims=c(1,2), groupVar=party,
+              xlab= "First Dimension\n(Left-Right)",
+              ylab="Second Dimension") +
+  theme(legend.position="bottom", aspect.ratio=1) +
+  guides(shape=guide_legend(override.aes=list(size=4))) +
+  labs(colour="Party")
+```
+
+## 2.2.2 Example 2: 2010 Swedish Parliamentary Candidate Survey
+
+```{r}
+library(basicspace)
+data(Sweden2010)
+head(Sweden2010[,1:8])
+```
+Blacbox Scaling for Sweden issue scale
+```{r}
+# Extract issues scales and convert to numeric
+issues.sweden <- as.matrix(Sweden2010[,7:56])
+mode(issues.sweden) <- "numeric"
+# Blacbox syntax for Sweden issue scale
+result.sweden <- blackbox(issues.sweden, missing=8,
+                          dims=3, minscale=5, verbose=FALSE)
+```
+
+```{r}
+ # change polarity of scores
+ if(result.sweden$individuals[[1]][13,1] < 0)
+ result.sweden$individuals[[1]][,1] <-
+     result.sweden$individuals[[1]][,1] * -1
+ result.sweden$fits
+```
+
+```{r}
+result.sweden$stimuli[[1]][16:25,]
+```
+
+```{r message=FALSE, warning=FALSE, fig.cap="FIGURE 2.11: Basic Space (Blackbox) Scaling of 2010 Swedish Parliamentary Candidate Data (Candidates by Party)"}
+elected <- as.numeric(Sweden2010[,2])
+party.name.sweden <- as.factor(Sweden2010[,3])
+plot_resphist(result.sweden, groupVar=party.name.sweden, dim=1,
+              scaleDensity=FALSE) +
+   facet_wrap(~stimulus, ncol=2) +
+   theme(legend.position="none") +
+   scale_color_manual(values=rep("black", 10))
+```
+
+Density plot syntax and comparison of defeated/elected candidates
+
+```{r message=FALSE, warning=FALSE, fig.cap="FIGURE 2.12: Basic Space (Blackbox) Scaling of 2010 Swedish Parliamentary Candidate Data (Elected and Defeated Candidates by Party)"}
+# Keep only the parties of elected candidates, set others to NA
+party.name.sweden[which(elected == 0)] <- NA
+plot_resphist(result.sweden, groupVar=party.name.sweden, dim=1,  scaleDensity=FALSE) +
+  facet_wrap(~stimulus, ncol=2) +
+  theme(legend.position="none") +
+  scale_color_manual(values=rep("black", 10))
+```
+
+## 2.2.3 Estimating Bootstrapped Standard Errors for Black Box Scaling
+
+#### The 2010 Swedish parliamentary candidate data
+
+```{r eval=TRUE, include=FALSE}
+data(outbb)
+```
+
+```{r eval=FALSE, include=TRUE}
+# Candidate point estimates blackbox scaling
+outbb <- boot.blackbox(issues.sweden, missing=8, dims=3, minscale=5,
+                      verbose=FALSE, posStimulus=13)
+```
+
+Matrix creation for Swedish candidates
+```{r}
+first.dim <- data.frame(
+   point = result.sweden$individuals[[3]][,1],
+   se = apply(outbb[,1,], 1, sd)
+ )
+first.dim$lower <- with(first.dim, point - 1.96*se)
+first.dim$upper <- with(first.dim, point + 1.96*se)
+first.dim$elected <- factor(elected, levels=c(0,1),
+                            labels=c("Not Elected", "Elected"))
+head(first.dim)
+```
+
+Plot for the distribution of first dimensions bootstrapped SE
+
+```{r message=FALSE, warning=FALSE, fig.cap="FIGURE 2.13: Basic Space (Blackbox) Scaling of 2010 Swedish Parliamentary Candidate Data with Boostrapped Standard Errors (Elected and Defeated Candidates)"}
+ggplot(first.dim, aes(x=se, group=elected)) +
+  stat_density(geom="line", bw=.005) +
+  facet_wrap(~elected) +
+  theme(aspect.ratio=1) +
+  xlab("Standard Error") +
+  xlim(c(0,.2)) +
+  theme_bw()
+```
+
+To determine whether the difference between the two distributions is statistically significant, we compute a permutation test for the difference in standard errors variances. 
+
+```{r}
+# Variance test syntax
+library(perm)
+levels(first.dim$elected) <- c("No", "Yes")
+permTS(se ~ elected, data=first.dim,
+      alternative="greater", method="exact.mc",
+      control=permControl(nmc=10^4-1))
+
+```
+
+## 2.3.1 Example 1: 2000 and 2006 Comparative Study of Elec- toral Systems (Mexican Modules)
+
+```{r}
+data(mexicoCSES2000)
+data(mexicoCSES2006)
+head(mexicoCSES2000)
+```
+Blackbox syntax for two datasets, with data cleaning arguments
+
+```{r eval=TRUE, include=FALSE}
+data(result_2000)
+data(result_2006)
+```
+
+```{r eval=FALSE, include=TRUE}
+library(basicspace)
+result_2000 <- blackbox_transpose(mexicoCSES2000, missing=99,
+                                  dims=3, minscale=5, verbose=TRUE)
+result_2006 <- blackbox_transpose(mexicoCSES2006, missing=99,
+                                  dims=3, minscale=5, verbose=TRUE)
+```
+Multiplying here to avoid negative scores
+```{r}
+# Extract and transform dimensions for the year 2000
+first.dim.2000 <- -1 * result_2000$stimuli[[2]][, 2]
+second.dim.2000 <- result_2000$stimuli[[2]][, 3]
+
+# Extract and transform dimensions for the year 2006
+first.dim.2006 <- -1 * result_2006$stimuli[[2]][, 2]
+second.dim.2006 <- result_2006$stimuli[[2]][, 3]
+
+# Create a data frame for plotting
+plot.df <- data.frame(
+  dim1 = c(first.dim.2000, first.dim.2006),
+  dim2 = c(second.dim.2000, second.dim.2006),
+  year = rep(c(2000, 2006), c(length(first.dim.2000), length(first.dim.2006))),
+  party = factor(c(rownames(result_2000$stimuli[[2]]), rownames(result_2006$stimuli[[2]])))
+)
+
+# Add nudge values for adjusting labels in the plot
+plot.df$nudge_x <- c(0, 0, 0, 0, 0, -0.125, 0, 0, 0, 0.13, 0, 0, -0.225, 0)
+plot.df$nudge_y <- c(-0.05, -0.05, 0.05, -0.05, -0.05, 0, -0.05, -0.05, -0.05, 0.03, 0.05, -0.05, -0.025, 0.05)
+
+# Display the first few rows of the data frame
+head(plot.df)
+
+```
+
+```{r message=FALSE, warning=FALSE, fig.cap="FIGURE 2.14: Basic Space (Blackbox Transpose) Scaling of Left- Right Placements of Mexican Political Parties (2000 and 2006 Com- parative Study of Electoral Systems)"}
+ggplot(plot.df, aes(x=dim1, y=dim2, group=year)) +
+  geom_point() +
+  geom_text(aes(label=party), nudge_y=plot.df$nudge_y, size=3,
+           nudge_x=plot.df$nudge_x, group=plot.df$year) +
+  facet_wrap(~year) +
+  xlim(-.55,1) +
+  ylim(-.55,1) +
+  theme_bw() +
+  labs(x="First Dimension", y="Second Dimension")
+```
+
+## 2.3.2 Estimating Bootstrapped Standard Errors for Black Box Transpose Scaling
+```{r}
+rankings <- as.matrix(franceEES2009[,2:9])
+mode(rankings) <- "numeric"
+original <- blackbox_transpose(rankings,
+                     missing=c(77,88,89), dims=3, minscale=5, verbose=FALSE)
+```
+
+```{r}
+# Reverse check for the first stimulus
+if (original$stimuli[[1]][1,2] > 0) {
+    original$stimuli[[1]][,2] <- -1 * original$stimuli[[1]][,2]
+}
+
+# Print the fits from the original object
+print(original$fits)
+```
+
+```{r eval=TRUE, include=FALSE}
+data(outbbt)
+```
+
+```{r eval=FALSE, include=TRUE}
+outbbt <- boot.blackbox_transpose(rankings, missing=c(77,88,89),
+                                  dims=3, minscale=5, verbose=FALSE, R=5)
+```
+
+```{r}
+# Create a data frame for the bootstrapped results
+france.boot.bbt <- data.frame(
+  party = colnames(rankings),
+  point = original$stimuli[[1]][, 2],
+  se = apply(outbbt[, 1, ], 1, sd, na.rm = TRUE)
+)
+
+# Calculate the confidence intervals
+france.boot.bbt$lower <- with(france.boot.bbt, point - 1.96 * se)
+france.boot.bbt$upper <- with(france.boot.bbt, point + 1.96 * se)
+
+# Display the resulting data frame
+france.boot.bbt
+```
+
+## 2.4 Ordered Optimal Classification
+```{r message=FALSE, warning=FALSE}
+library(asmcjr)
+data(ANES2004_OOC)
+issuescales <- ANES2004[,1:14]
+head(issuescales)
+```
+The command below performs OOC on the 2004 ANES issue scale data in two dimensions:
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# devtools::install_github('tzuliu/ooc')
+library(ooc)
+ooc.result <-ooc(issuescales,dims=2,minvotes=10,lop=0.001,
+                 polarity=c(1,1),iter=25,nv.method="svm.reg",cost=1)
+```
+
+```{r}
+issue.result <- ooc.result$issues.unique
+
+# Set the row names of issue.result using the column names from issuescales
+rownames(issue.result) <- colnames(issuescales)
+
+# Print selected columns from issue.result
+print(issue.result[, c("normVectorAngle2D", "wrongScale", 
+                       "correctScale", "errorsNull", "PREScale")])
+
+```
+
+
+## 2.5 Using Anchoring Vignettes
+calculate party means and standard deviations across all CHES experts
+```{r}
+# Load the asmcjr package
+library(asmcjr)
+
+# Load the ches_eu dataset
+data(ches_eu)
+
+# Calculate the column means of sub.europe, ignoring NA values
+means <- colMeans(sub.europe, na.rm = TRUE)
+
+# Calculate the standard deviations of the columns in sub.europe, ignoring NA values
+sds2 <- apply(sub.europe, 2, sd, na.rm = TRUE)
+
+# Convert sub.europe to a matrix
+sub.europe <- as.matrix(sub.europe)
+
+# Ensure the mode of sub.europe is numeric
+mode(sub.europe) <- "numeric"
+
+```
+
+Call the blackbox_transpose 
+```{r}
+library(basicspace)
+result <- blackbox_transpose(sub.europe,dims=3,
+                             minscale=5,verbose=TRUE)
+```
+
+```{r}
+# Create a data frame europe.dat containing x, y coordinates, means, party names, and types
+europe.dat <- data.frame(
+  x = -result$stimuli[[2]][,2],  # Negate the second column of stimuli and assign to x
+  y = result$stimuli[[2]][,3],   # Use the third column of stimuli for y
+  means = means,                 # Add the means calculated earlier
+  party = colnames(sub.europe),  # Use the column names of sub.europe as party names
+  type = car:::recode(means,     # Recode means into categories: Left, Moderate, and Right
+    "lo:3 = 'Left'; 3:7 = 'Moderate'; 7:hi = 'Right'",
+    as.factor = TRUE)
+)
+
+# Separate europe.dat into two data frames: parties.dat and vignette.dat
+parties.dat <- europe.dat[-(1:3), ]  # Exclude the first three rows for parties.dat
+vignette.dat <- europe.dat[(1:3), ]  # Include only the first three rows for vignette.dat
+
+# Extract fit values from the result object
+onedim <- result$fits[1, 3]  # Extract the one-dimensional fit value
+twodim <- result$fits[2, 3]  # Extract the two-dimensional fit value
+```
+
+
+
+```{r message=FALSE, warning=FALSE, fig.cap="FIGURE 2.16: Result of Blackbox Transpose with Anchoring Vignettes"}
+library(ggplot2)
+ggplot(parties.dat, aes(x = x, y = y)) +
+  geom_point(aes(shape = type, color = type), size = 3) +  
+  
+  scale_color_manual(values = gray.palette(3)) +  
+  theme_bw() +  
+  # Add text labels "A", "B", and "C" to the points in vignette.dat
+  geom_text(data = vignette.dat, label = c("A", "B", "C"),
+            show.legend = FALSE, size = 10, color = "black") +
+  xlab(paste0("First Dimension (fit = ", round(onedim, 1), "%)")) +
+  ylab(paste0("Second Dimension (fit = ", round(twodim, 1), "%)")) +
+  theme(legend.position = "bottom", aspect.ratio = 1) +
+  labs(colour = "Party Group", shape = "Party Group")
+
+```
+
+
+
+```{r message=FALSE, warning=FALSE, fig.cap="FIGURE 2.17: Result of Blackbox Transpose versus Mean Placementes"}
+ggplot(parties.dat, aes(x=x, y=means)) +
+  geom_smooth(method="loess", color="black", lwd=.5, se=FALSE) +
+  geom_point(aes(shape=type, color=type), size=3) +
+  scale_color_manual(values=gray.palette(3)) +
+  theme_bw() +
+  xlab("First Dimension Coordinates") +
+  ylab("Mean Party Placement") +
+  theme(legend.position="bottom", aspect.ratio=1) +
+  labs(shape="Party Group", colour="Party Group")
+```
+

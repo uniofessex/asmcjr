@@ -39,6 +39,6 @@ This function performs Bayesian Aldrich-McKelvey (BAM) scaling using JAGS to est
 \dontrun{
 data(bamdata)
 bam.france <- BAM(bamdata, polarity=2, n.adapt=2500, n.sample=5000,
-                  zhat=TRUE, ab=TRUE, resp.idealpts=TRUE)
+                  zhatSave=TRUE, abSave=TRUE, resp.idealpts=TRUE)
 }
 }

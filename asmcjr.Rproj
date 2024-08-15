@@ -14,5 +14,6 @@ LaTeX: pdfLaTeX
 
 BuildType: Package
 PackageUseDevtools: Yes
-PackageInstallArgs: --no-multiarch --with-keep.source
+PackagePath: /Users/yenchiehliao/Dropbox/asmcjr
+PackageInstallArgs: --no-multiarch --with-keep.source LDFLAGS=-L/opt/homebrew/lib/gcc/14
 PackageRoxygenize: rd,collate,namespace

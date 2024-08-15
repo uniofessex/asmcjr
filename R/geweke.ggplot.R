@@ -1,6 +1,7 @@
 #' Geweke Diagnostic Plot using ggplot2
 #'
-#' The `geweke.ggplot` function creates a Geweke diagnostic plot for MCMC chains using `ggplot2`. It calculates the Geweke diagnostic for segments of the MCMC chain and visualizes the Z-scores over the first iteration in each segment.
+#' The `geweke.ggplot` function creates a Geweke diagnostic plot for MCMC chains using `ggplot2`. 
+#' It calculates the Geweke diagnostic for segments of the MCMC chain and visualizes the Z-scores over the first iteration in each segment.
 #'
 #' @param x An object of class `mcmc` or `mcmc.list`. This object represents the MCMC chains for which the Geweke diagnostic will be calculated.
 #' @param frac1 A numeric value specifying the fraction of the first segment of the chain to use in the Geweke diagnostic. Defaults to `0.1`.
@@ -13,6 +14,9 @@
 #' @details
 #' The function splits the MCMC chain into segments, computes the Geweke diagnostic for each segment, and then plots the Z-scores. The Z-scores are compared against the standard normal quantiles, and segments outside the confidence limits indicate potential non-convergence.
 #'
+#' @importFrom coda as.mcmc.list geweke.diag nvar nchain varnames chanames
+#' @importFrom stats start end qnorm window
+#' @importFrom graphics symbols
 #' @examples
 #' \dontrun{
 #' library(coda)
@@ -20,7 +24,6 @@
 #' geweke_plot <- geweke.ggplot(line)
 #' print(geweke_plot)
 #' }
-#'
 #' @export
 geweke.ggplot <- function (x, frac1 = 0.1, frac2 = 0.5, nbins = 20, pvalue = 0.05)
 {
