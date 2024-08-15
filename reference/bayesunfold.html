@@ -35,8 +35,8 @@ allowing for the analysis of preference data with missing values."><meta propert
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-codes-and-examples" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="fa fa-project-diagram"></span> Codes and Examples</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-codes-and-examples"><li><a class="dropdown-item" href="../articles/ch2.html">Chapter 2: Analyzing Issue Scales</a></li>
     <li><h6 class="dropdown-header" data-toc-skip>Chapter 3: Similarities and Dissimilarities Data (Coming soon)</h6></li>
-    <li><a class="dropdown-item" href="../articles/ch4.html">Chapter 4: Rating Scale Data (In progress)</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Chapter 5: Binary Choice Data (Coming soon)</h6></li>
+    <li><a class="dropdown-item" href="../articles/ch4.html">Chapter 4: Rating Scale Data</a></li>
+    <li><a class="dropdown-item" href="../articles/ch5.html">Chapter 5: Binary Choice Data (Coming soon)</a></li>
     <li><h6 class="dropdown-header" data-toc-skip>Chapter 6: Bayesian Scaling Models (Coming soon)</h6></li>
     <li><h6 class="dropdown-header" data-toc-skip>Special Topics &amp; Applications (Coming soon)</h6></li>
   </ul></li>
@@ -165,7 +165,8 @@ The function handles missing data by excluding respondents with insufficient res
 <span class="r-in"><span><span class="co"># Load the ANES1968 dataset</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">anes.input</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Perform Bayesian unfolding</span></span></span>
-<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">bayesunfold</span><span class="op">(</span><span class="va">anes.input</span>, dims <span class="op">=</span> <span class="fl">2</span>, nsamp <span class="op">=</span> <span class="fl">20</span>, burnin <span class="op">=</span> <span class="fl">5</span>, cred.level <span class="op">=</span> <span class="fl">0.9</span>, slice.starts <span class="op">=</span> <span class="st">"lbfgs"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">bayesunfold</span><span class="op">(</span><span class="va">anes.input</span>, dims <span class="op">=</span> <span class="fl">2</span>, </span></span>
+<span class="r-in"><span>nsamp <span class="op">=</span> <span class="fl">20</span>, burnin <span class="op">=</span> <span class="fl">5</span>, cred.level <span class="op">=</span> <span class="fl">0.9</span>, slice.starts <span class="op">=</span> <span class="st">"lbfgs"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

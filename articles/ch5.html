@@ -55,8 +55,8 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-codes-and-examples">
 <li><a class="dropdown-item" href="../articles/ch2.html">Chapter 2: Analyzing Issue Scales</a></li>
     <li><h6 class="dropdown-header" data-toc-skip>Chapter 3: Similarities and Dissimilarities Data (Coming soon)</h6></li>
-    <li><a class="dropdown-item" href="../articles/ch4.html">Chapter 4: Rating Scale Data (In progress)</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Chapter 5: Binary Choice Data (Coming soon)</h6></li>
+    <li><a class="dropdown-item" href="../articles/ch4.html">Chapter 4: Rating Scale Data</a></li>
+    <li><a class="dropdown-item" href="../articles/ch5.html">Chapter 5: Binary Choice Data (Coming soon)</a></li>
     <li><h6 class="dropdown-header" data-toc-skip>Chapter 6: Bayesian Scaling Models (Coming soon)</h6></li>
     <li><h6 class="dropdown-header" data-toc-skip>Special Topics &amp; Applications (Coming soon)</h6></li>
   </ul>
@@ -169,7 +169,7 @@ FIGURE 5.2: Partisan Polarization in the 90th, 100th, and 110th Houses
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## W-NOMINATE estimation completed successfully.</span></span>
-<span><span class="co">## W-NOMINATE took 54.252 seconds to execute.</span></span></code></pre>
+<span><span class="co">## W-NOMINATE took 95.345 seconds to execute.</span></span></code></pre>
 <p>Create a grouping variable based on partyCode and icpsrState.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">legislators</span><span class="op">)</span><span class="op">)</span></span>
@@ -334,7 +334,7 @@ Bootstrap)<a class="anchor" aria-label="anchor" href="#example-2-the-first-europ
 <span><span class="co">##      Starting bootstrap iterations...</span></span>
 <span><span class="co">## ...      Computing standard errors...</span></span>
 <span><span class="co">## W-NOMINATE estimation completed successfully.</span></span>
-<span><span class="co">## W-NOMINATE took 217.91 seconds to execute.</span></span></code></pre>
+<span><span class="co">## W-NOMINATE took 345.574 seconds to execute.</span></span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_wnom_coords.html">plot_wnom_coords</a></span><span class="op">(</span><span class="va">result</span>, shapeVar <span class="op">=</span> <span class="cn">NULL</span>, dropNV<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>                 ptSize<span class="op">=</span><span class="fl">4</span>, ci<span class="op">=</span><span class="cn">FALSE</span>, level<span class="op">=</span><span class="fl">.95</span><span class="op">)</span></span></code></pre></div>
