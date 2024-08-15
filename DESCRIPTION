@@ -18,6 +18,7 @@ Remotes:
 Imports:
     rjags,
     stats,
+    smacof,
     basicspace,
     boot,
     coda,
@@ -25,10 +26,12 @@ Imports:
     grDevices,
     MASS,
     utils,
-    ellipse
+    ellipse,
+    plyr,
+    vegan
 Suggests:
     car,
-    smacof,
+    ooc,
     wnominate,
     pscl,
     knitr,

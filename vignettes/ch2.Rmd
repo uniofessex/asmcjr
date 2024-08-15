@@ -28,7 +28,7 @@ result.france <- aldmck(franceEES2009, respondent=1, polarity=2,
 # plot stimuli locations in addition to ideal point density
 library(ggplot2)
 # plot density of ideal points
- plot_resphist(result.france, xlab="Left-Right")
+plot_resphist(result.france, xlab="Left-Right")
 ```
 
 ```{r warning=TRUE, fig.cap="FIGURE 2.2: Aldrich-McKelvey Scaling of Left-Right Placements of French Political Parties (2009 European Election Study)"}

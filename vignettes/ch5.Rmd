@@ -1,0 +1,172 @@
+---
+title: "Unfolding Analysis of Binary Choice Data"
+# author: "Yen-Chieh Liao"
+# date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Unfolding Analysis of Binary Choice Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## 5.3 Parametric Methods - NOMINATE
+#### 5.3.3 Accessing DW-NOMINATE Scores
+
+
+```{r}
+library(asmcjr)
+data(rcx)
+```
+
+```{r}
+# select the Congress terms of interest
+ncong <- c(90, 100, 110)
+
+# Filter the data for rows where the Congress number is in ncong and dist is not equal to 0
+sub <- with(rcx, which(cong %in% ncong & dist != 0))
+
+# Create a matrix containing the first dimension scores (dwnom1), party affiliation, 
+# and a factor indicating the Congress (e.g., "House 90", "House 100", "House 110")
+polarization <- cbind(
+  rcx[sub, c("dwnom1", "party")],  # Select columns for first dimension score and party
+  congress = factor(paste("House", rcx$cong[sub]),  # Create a factor for the Congress
+                    levels = c("House 90", "House 100", "House 110"))
+)
+```
+
+
+
+```{r warning=TRUE, fig.cap="FIGURE 5.2: Partisan Polarization in the 90th, 100th, and 110th Houses"}
+library(ggplot2)
+
+# Ensure that 'party' is a factor
+polarization$party <- as.factor(polarization$party)
+
+# Create the plot
+ggplot(polarization, aes(x = dwnom1, group = party, colour = party, fill = party)) +
+  geom_density(adjust = 2.5, alpha = .2) +
+  facet_wrap(~congress, ncol = 2) +
+  xlab("DW-Nominate\n(First Dimension)") +
+  theme_bw() +
+  scale_colour_manual(values = c("gray25", "gray75"), name = "Party") +
+  scale_fill_manual(values = c("gray25", "gray75"), name = "Party") +
+  theme(aspect.ratio = 1, legend.position = "bottom")
+
+```
+
+#### 5.3.5 Example 1: The 108th US House
+```{r message=FALSE, warning=FALSE}
+library(wnominate)
+result <- wnominate(hr108, ubeta=15, uweights=0.5, dims=2,
+                    minvotes=20, lop=0.025, trials=1, polarity=c(1,5), verbose=FALSE)
+```
+
+Create a grouping variable based on partyCode and icpsrState.
+```{r}
+group <- rep(NA, nrow(result$legislators))
+group[with(result$legislators, which(partyCode == 100 & icpsrState %in% c(40:51, 53, 54)))] <- 1
+group[with(result$legislators, which(partyCode == 100 & icpsrState %in% c(1:39, 52, 55:82)))] <- 2
+group[with(result$legislators, which(partyCode == 200))] <- 3
+group[with(result$legislators, which(partyCode == 328))] <- 4
+
+# Convert the group variable to a factor with appropriate labels
+group <- factor(group, levels = 1:4,
+                labels = c("Southern Dems", "Northern Dems",
+                           "Republicans", "Independents"))
+
+```
+
+```{r warning=TRUE, fig.cap="FIGURE 5.3: W-NOMINATE Ideal Point Estimates of Members of the 108th US House of Representatives"}
+library(ggplot2)
+# Plot using plot_wnom_coords with customized colors and shapes
+plot_wnom_coords(result, shapeVar = group, dropNV = FALSE) +
+  scale_color_manual(values = gray.colors(4, end = .75), name = "Party Group",
+                     labels = c("Southern Dems", "Northern Dems",
+                                "Republicans", "Independents")) +
+  scale_shape_manual(values = c("S", "N", "R", "I"), name = "Party Group",
+                     labels = c("Southern Dems", "Northern Dems",
+                                "Republicans", "Independents")) +
+  theme_bw() +
+  theme(aspect.ratio = 1, legend.position = "bottom") +
+  xlab("First Dimension") +
+  ylab("Second Dimension") +
+  guides(colour = guide_legend(nrow = 2))
+```
+
+Shows the roll call choices of all voting legislators. 
+```{r warning=TRUE, fig.cap="FIGURE 5.4: W-NOMINATE Analysis of the 108th House Vote on the Partial-Birth Abortion Ban Act of 2003, All Legislators"}
+# Calculate the weight based on the result's weights
+weight <-  result$weights[2] / result$weights[1]
+
+# Create a data frame with the first and second dimension coordinates, adjusting the second dimension by the weight
+wnom.dat <- data.frame(
+  coord1D = result$legislators$coord1D,
+  coord2D = result$legislators$coord2D * weight,
+  group = group
+)
+
+# Plot the roll call results
+plot_rollcall(result, hr108, wnom.dat, 528, wnom.dat$group, dropNV = TRUE) +
+  theme_bw() +
+  scale_shape_manual(values = c("S", "D", "R", "I"), name = "Party Group") +
+  xlab("First Dimension") +
+  ylab("Second Dimension") +
+  theme(aspect.ratio = 1, legend.position = "bottom") +
+  guides(shape = guide_legend(nrow = 2))
+
+```
+
+We can calculate the PRE (Proportional Reduction in Error) statistic and display it in the plot below the number of errors as below:
+```{r}
+rc.errors(result, hr108, 528)[c("tot.errors", "PRE")]
+```
+
+
+To plot only those legislators who committed voting errors, we can use the plot_rollcall() function from above.
+```{r warning=TRUE, fig.cap="FIGURE 5.5: W-NOMINATE Analysis of the 108th House Vote on the Partial-Birth Abortion Ban Act of 2003, Errors Only"}
+plot_rollcall(result, hr108, wnom.dat, 528,
+             shapeVar=wnom.dat$group, onlyErrors=TRUE) +
+  scale_shape_manual(values=c("S", "N", "R"), name="Party Group") +
+  theme_bw() +
+  theme(aspect.ratio=1, legend.position="bottom") +
+  xlab("First Dimension") +
+  ylab("Second Dimension") +
+  guides(shape = guide_legend(nrow=2))
+```
+#### 5.3.5.3 The Coombs Mesh and Cutting Line Angles
+The Coombs mesh also illustrates how cutting planes intersect to form polytopes (bounded regions in the space). 
+```{r}
+angles <- makeCutlineAngles(result)
+head(angles)
+```
+
+```{r}
+print(angles[528,])
+```
+
+```{r}
+mean(abs(angles$angle), na.rm=TRUE)
+```
+
+
+```{r warning=TRUE, fig.cap="FIGURE 5.7: Histogram of Cutting Line Angles of Roll Call Votes in the 108th US House"}
+ggplot(angles, aes(x=angle)) +
+     geom_histogram() +
+     theme_bw() +
+     theme(aspect.ratio=1) +
+     xlab("Cutline Angles")
+```
+
+
+#### 5.3.6 Example 2: The First European Parliament (Using the Parametric Bootstrap)
+```{r}
+library(wnominate)
+result <- wnominate(rc_ep, ubeta=15, uweights=0.5, dims=2, minvotes=20,
+                    lop=0.025, trials=5, polarity=c(25,25), verbose=FALSE)
+```
+
+```{r warning=TRUE, fig.cap="FIGURE 5.8: W-NOMINATE Ideal Point Estimates of Members of the First European Parliament"}
+plot_wnom_coords(result, shapeVar = NULL, dropNV=TRUE,
+                 ptSize=4, ci=FALSE, level=.95)
+```
+
