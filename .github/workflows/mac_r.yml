@@ -33,20 +33,14 @@ jobs:
       - name: Install LaTeX on macOS
         run: brew install --cask mactex-no-gui
 
-      - name: Install gfortran
-        run: brew install gfortran
-
-      - name: Update TeX packages
-        run: sudo tlmgr update --self --all
+      - name: Add TeX Live to PATH
+        run: |
+          echo "/usr/local/texlive/2023basic/bin/x86_64-darwin/" >> $GITHUB_PATH
 
       - name: Set up R ${{ matrix.r-version }}
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.r-version }}
-
-      - name: Set CRAN mirror
-        run: |
-          Rscript -e "options(repos = c(CRAN = 'https://cran.rstudio.com/'))"
 
       - name: Install remotes package
         run: |
@@ -62,6 +56,12 @@ jobs:
         run: |
           Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"
 
+      - name: Set CRAN mirror and install other R package dependencies
+        env:
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
+        run: |
+          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('rjags', 'ggplot2', 'knitr'));"
+
       - name: Install rcmdcheck package
         run: |
           Rscript -e "install.packages('rcmdcheck')"
@@ -73,3 +73,4 @@ jobs:
       - name: Test (optional)
         run: |
           Rscript -e "devtools::test()"
+
