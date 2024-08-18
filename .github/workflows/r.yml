@@ -29,7 +29,7 @@ jobs:
 
       - name: Download and install JAGS
         run: |
-          Invoke-WebRequest -Uri "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe/download" -OutFile "JAGS-4.3.0.exe"
+          curl -L -o JAGS-4.3.0.exe https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe/download
           Start-Process -FilePath .\JAGS-4.3.0.exe -ArgumentList '/S' -NoNewWindow -Wait
         shell: powershell
 
