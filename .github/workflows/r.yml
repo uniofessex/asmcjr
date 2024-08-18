@@ -32,7 +32,6 @@ jobs:
           choco install jags
           choco install miktex
           choco install rtools
-          choco install gfortran
         shell: cmd
 
       - name: Update MiKTeX package database
