@@ -52,45 +52,31 @@ jobs:
           Rscript -e "tinytex::install_tinytex()"
 
       - name: Set CRAN mirror
-        run: |
-          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/'))"
-        shell: Rscript {0}
+        run: Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org/"))'
+        shell: /bin/bash -e {0}
 
       - name: Install remotes package
-        run: |
-          Rscript -e "install.packages('remotes')"
+        run: Rscript -e 'install.packages("remotes")'
 
       - name: Install package dependencies
-        run: |
-          Rscript -e "install.packages(c('smacof', 'vegan'), dependencies = TRUE)"
-        shell: Rscript {0}
+        run: Rscript -e 'install.packages(c("smacof", "vegan"), dependencies = TRUE)'
 
       - name: Install basicspace from GitHub
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
-        run: |
-          Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"
-        shell: Rscript {0}
+        run: Rscript -e 'remotes::install_github("cran/basicspace", force = TRUE)'
 
       - name: Install other R package dependencies
-        run: |
-          Rscript -e "install.packages(c('rjags', 'ggplot2', 'knitr'))"
-        shell: Rscript {0}
+        run: Rscript -e 'install.packages(c("rjags", "ggplot2", "knitr"))'
 
       - name: Install rcmdcheck package
-        run: |
-          Rscript -e "install.packages('rcmdcheck')"
-        shell: Rscript {0}
+        run: Rscript -e 'install.packages("rcmdcheck")'
 
       - name: Check
-        run: |
-          Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
-        shell: Rscript {0}
+        run: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
 
       - name: Test (optional)
-        run: |
-          Rscript -e "devtools::test()"
-        shell: Rscript {0}
+        run: Rscript -e 'devtools::test()'
 
     env:
       R_LIBS_USER: /Users/runner/work/_temp/Library
