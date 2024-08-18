@@ -46,7 +46,7 @@ jobs:
         env:
           GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}  # 使用正确的 PAT
         run: |
-          Rscript -e "remotes::install_github('username/basicspace', force = TRUE)"  
+          Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"  
 
       - name: Set CRAN mirror and install other R package dependencies
         env:
