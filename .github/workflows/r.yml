@@ -27,9 +27,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install JAGS on Windows
-        run: choco install jags -y
-        shell: cmd
+      - name: Download and install JAGS
+        run: |
+          Invoke-WebRequest -Uri "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe/download" -OutFile "JAGS-4.3.0.exe"
+          Start-Process -FilePath .\JAGS-4.3.0.exe -ArgumentList '/S' -NoNewWindow -Wait
+        shell: powershell
 
       - name: Add JAGS to PATH
         run: |
@@ -59,14 +61,14 @@ jobs:
 
       - name: Install basicspace from GitHub
         env:
-          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
+          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
         run: |
           Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"
         shell: cmd
 
       - name: Set CRAN mirror and install other R package dependencies
         env:
-          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
+          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
         run: |
           Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('ggplot2', 'knitr'));"
         shell: cmd
