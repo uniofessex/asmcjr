@@ -27,11 +27,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install system dependencies on Windows
+      - name: Install JAGS on Windows
+        run: choco install jags -y
+        shell: cmd
+
+      - name: Add JAGS to PATH
         run: |
-          choco install jags
-          choco install miktex
-          choco install rtools
+          echo "C:\Program Files\JAGS\JAGS-4.3.0\bin" >> $GITHUB_PATH
         shell: cmd
 
       - name: Verify JAGS installation
