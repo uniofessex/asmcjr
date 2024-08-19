@@ -50,16 +50,15 @@ jobs:
         shell: /bin/bash -e {0}
 
       - name: Install package dependencies
-        run: |
-          Rscript -e "install.packages(c('smacof', 'ellipse', 'plyr', 'vegan'))"
-        shell: Rscript {0}
-
+        run: Rscript -e 'install.packages(c("smacof", "ellipse", "plyr", "vegan"))'
+        shell: /bin/bash -e {0}
+        
       - name: Install basicspace from GitHub
         env:
           GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
-        run: |
-          Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"
+        run: 'Rscript -e "remotes::install_github(\'cran/basicspace\', force = TRUE)"'
         shell: Rscript {0}
+        
 
       - name: Set CRAN mirror and install other R package dependencies
         env:
