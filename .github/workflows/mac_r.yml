@@ -40,6 +40,9 @@ jobs:
             echo "Found gfortran in /opt/homebrew/bin"
           elif [ -x "/usr/local/bin/gfortran" ]; then
             echo "Found gfortran in /usr/local/bin"
+          elif [ -x "/opt/homebrew/opt/gcc/bin/gfortran" ]; then
+            echo "Found gfortran in /opt/homebrew/opt/gcc/bin"
+            echo "/opt/homebrew/opt/gcc/bin" >> $GITHUB_PATH
           else
             echo "gfortran not found"
             exit 1
