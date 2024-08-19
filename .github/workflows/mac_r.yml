@@ -63,7 +63,7 @@ jobs:
 
       - name: Install basicspace from GitHub
         env:
-          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
         run: Rscript -e 'remotes::install_github("cran/basicspace", force = TRUE)'
 
       - name: Install other R package dependencies
