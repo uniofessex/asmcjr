@@ -14,7 +14,7 @@ on:
     branches: [ "master" ]
 
 permissions:
-  contents: read
+  contents: read 
 
 jobs:
   build:
@@ -27,59 +27,80 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install JAGS on macOS
-        run: brew install jags
+      - name: Install system dependencies on macOS
+        run: |
+          brew install jags
+          brew install --cask mactex-no-gui
+          brew install gfortran
+        shell: bash
 
-      - name: Install gcc (includes gfortran)
-        run: brew install gcc
+      - name: Configure Makevars for gfortran
+        run: |
+          mkdir -p ~/.R
+          echo "FC = /opt/homebrew/opt/gcc/bin/gfortran" >> ~/.R/Makevars
+          echo "F77 = /opt/homebrew/opt/gcc/bin/gfortran" >> ~/.R/Makevars
+          echo "FLIBS = -L/opt/homebrew/opt/gcc/lib/gcc/current -lgfortran -lquadmath -lm" >> ~/.R/Makevars
+        shell: bash
 
-      - name: Ensure gfortran is in PATH
+      - name: Set PATH for gfortran
         run: |
           echo "/opt/homebrew/bin" >> $GITHUB_PATH
           echo "/opt/homebrew/opt/gcc/bin" >> $GITHUB_PATH
+        shell: bash
 
-      - name: Verify gfortran installation
-        run: which gfortran
+      - name: Check gfortran installation
+        run: |
+          which gfortran
+          gfortran --version
+        shell: bash
 
       - name: Set up R ${{ matrix.r-version }}
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.r-version }}
 
-      - name: Install TinyTeX
-        run: |
-          Rscript -e "install.packages('tinytex')"
-          Rscript -e "tinytex::install_tinytex()"
-
-      - name: Set CRAN mirror
-        run: Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org/"))'
-        shell: /bin/bash -e {0}
-
       - name: Install remotes package
-        run: Rscript -e 'install.packages("remotes")'
+        run: |
+          Rscript -e "install.packages('remotes')"
+        shell: Rscript {0}
 
       - name: Install package dependencies
-        run: Rscript -e 'install.packages(c("smacof", "basicspace", "vegan"), dependencies = TRUE)'
+        run: |
+          Rscript -e "install.packages(c('smacof', 'ellipse', 'plyr', 'vegan'))"
+        shell: Rscript {0}
 
       - name: Install basicspace from GitHub
         env:
           GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
-        run: Rscript -e 'remotes::install_github("cran/basicspace", force = TRUE)'
+        run: |
+          Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"
+        shell: Rscript {0}
 
-      - name: Install other R package dependencies
-        run: Rscript -e 'install.packages(c("rjags", "ggplot2", "knitr"))'
+      - name: Set CRAN mirror and install other R package dependencies
+        env:
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
+        run: |
+          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('rjags', 'ggplot2', 'knitr'));"
+        shell: Rscript {0}
 
       - name: Install rcmdcheck package
-        run: Rscript -e 'install.packages("rcmdcheck")'
+        run: |
+          Rscript -e "install.packages('rcmdcheck')"
+        shell: Rscript {0}
 
-      - name: Check
-        run: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
+      - name: Run R CMD check
+        env:
+          PATH: /opt/homebrew/opt/gcc/bin:/opt/homebrew/bin:$PATH
+        run: |
+          Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
+        shell: Rscript {0}
 
       - name: Test (optional)
-        run: Rscript -e 'devtools::test()'
+        run: |
+          Rscript -e "devtools::test()"
+        shell: Rscript {0}
 
     env:
-      R_LIBS_USER: /Users/runner/work/_temp/Library
       TZ: UTC
-      _R_CHECK_SYSTEM_CLOCK_: FALSE
+      _R_CHECK_SYSTEM_CLOCK_: false
       NOT_CRAN: true
