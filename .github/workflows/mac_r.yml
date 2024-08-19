@@ -52,6 +52,7 @@ jobs:
       - name: Adjust gfortran library paths
         run: |
           if [ -d "/opt/homebrew/opt/gcc" ]; then
+            sudo mkdir -p /opt/R/arm64/gfortran/lib/gcc
             sudo ln -sf /opt/homebrew/opt/gcc/lib/gcc /opt/R/arm64/gfortran/lib/gcc
             sudo ln -sf /opt/homebrew/opt/gcc/lib /opt/R/arm64/gfortran/lib
           fi
@@ -110,3 +111,4 @@ jobs:
       TZ: UTC
       _R_CHECK_SYSTEM_CLOCK_: false
       NOT_CRAN: true
+
