@@ -31,21 +31,29 @@ jobs:
         run: |
           brew install jags
           brew install --cask mactex-no-gui
-          brew install gfortran
+          brew install gcc
+        shell: bash
+
+      - name: Check for gfortran in common paths
+        run: |
+          if [ -x "/opt/homebrew/bin/gfortran" ]; then
+            echo "Found gfortran in /opt/homebrew/bin"
+          elif [ -x "/usr/local/bin/gfortran" ]; then
+            echo "Found gfortran in /usr/local/bin"
+          else
+            echo "gfortran not found"
+            exit 1
+          fi
         shell: bash
 
       - name: Create symbolic link for gfortran
         run: |
           sudo mkdir -p /opt/R/arm64/bin
-          sudo ln -s $(which gfortran) /opt/R/arm64/bin/gfortran
+          sudo ln -sf $(which gfortran) /opt/R/arm64/bin/gfortran
         shell: bash
         
       - name: Verify gfortran installation
-        run: which gfortran
-        shell: bash
-      
-      - name: Check gfortran version
-        run: gfortran --version
+        run: which gfortran && gfortran --version
         shell: bash
 
       - name: Set up R ${{ matrix.r-version }}
