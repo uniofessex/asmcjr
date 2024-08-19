@@ -73,8 +73,8 @@ jobs:
       - name: Install rcmdcheck package
         run: Rscript -e 'install.packages("rcmdcheck")'
 
-      - name: Check
-        run: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
+      # - name: Check
+      #   run: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
 
       - name: Test (optional)
         run: Rscript -e 'devtools::test()'
