@@ -33,14 +33,13 @@ jobs:
       - name: Install gcc (includes gfortran)
         run: brew install gcc
 
-      - name: Locate gfortran
-        run: which gfortran
-
-      - name: Set FC environment variable
+      - name: Ensure gfortran is in PATH
         run: |
-          export FC=$(which gfortran)
-          echo "FC=$FC" >> $GITHUB_ENV
-        shell: bash
+          echo "/opt/homebrew/bin" >> $GITHUB_PATH
+          echo "/opt/homebrew/opt/gcc/bin" >> $GITHUB_PATH
+
+      - name: Verify gfortran installation
+        run: which gfortran
 
       - name: Set up R ${{ matrix.r-version }}
         uses: r-lib/actions/setup-r@v2
@@ -60,7 +59,7 @@ jobs:
         run: Rscript -e 'install.packages("remotes")'
 
       - name: Install package dependencies
-        run: Rscript -e 'install.packages(c("smacof" "vegan"), dependencies = TRUE)'
+        run: Rscript -e 'install.packages(c("smacof", "basicspace", "vegan"), dependencies = TRUE)'
 
       - name: Install basicspace from GitHub
         env:
@@ -73,8 +72,8 @@ jobs:
       - name: Install rcmdcheck package
         run: Rscript -e 'install.packages("rcmdcheck")'
 
-      # - name: Check
-      #   run: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
+      - name: Check
+        run: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
 
       - name: Test (optional)
         run: Rscript -e 'devtools::test()'
