@@ -59,12 +59,13 @@ jobs:
         run: Rscript -e 'install.packages("remotes")'
 
       - name: Install package dependencies
-        run: Rscript -e 'install.packages(c("smacof", "vegan"), dependencies = TRUE)'
+        run: Rscript -e 'install.packages(c("smacof", "basicspace", "vegan"), dependencies = TRUE)'
 
       - name: Install basicspace from GitHub
         env:
-          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
         run: Rscript -e 'remotes::install_github("cran/basicspace", force = TRUE)'
+
 
       - name: Install other R package dependencies
         run: Rscript -e 'install.packages(c("rjags", "ggplot2", "knitr"))'
