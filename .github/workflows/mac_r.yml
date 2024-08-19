@@ -39,6 +39,14 @@ jobs:
           sudo mkdir -p /opt/R/arm64/bin
           sudo ln -s $(which gfortran) /opt/R/arm64/bin/gfortran
         shell: bash
+        
+      - name: Verify gfortran installation
+        run: which gfortran
+        shell: bash
+      
+      - name: Check gfortran version
+        run: gfortran --version
+        shell: bash
 
       - name: Set up R ${{ matrix.r-version }}
         uses: r-lib/actions/setup-r@v2
