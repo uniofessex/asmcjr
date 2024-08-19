@@ -58,20 +58,28 @@ jobs:
           fi
         shell: bash
 
-      - name: Verify gfortran installation
-        run: which gfortran && gfortran --version
+      - name: Add Rscript to PATH
+        run: |
+          if [ -x "/Library/Frameworks/R.framework/Resources/bin/Rscript" ]; then
+            echo "/Library/Frameworks/R.framework/Resources/bin" >> $GITHUB_PATH
+          elif [ -x "/usr/local/bin/Rscript" ]; then
+            echo "/usr/local/bin" >> $GITHUB_PATH
+          else
+            echo "Rscript not found, exiting."
+            exit 1
+          fi
         shell: bash
-
-      - name: Set up R ${{ matrix.r-version }}
-        uses: r-lib/actions/setup-r@v2
-        with:
-          r-version: ${{ matrix.r-version }}
 
       - name: Verify Rscript is available
         run: |
           which Rscript
           Rscript --version
         shell: bash
+
+      - name: Set up R ${{ matrix.r-version }}
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.r-version }}
 
       - name: Install remotes package
         run: Rscript -e 'install.packages("remotes")'
@@ -111,4 +119,5 @@ jobs:
       TZ: UTC
       _R_CHECK_SYSTEM_CLOCK_: false
       NOT_CRAN: true
+
 
