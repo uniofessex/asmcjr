@@ -46,9 +46,8 @@ jobs:
           r-version: ${{ matrix.r-version }}
 
       - name: Install remotes package
-        run: |
-          Rscript -e "install.packages('remotes')"
-        shell: Rscript {0}
+        run: Rscript -e 'install.packages("remotes")'
+        shell: /bin/bash -e {0}
 
       - name: Install package dependencies
         run: |
