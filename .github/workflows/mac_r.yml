@@ -126,9 +126,9 @@ jobs:
           r-version: ${{ matrix.r-version }}
 
       - name: Install remotes package
-        run: |
-          Rscript -e "install.packages('remotes')"
-        shell: cmd
+        run: Rscript -e 'install.packages("remotes")'
+        shell: /bin/bash -e {0}
+
 
       - name: Install CRAN packages including rjags
         run: |
