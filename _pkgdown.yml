@@ -75,11 +75,11 @@ navbar:
       menu:
       - text: "Chapter 2: Analyzing Issue Scales"
         href: articles/ch2.html
-      - text: "Chapter 3: Similarities and Dissimilarities Data (Coming soon)"
-        href: 
+      - text: "Chapter 3: Similarities and Dissimilarities Data"
+        href: articles/ch3.html
       - text: "Chapter 4: Rating Scale Data"
         href: articles/ch4.html
-      - text: "Chapter 5: Binary Choice Data (Coming soon)"
+      - text: "Chapter 5: Binary Choice Data (In prgoress)"
         href: articles/ch5.html
       - text: "Chapter 6: Bayesian Scaling Models (Coming soon)"
         href: 

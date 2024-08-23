@@ -5,41 +5,34 @@
 #
 # See https://github.com/r-lib/actions/tree/master/examples#readme for
 # additional example workflows available for the R community.
-name: R Package CI for Windows
+name: R Package CI for macOS
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 permissions:
-  contents: read 
+  contents: read
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: macos-latest
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [macos-latest]
         r-version: ['4.1.1']
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install system dependencies on Windows
+      - name: Install system dependencies on macOS
         run: |
-          choco install jags
-          choco install miktex
-          choco install rtools
-          choco install gfortran
-        shell: cmd
-
-      - name: Update MiKTeX package database
-        run: |
-          mpm --update-db
-          mpm --update
-        shell: cmd
+          brew install jags
+          brew install --cask mactex-no-gui
+          brew install gcc
+        shell: bash
 
       - name: Set up R ${{ matrix.r-version }}
         uses: r-lib/actions/setup-r@v2
@@ -47,45 +40,43 @@ jobs:
           r-version: ${{ matrix.r-version }}
 
       - name: Install remotes package
-        run: |
-          Rscript -e "install.packages('remotes')"
-        shell: Rscript {0}
+        run: Rscript -e 'install.packages("remotes")'
+        shell: /bin/bash -e {0}
 
       - name: Install package dependencies
-        run: |
-          Rscript -e "install.packages(c('smacof', 'ellipse', 'plyr', 'vegan'))"
-        shell: Rscript {0}
+        run: Rscript -e 'install.packages(c("smacof", "ellipse", "plyr", "vegan"))'
+        shell: /bin/bash -e {0}
 
       - name: Install basicspace from GitHub
         env:
           GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
-        run: |
-          Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"
-        shell: Rscript {0}
+        run: Rscript -e 'remotes::install_github("cran/basicspace", force = TRUE)'
+        shell: /bin/bash -e {0}
 
       - name: Set CRAN mirror and install other R package dependencies
         env:
           GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
-        run: |
-          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('rjags', 'ggplot2', 'knitr'));"
-        shell: Rscript {0}
+        run: Rscript -e 'options(repos = c(CRAN = "https://cloud.r-project.org/")); install.packages(c("rjags", "ggplot2", "knitr"))'
+        shell: /bin/bash -e {0}
 
       - name: Install rcmdcheck package
-        run: |
-          Rscript -e "install.packages('rcmdcheck')"
-        shell: Rscript {0}
+        run: Rscript -e 'install.packages("rcmdcheck")'
+        shell: /bin/bash -e {0}
 
-      - name: Check
-        run: |
-          Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
-        shell: Rscript {0}
+      - name: Run R CMD check
+        env:
+          PATH: /opt/homebrew/opt/gcc/bin:/opt/homebrew/bin:$PATH
+        run: Rscript -e 'rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")'
+        shell: /bin/bash -e {0}
 
       - name: Test (optional)
-        run: |
-          Rscript -e "devtools::test()"
-        shell: Rscript {0}
+        run: Rscript -e 'devtools::test()'
+        shell: /bin/bash -e {0}
 
     env:
       TZ: UTC
-      _R_CHECK_SYSTEM_CLOCK_: FALSE
+      _R_CHECK_SYSTEM_CLOCK_: false
       NOT_CRAN: true
+
+
+
