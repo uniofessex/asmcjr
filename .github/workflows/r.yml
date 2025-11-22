@@ -1,17 +1,10 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-#
-# See https://github.com/r-lib/actions/tree/master/examples#readme for
-# additional example workflows available for the R community.
 name: R Package CI for Windows
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["main", "master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["main", "master"]
 
 permissions:
   contents: read
@@ -19,80 +12,73 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        os: [windows-latest]
-        r-version: ['4.1.1']
-
+    
     steps:
       - uses: actions/checkout@v4
-
+      
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4.1'
+          use-public-rspm: true
+      
       - name: Download and install JAGS
         run: |
           curl -L -o JAGS-4.3.0.exe https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe/download
           if (Test-Path -Path ".\JAGS-4.3.0.exe") {
             Start-Process -FilePath ".\JAGS-4.3.0.exe" -ArgumentList '/S' -NoNewWindow -Wait
+            Write-Output "JAGS installed successfully"
           } else {
-            Write-Error "Failed to download JAGS installer."
+            Write-Error "Failed to download JAGS installer"
+            exit 1
           }
         shell: powershell
-
+      
       - name: Add JAGS to PATH
         run: |
-          echo "C:\Program Files\JAGS\JAGS-4.3.0\bin" >> $GITHUB_PATH
-        shell: cmd
-
+          echo "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        shell: powershell
+      
       - name: Verify JAGS installation
-        run: jags --version
-        shell: cmd
-
-      - name: Set up R ${{ matrix.r-version }}
-        uses: r-lib/actions/setup-r@v2
-        with:
-          r-version: ${{ matrix.r-version }}
-
-      - name: Install remotes package
         run: |
-          Rscript -e "install.packages('remotes')"
-        shell: cmd
-
-      - name: Install CRAN packages including rjags
+          Get-Command jags -ErrorAction Stop
+          jags --version
+        shell: powershell
+      
+      - name: Install R dependencies
         run: |
-          Rscript -e "options(repos = 'https://cloud.r-project.org/')"
-          Rscript -e "install.packages('rjags')"
-          Rscript -e "install.packages(c('smacof', 'ellipse', 'plyr', 'vegan'), dependencies=TRUE)"
-        shell: cmd
-
+          install.packages(c("remotes", "rcmdcheck", "devtools"))
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+      
       - name: Install basicspace from GitHub
         env:
-          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"
-        shell: cmd
-
-      - name: Set CRAN mirror and install other R package dependencies
-        env:
-          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
+          remotes::install_github("cran/basicspace", force = TRUE)
+        shell: Rscript {0}
+      
+      - name: Check package
         run: |
-          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('ggplot2', 'knitr'));"
-        shell: cmd
-
-      - name: Install rcmdcheck package
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
+        shell: Rscript {0}
+      
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-results
+          path: check
+      
+      - name: Test package (optional)
         run: |
-          Rscript -e "install.packages('rcmdcheck')"
-        shell: cmd
-
-      - name: Check
-        run: |
-          Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
-        shell: cmd
-
-      - name: Test (optional)
-        run: |
-          Rscript -e "devtools::test()"
-        shell: cmd
+          if (file.exists("tests")) {
+            devtools::test()
+          } else {
+            message("No tests directory found, skipping tests")
+          }
+        shell: Rscript {0}
 
     env:
-      TZ: UTC
-      _R_CHECK_SYSTEM_CLOCK_: FALSE
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       NOT_CRAN: true
