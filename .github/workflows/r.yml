@@ -1,17 +1,17 @@
 name: R Package CI for Windows
-
 on:
   push:
     branches: ["main", "master"]
   pull_request:
     branches: ["main", "master"]
-
 permissions:
   contents: read
-
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      NOT_CRAN: true
     
     steps:
       - uses: actions/checkout@v4
@@ -52,8 +52,6 @@ jobs:
         shell: Rscript {0}
       
       - name: Install basicspace from GitHub
-        env:
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
           remotes::install_github("cran/basicspace", force = TRUE)
         shell: Rscript {0}
@@ -78,7 +76,3 @@ jobs:
             message("No tests directory found, skipping tests")
           }
         shell: Rscript {0}
-
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      NOT_CRAN: true

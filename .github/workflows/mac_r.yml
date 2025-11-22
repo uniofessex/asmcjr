@@ -1,17 +1,17 @@
 name: R Package CI for macOS
-
 on:
   push:
     branches: ["main", "master"]
   pull_request:
     branches: ["main", "master"]
-
 permissions:
   contents: read
-
 jobs:
   build:
     runs-on: macos-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      NOT_CRAN: true
     
     steps:
       - uses: actions/checkout@v4
@@ -50,8 +50,4 @@ jobs:
         uses: r-lib/actions/check-r-package@v2
         with:
           args: 'c("--no-manual", "--as-cran")'
-
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      NOT_CRAN: true
 
