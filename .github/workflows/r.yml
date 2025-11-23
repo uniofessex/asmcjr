@@ -34,17 +34,30 @@ jobs:
           }
         shell: powershell
       
-      - name: Add JAGS to system PATH
+      - name: Set JAGS environment and copy DLLs
         run: |
+          # 設定環境變數
+          echo "JAGS_HOME=C:/Program Files/JAGS/JAGS-4.3.0" >> $env:GITHUB_ENV
           echo "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin" >> $env:GITHUB_PATH
+          
+          # 將 JAGS DLLs 複製到 R 的 bin 目錄（確保 R 能找到）
+          $jagsbin = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
+          $rbin = "C:\R\bin\x64"
+          
+          if (Test-Path $jagsbin) {
+            Write-Output "Copying JAGS DLLs to R bin directory..."
+            Copy-Item "$jagsbin\*.dll" -Destination $rbin -Force
+            Write-Output "DLLs copied successfully"
+            Get-ChildItem "$rbin\jags*.dll"
+          }
         shell: powershell
       
       - name: Verify JAGS installation
         run: |
           if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0") {
             Write-Output "JAGS 4.3.0 is installed"
-            Write-Output "Checking JAGS bin directory:"
-            Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
+            Write-Output "JAGS DLLs:"
+            Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin\*.dll" | Select-Object Name
           } else {
             Write-Error "JAGS installation directory not found"
             exit 1
@@ -56,8 +69,6 @@ jobs:
           install.packages(c("remotes", "rcmdcheck", "devtools"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
-        env:
-          JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
       
       - name: Install basicspace from GitHub
         run: |
@@ -68,16 +79,13 @@ jobs:
         run: |
           library(rjags)
           cat('rjags loaded successfully\n')
+          cat('JAGS version:', jags.version(), '\n')
         shell: Rscript {0}
-        env:
-          JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
       
       - name: Check package
         run: |
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
         shell: Rscript {0}
-        env:
-          JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
       
       - name: Upload check results
         if: failure()
@@ -94,5 +102,3 @@ jobs:
             message("No tests directory found, skipping tests")
           }
         shell: Rscript {0}
-        env:
-          JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
