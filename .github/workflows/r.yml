@@ -1,4 +1,4 @@
-name: R Package CI for Windows
+name: R Package CI
 on:
   push:
     branches: ["main", "master"]
@@ -7,8 +7,8 @@ on:
 permissions:
   contents: read
 jobs:
-  build:
-    runs-on: windows-latest
+  R-CMD-check:
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       NOT_CRAN: true
@@ -22,41 +22,53 @@ jobs:
           r-version: '4.4.1'
           use-public-rspm: true
       
-      - name: Install system dependencies including JAGS
+      - name: Install system dependencies (including JAGS)
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y \
+            jags \
+            libgsl-dev \
+            libxml2-dev \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libfontconfig1-dev \
+            libharfbuzz-dev \
+            libfribidi-dev \
+            libfreetype6-dev \
+            libpng-dev \
+            libtiff5-dev \
+            libjpeg-dev
+      
+      - name: Verify JAGS installation
+        run: |
+          which jags
+          jags -h || echo "JAGS installed"
+      
+      - name: Install R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
             any::rcmdcheck
             any::devtools
             any::remotes
-            any::rjags
             github::cran/basicspace
           needs: check
       
-      - name: Verify JAGS and rjags
+      - name: Verify rjags
         run: |
-          cat("Testing rjags installation...\n")
-          tryCatch({
-            library(rjags)
-            cat("SUCCESS: rjags loaded\n")
-            cat("JAGS version:", jags.version(), "\n")
-          }, error = function(e) {
-            cat("ERROR: rjags failed to load\n")
-            cat("Error message:", conditionMessage(e), "\n")
-            cat("\nSystem info:\n")
-            print(sessionInfo())
-            stop("rjags installation failed")
-          })
+          library(rjags)
+          cat('rjags loaded successfully\n')
+          cat('JAGS version:', jags.version(), '\n')
         shell: Rscript {0}
       
       - name: Check package
         uses: r-lib/actions/check-r-package@v2
         with:
           args: 'c("--no-manual", "--as-cran")'
-      
+          
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: windows-results
+          name: check-results
           path: check

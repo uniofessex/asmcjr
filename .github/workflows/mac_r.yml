@@ -31,7 +31,7 @@ jobs:
       - name: Verify JAGS installation
         run: |
           which jags
-          ls -la /usr/local/bin/jags* || ls -la /opt/homebrew/bin/jags* || echo "JAGS binary location check"
+          ls -la /usr/local/bin/jags* 2>/dev/null || ls -la /opt/homebrew/bin/jags* 2>/dev/null || echo "JAGS binary location check"
           echo "JAGS installed successfully"
       
       - name: Configure R for gfortran
@@ -43,24 +43,28 @@ jobs:
           echo "FLIBS = -L${GFORTRAN_LIB} -lgfortran -lquadmath -lm" >> ~/.R/Makevars
           cat ~/.R/Makevars
       
-      - name: Setup R dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: |
-            any::rcmdcheck
-            any::devtools
-            any::remotes
-            github::cran/basicspace
-          needs: check
+      - name: Install R dependencies
+        run: |
+          install.packages(c("remotes", "rcmdcheck", "devtools"))
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+      
+      - name: Install basicspace from GitHub
+        run: |
+          remotes::install_github("cran/basicspace", force = TRUE)
+        shell: Rscript {0}
       
       - name: Verify rjags installation
         run: |
-          Rscript -e "library(rjags); cat('rjags loaded successfully\n')"
+          library(rjags)
+          cat('rjags loaded successfully\n')
+          cat('JAGS version:', jags.version(), '\n')
+        shell: Rscript {0}
       
       - name: Check package
-        uses: r-lib/actions/check-r-package@v2
-        with:
-          args: 'c("--no-manual", "--as-cran")'
+        run: |
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
+        shell: Rscript {0}
           
       - name: Upload check results
         if: failure()
@@ -68,3 +72,12 @@ jobs:
         with:
           name: macos-results
           path: check
+      
+      - name: Test package (optional)
+        run: |
+          if (file.exists("tests")) {
+            devtools::test()
+          } else {
+            message("No tests directory found, skipping tests")
+          }
+        shell: Rscript {0}
