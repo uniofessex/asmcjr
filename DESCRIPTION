@@ -40,7 +40,7 @@ Imports:
     vegan
 Suggests: 
     car, 
-    ooc, 
+    ooc,
     wnominate, 
     pscl, 
     knitr, 

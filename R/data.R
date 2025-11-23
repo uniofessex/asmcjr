@@ -1,6 +1,6 @@
-#' Result of Aldmck Analysis for France EES 2009 Data
-#'
-#' This dataset contains the result of the `aldmck` analysis applied to the `franceEES2009` dataset.
+#' @encoding UTF-8
+#' @title Result of Aldmck Analysis for France EES 2009 Data
+#' @description This dataset contains the result of the `aldmck` analysis applied to the `franceEES2009` dataset.
 #'
 #' @details
 #' The `result.france` object is generated using the `aldmck` function with the following parameters:
@@ -14,10 +14,9 @@
 #' @docType data
 NULL
 
-
-#' Selected Issues Sweden 2010 Dataset
-#'
-#' This dataset, `issues.sweden`, is a matrix created from the `Sweden2010` dataset, specifically using columns 7 to 56. It contains issue-related data from Sweden's 2010 election study.
+#' @encoding UTF-8
+#' @title Selected Issues Sweden 2010 Dataset
+#' @description This dataset, `issues.sweden`, is a matrix created from the `Sweden2010` dataset, specifically using columns 7 to 56. It contains issue-related data from Sweden's 2010 election study.
 #'
 #' @format A matrix with rows representing respondents and columns representing different issues or variables.
 #' @source Sweden 2010 Election Study
@@ -27,9 +26,9 @@ NULL
 NULL
 
 
-#' Rankings Data from France EES 2009
-#'
-#' This dataset, `rankings`, contains the rankings data extracted from the France 2009 European Election Study (EES). It is a matrix of numeric rankings for various political parties.
+#' @encoding UTF-8
+#' @title Rankings Data from France EES 2009
+#' @description This dataset, `rankings`, contains the rankings data extracted from the France 2009 European Election Study (EES). It is a matrix of numeric rankings for various political parties.
 #'
 #' @format A numeric matrix with rows representing respondents and columns representing the rankings of different political parties.
 #' @details
@@ -49,10 +48,10 @@ NULL
 #' @docType data
 NULL
 
-
-#' BAM Data from France EES 2009
+#' @encoding UTF-8
+#' @title BAM Data from France EES 2009
 #'
-#' This dataset, `bamdata`, was prepared using the `bamPrep` function on the France 2009 European Election Study (EES) data. It is used for Bayesian Aldrich-McKelvey (BAM) scaling.
+#' @description This dataset, `bamdata`, was prepared using the `bamPrep` function on the France 2009 European Election Study (EES) data. It is used for Bayesian Aldrich-McKelvey (BAM) scaling.
 #'
 #' @format A list of class `bamPrep` with two components:
 #' \describe{
@@ -68,9 +67,10 @@ NULL
 NULL
 
 
-#' BAM Analysis of French Political Data
+#' @encoding UTF-8
+#' @title BAM Analysis of French Political Data
 #'
-#' The object `bam.france` is a result of applying the `BAM()` function to a dataset (`bamdata`) with specific parameters 
+#' @description The object `bam.france` is a result of applying the `BAM()` function to a dataset `bamdata`) with specific parameters 
 #' to analyze French political data. This object contains the Bayesian Aldrich-McKelvey scaling results.
 #'
 #' @format A list of class `BAM` containing the following components:
@@ -78,9 +78,9 @@ NULL
 #'   \item{polarity}{The polarity of the analysis, set to 2 in this case. This indicates the polarity constraint applied during the scaling.}
 #'   \item{n.adapt}{The number of iterations used for adaptation, which was 2500 in this case.}
 #'   \item{n.sample}{The number of MCMC samples collected, which was 5000 in this case.}
-#'   \item{zhat}{A logical value indicating whether the ideal points should be adjusted for mean-zero scaling (`zhat=TRUE`).}
-#'   \item{ab}{A logical value indicating whether the response ideal points are used (`ab=TRUE`).}
-#'   \item{resp.idealpts}{A logical value indicating whether to estimate respondent ideal points (`resp.idealpts=TRUE`).}
+#'   \item{zhat}{A logical value indicating whether the ideal points should be adjusted for mean-zero scaling (zhat=TRUE).}
+#'   \item{ab}{A logical value indicating whether the response ideal points are used (ab=TRUE).}
+#'   \item{resp.idealpts}{A logical value indicating whether to estimate respondent ideal points (resp.idealpts=TRUE).}
 #'   \item{data}{The original data used in the analysis.}
 #'   \item{idealpoints}{The estimated ideal points from the BAM analysis.}
 #'   \item{posteriors}{Posterior distributions of the ideal points and other parameters.}
@@ -95,20 +95,18 @@ NULL
 #' This analysis uses a Bayesian Aldrich-McKelvey scaling model to estimate ideal points for French political data, 
 #' capturing the political preferences and scaling them accordingly.
 #'
-#' @seealso \code{\link[BAM]{BAM}} for more details on the BAM function and its parameters.
+#' @seealso \code{\link{BAM}} for more details on the BAM function and its parameters.
 #'
-#' @source The BAM model was applied to a dataset `bamdata` with specific settings to generate `bam.france`.
+#' @source The BAM model was applied to a dataset \code{bamdata} with specific settings to generate \code{bam.france}.
 #'
 #' @keywords datasets
 #' @name bam.france
 #' @docType data
 NULL
 
-
-#' Issues Matrix from CDS2000 Dataset
-#'
-#' This object, `issues`, is a matrix extracted from the `CDS2000` dataset. It contains selected columns that represent various issues.
-#'
+#' @encoding UTF-8
+#' @title Issues Matrix from CDS2000 Dataset
+#' @description This object, `issues`, is a matrix extracted from the `CDS2000` dataset. It contains selected columns that represent various issues.
 #' @format A numeric matrix with rows corresponding to observations and columns representing different issues.
 #' @source Extracted from the `CDS2000` dataset.
 #' @examples
@@ -121,10 +119,9 @@ NULL
 NULL
 
 
-#' Blackbox Analysis Results for Issues Matrix
-#'
-#' The object `result.repdem` contains the results of applying the `blackbox` function to the `issues` matrix. This analysis was performed to extract dimensions that represent the underlying structure of the issues, specifically for a dataset containing political data.
-#'
+#' @encoding UTF-8
+#' @title Blackbox Analysis Results for Issues Matrix
+#' @description The object `result.repdem` contains the results of applying the `blackbox` function to the `issues` matrix. This analysis was performed to extract dimensions that represent the underlying structure of the issues, specifically for a dataset containing political data.
 #' @format An object of class `blackbox` containing the results of the dimensional analysis, including the identified dimensions and other related statistics.
 #'
 #' @return The `result.repdem` object contains the extracted dimensions, along with other statistics generated by the `blackbox` function.
@@ -138,9 +135,9 @@ NULL
 #' @docType data
 NULL
 
-#' Prepare Input Matrix from interest1981 Dataset
-#'
-#' The `input2` object is a matrix created from the `interest1981` dataset for further analysis. The process involves extracting relevant columns, filtering rows, transforming values, and handling missing data.
+#' @encoding UTF-8
+#' @title Prepare Input Matrix from interest1981 Dataset
+#' @description The `input2` object is a matrix created from the `interest1981` dataset for further analysis. The process involves extracting relevant columns, filtering rows, transforming values, and handling missing data.
 #'
 #' @details
 #' The `input2` matrix is derived from the `interest1981` dataset through the following steps:
@@ -168,9 +165,9 @@ NULL
 NULL
 
 
-#' Prepare Input Matrix from interest1981 Dataset
-#'
-#' The `input2` object is a matrix created from the `interest1981` dataset for further analysis. The process involves extracting relevant columns, filtering rows, transforming values, and handling missing data.
+#' @encoding UTF-8
+#' @title Prepare Input Matrix from interest1981 Dataset
+#' @description The `input2` object is a matrix created from the `interest1981` dataset for further analysis. The process involves extracting relevant columns, filtering rows, transforming values, and handling missing data.
 #'
 #' @details
 #' The `input2` matrix is derived from the `interest1981` dataset through the following steps:
@@ -205,9 +202,9 @@ NULL
 NULL
 
 
-#' MDS Solution from mlsmu6
-#'
-#' The `mlsmu6_out` dataset contains the multidimensional scaling (MDS) solution generated by applying the `mlsmu6` function to a subset of the `interest1981` dataset. The MDS solution is computed using two dimensions and a cutoff value of 5, with data grouped by political party labels.
+#' @encoding UTF-8
+#' @title MDS Solution from mlsmu6
+#' @description The `mlsmu6_out` dataset contains the multidimensional scaling (MDS) solution generated by applying the `mlsmu6` function to a subset of the `interest1981` dataset. The MDS solution is computed using two dimensions and a cutoff value of 5, with data grouped by political party labels.
 #'
 #' @format A matrix or data frame, depending on the structure of the output from `mlsmu6`, typically containing coordinates in the reduced dimensional space.
 #'
@@ -231,9 +228,9 @@ NULL
 NULL
 
 
-#' ANES Input Data
-#'
-#' The `anes.input` object is a subset of the American National Election Study (ANES) 1968 dataset. It contains selected variables used as input for further analysis.
+#' @encoding UTF-8
+#' @title ANES Input Data
+#' @description The `anes.input` object is a subset of the American National Election Study (ANES) 1968 dataset. It contains selected variables used as input for further analysis.
 #'
 #' @details
 #' The `anes.input` object is created by loading the `ANES1968` dataset from the `asmcjr` package and selecting the first 12 columns. The data is then converted to a matrix format for analysis.
@@ -259,10 +256,9 @@ NULL
 NULL
 
 
-
-#' ANES 1968 Feeling Thermometers and Voting Data
-#'
-#' The `ANES1968` dataset includes feeling thermometers data and information on whether respondents reported voting in the 1968 elections, as well as their reported presidential vote choice.
+#' @encoding UTF-8
+#' @title ANES 1968 Feeling Thermometers and Voting Data
+#' @description The `ANES1968` dataset includes feeling thermometers data and information on whether respondents reported voting in the 1968 elections, as well as their reported presidential vote choice.
 #'
 #' @format A dataframe with several variables:
 #' \describe{
@@ -288,9 +284,10 @@ NULL
 #' @docType data
 NULL
 
-#' ANES 2004 Issue Scales Data
-#'
-#' The `ANES2004` dataset includes responses to various issue scales from the 2004 American National Election Studies (ANES). The dataset contains respondents' positions on several key political issues, measured on scales with varying ranges.
+
+#' @encoding UTF-8
+#' @title ANES 2004 Issue Scales Data
+#' @description The `ANES2004` dataset includes responses to various issue scales from the 2004 American National Election Studies (ANES). The dataset contains respondents' positions on several key political issues, measured on scales with varying ranges.
 #'
 #' @format A dataframe with several variables representing different political issues:
 #' \describe{
@@ -330,9 +327,9 @@ NULL
 NULL
 
 
-#' Danish Module of the 2009 European Election Study (EES)
-#'
-#' The \code{denmarkEES2009} dataset contains data from the Danish module of the 2009 European Election Study (EES). 
+#' @encoding UTF-8
+#' @title Danish Module of the 2009 European Election Study (EES)
+#' @description The \code{denmarkEES2009} dataset contains data from the Danish module of the 2009 European Election Study (EES). 
 #' This dataset includes responses from 1,000 Danish participants who rated their propensity to vote for each of 
 #' eight political parties on a 0–10 point scale. A score of 0 denotes "not at all possible," while a score of 10 denotes "very probable."
 #' 
@@ -364,9 +361,10 @@ NULL
 #' @docType data
 NULL
 
-#' Interest Group Ratings of Members of Congress (1959-1981)
-#'
-#' The `interest1981` dataset is a subset of a much larger dataset compiled by Keith Poole, containing nearly 200,000 
+
+#' @encoding UTF-8
+#' @title Interest Group Ratings of Members of Congress (1959-1981)
+#' @description The `interest1981` dataset is a subset of a much larger dataset compiled by Keith Poole, containing nearly 200,000 
 #' interest group ratings of members of Congress between 1959 and 1981. These data have been extensively analyzed 
 #' by Poole (1981, 1984, 1990) and Poole and Daniels (1985). The dataset has been used to perform the MLSMU6 
 #' unfolding procedure in two dimensions, following the methodologies established in the mentioned studies.
@@ -390,9 +388,9 @@ NULL
 NULL
 
 
-#' 2004 American National Election Study (ANES) Data
-#'
-#' The `ANES2004_OOC` dataset contains data from the 2004 American National Election Study (ANES). The 2004 ANES asked respondents about their policy preferences on issues ranging from diplomacy and defense spending to government spending and abortion.
+#' @encoding UTF-8
+#' @title 2004 American National Election Study (ANES) Data
+#' @description The `ANES2004_OOC` dataset contains data from the 2004 American National Election Study (ANES). The 2004 ANES asked respondents about their policy preferences on issues ranging from diplomacy and defense spending to government spending and abortion.
 #'
 #' @format A data frame with rows representing respondents and columns representing their policy preferences on various issues.
 #'
@@ -415,9 +413,9 @@ NULL
 NULL
 
 
-#' Roll Call Data for U.S. Congress
-#'
-#' The `rc_ep` object is a roll call dataset compiled by Poole and Rosenthal. This dataset represents roll call votes in the U.S. Congress and has been processed into an object of class `rollcall()` for analysis.
+#' @encoding UTF-8
+#' @title Roll Call Data for U.S. Congress
+#' @description The `rc_ep` object is a roll call dataset compiled by Poole and Rosenthal. This dataset represents roll call votes in the U.S. Congress and has been processed into an object of class `rollcall()` for analysis.
 #'
 #' @details
 #' Poole and Rosenthal have compiled House and Senate roll call datasets covering the history of the U.S. Congress. These datasets are maintained at \url{http://www.voteview.com}. The `rc_ep` object represents a specific subset of these data and is formatted as a `rollcall` object, suitable for various forms of legislative analysis.
@@ -438,9 +436,10 @@ NULL
 #' @docType data
 NULL
 
-#' State of the Union Address Corpus
-#'
-#' The `SOTUcorpus` dataset contains the text of each presidential State of the Union address since 1790. 
+
+#' @encoding UTF-8
+#' @title State of the Union Address Corpus
+#' @description The `SOTUcorpus` dataset contains the text of each presidential State of the Union address since 1790. 
 #' These data were collected and assembled by The American Presidency Project at the University of California, Santa Barbara.
 #' The full dataset can be accessed and downloaded at \url{https://www.presidency.ucsb.edu/sou.php}.
 #'
@@ -463,9 +462,10 @@ NULL
 #' @docType data
 NULL
 
-#' 2000 Convention Delegate Study (CDS)
-#'
-#' The `CDS2000` dataset contains data from the 2000 Convention Delegate Study (CDS), which interviewed delegates to the 
+
+#' @encoding UTF-8
+#' @title 2000 Convention Delegate Study (CDS)
+#' @description The `CDS2000` dataset contains data from the 2000 Convention Delegate Study (CDS), which interviewed delegates to the 
 #' Republican and Democratic National Conventions. The survey included a battery of issue scales on which delegates were 
 #' asked to place their policy preferences and those of major political figures (e.g., Al Gore and George W. Bush).
 #'
@@ -507,9 +507,10 @@ NULL
 #' @docType data
 NULL
 
-#' French Module of the 2009 European Election Study (EES)
-#'
-#' The `franceEES2009` dataset contains data from the French module of the 2009 European Election Study (EES). The EES surveyed 1,000 French citizens, asking them to place themselves and eight major political parties on a 0-10 left-right scale (0 representing the most left-wing position, 10 representing the most right-wing position).
+
+#' @encoding UTF-8
+#' @title French Module of the 2009 European Election Study (EES)
+#' @description The `franceEES2009` dataset contains data from the French module of the 2009 European Election Study (EES). The EES surveyed 1,000 French citizens, asking them to place themselves and eight major political parties on a 0-10 left-right scale (0 representing the most left-wing position, 10 representing the most right-wing position).
 #'
 #' @format A data frame with 1,000 rows and 9 columns:
 #' \describe{
@@ -541,9 +542,10 @@ NULL
 #' @docType data
 NULL
 
-#' Mexican Module of the Comparative Study of Electoral Systems (CSES) 2000 and 2006
-#'
-#' The `mexicoCSES2006` dataset contains data from the 2000 and 2006 Mexican modules of the Comparative Study of Electoral Systems (CSES). In these surveys, Mexican citizens were asked to place the major political parties on an 11-point left-right scale.
+
+#' @encoding UTF-8
+#' @title Mexican Module of the Comparative Study of Electoral Systems (CSES) 2000 and 2006
+#' @description The `mexicoCSES2006` dataset contains data from the 2000 and 2006 Mexican modules of the Comparative Study of Electoral Systems (CSES). In these surveys, Mexican citizens were asked to place the major political parties on an 11-point left-right scale.
 #'
 #' @format A data frame with rows representing respondents and 8 columns representing different political parties:
 #' \describe{
@@ -574,9 +576,10 @@ NULL
 #' @docType data
 NULL
 
-#' 2008 U.S. Presidential Vote Data
-#'
-#' The `presvote2008` dataset contains data on the voting behavior in the 2008 U.S. Presidential election, where a vote 
+
+#' @encoding UTF-8
+#' @title 2008 U.S. Presidential Vote Data
+#' @description The `presvote2008` dataset contains data on the voting behavior in the 2008 U.S. Presidential election, where a vote 
 #' for John McCain is coded as 0 and a vote for Barack Obama is coded as 1.
 #'
 #' @details
@@ -595,9 +598,10 @@ NULL
 #' @docType data
 NULL
 
-#' Roll Call Data from the 108th US House of Representatives (2003-2005)
-#'
-#' The `hr108` dataset contains data from the 108th US House of Representatives, covering the period from 2003 to 2005. During this session, the House conducted 843 recorded roll call votes, with 440 Representatives serving in the chamber. The roll call matrix omits President George W. Bush.
+
+#' @encoding UTF-8
+#' @title Roll Call Data from the 108th US House of Representatives (2003-2005)
+#' @description The `hr108` dataset contains data from the 108th US House of Representatives, covering the period from 2003 to 2005. During this session, the House conducted 843 recorded roll call votes, with 440 Representatives serving in the chamber. The roll call matrix omits President George W. Bush.
 #'
 #' @format A data frame or matrix with 440 rows (representing Representatives) and 843 columns (representing roll call votes). Each entry in the matrix indicates the vote of a Representative on a specific roll call.
 #'
@@ -618,9 +622,10 @@ NULL
 #' @docType data
 NULL
 
-#' Vietnam War Issue Scales from the 1968 National Election Study (NES)
-#'
-#' The `nes1968_vietnam` dataset contains responses from the 1968 National Election Study (NES) where respondents were asked to place themselves, President Lyndon Johnson, and the three major presidential candidates—Democrat Hubert Humphrey, Republican Richard Nixon, and American Independent George Wallace—on two seven-point issue scales regarding the Vietnam War.
+
+#' @encoding UTF-8
+#' @title Vietnam War Issue Scales from the 1968 National Election Study (NES)
+#' @description The `nes1968_vietnam` dataset contains responses from the 1968 National Election Study (NES) where respondents were asked to place themselves, President Lyndon Johnson, and the three major presidential candidates—Democrat Hubert Humphrey, Republican Richard Nixon, and American Independent George Wallace—on two seven-point issue scales regarding the Vietnam War.
 #'
 #' @format A data frame with rows representing respondents and the following columns:
 #' \describe{
@@ -631,7 +636,6 @@ NULL
 #'   \item{wallace}{Numeric, placement of American Independent candidate George Wallace on the Vietnam War scale (1 to 7).}
 #'   \item{self}{Numeric, respondent's self-placement on the Vietnam War scale (1 to 7).}
 #' }
-
 #' @details
 #' This dataset is part of the 1968 National Election Study (NES). Respondents were asked to place themselves and key political figures on two seven-point scales relating to the Vietnam War. These scales measure opinions on how the war should be conducted or resolved.
 #'
@@ -649,9 +653,10 @@ NULL
 #' @docType data
 NULL
 
-#' Urban Unrest Issue Scales from the 1968 National Election Study (NES)
-#'
-#' The `nes1968_urbanunrest` dataset contains responses from the 1968 National Election Study (NES) where respondents were asked to place themselves, President Lyndon Johnson, and the three major presidential candidates—Democrat Hubert Humphrey, Republican Richard Nixon, and American Independent George Wallace—on two seven-point issue scales regarding urban unrest.
+
+#' @encoding UTF-8
+#' @title Urban Unrest Issue Scales from the 1968 National Election Study (NES)
+#' @description The `nes1968_urbanunrest` dataset contains responses from the 1968 National Election Study (NES) where respondents were asked to place themselves, President Lyndon Johnson, and the three major presidential candidates—Democrat Hubert Humphrey, Republican Richard Nixon, and American Independent George Wallace—on two seven-point issue scales regarding urban unrest.
 #'
 #' @format A data frame with rows representing respondents and the following columns:
 #' \describe{
@@ -680,9 +685,10 @@ NULL
 #' @docType data
 NULL
 
-#' 2010 Swedish Parliamentary Candidate Survey
-#'
-#' The `Sweden2010` dataset contains data from the 2010 Swedish Parliamentary Candidate Survey, conducted by the Swedish 
+
+#' @encoding UTF-8
+#' @title 2010 Swedish Parliamentary Candidate Survey
+#' @description The `Sweden2010` dataset contains data from the 2010 Swedish Parliamentary Candidate Survey, conducted by the Swedish 
 #' public broadcasting network Sveriges Television (SVT). The survey targeted all 5,627 parliamentary candidates, with 
 #' completed interviews from 2,830 candidates, including 289 of the 349 candidates who were elected.
 #'
@@ -767,9 +773,10 @@ NULL
 #' @docType data
 NULL
 
-#' Candidate Favorability Ratings from the 2008 ANES
-#'
-#' The `candidatetherms2008` dataset contains favorability ratings from the 2008 American National Election Study (ANES). 
+
+#' @encoding UTF-8
+#' @title Candidate Favorability Ratings from the 2008 ANES
+#' @description The `candidatetherms2008` dataset contains favorability ratings from the 2008 American National Election Study (ANES). 
 #' Respondents were asked to rate their favorability towards nine political figures and parties on a 0-100 scale.
 #'
 #' @format A matrix with rows representing respondents and columns representing the following nine political stimuli:
@@ -804,48 +811,104 @@ NULL
 #' @docType data
 NULL
 
-#' CHES EU Dataset: Party Means and Standard Deviations
+
+#' @encoding UTF-8
+#' @title CHES EU Dataset: Party Positions from Chapel Hill Expert Survey
+#' @description Party means and standard deviations from the 2010 Chapel Hill Expert Survey 
+#' (CHES). Contains expert placements of 118 political parties from 14 EU 
+#' member countries, including three anchoring vignette parties for scale 
+#' calibration.
 #'
-#' The `ches_eu` dataset contains data used to calculate party means and standard deviations across all CHES experts. 
-#' The dataset is based on the 2010 wave of the Chapel Hill Expert Survey (CHES), which includes 118 parties and 224 experts 
-#' from 14 member countries of the European Union. Over 160 experts placed all 3 vignette parties, and between 8 and 17 experts 
-#' placed each of the actual parties.
-#'
-#' @format A data frame with the following variables:
+#' @format A data frame with 121 rows (118 actual parties + 3 vignettes) and 
+#'   5 variables:
 #' \describe{
-#'   \item{party}{The name or identifier of the political party.}
-#'   \item{mean}{The mean placement of the party as calculated from the responses of the experts.}
-#'   \item{sd}{The standard deviation of the party placements across the experts.}
-#'   \item{country}{The country where the party is based.}
-#'   \item{vignette}{Indicator of whether the party is one of the vignette parties (1) or an actual party (0).}
+#'   \item{party}{Name or identifier of the political party (character)}
+#'   \item{mean}{Mean party placement across all experts who evaluated this 
+#'         party (numeric)}
+#'   \item{sd}{Standard deviation of party placements across experts (numeric)}
+#'   \item{country}{Country where the party is based. ISO country codes or 
+#'         full country names (character)}
+#'   \item{vignette}{Indicator for vignette parties: 1 = vignette party used 
+#'         for anchoring, 0 = actual political party (numeric or logical)}
 #' }
 #'
 #' @details
-#' The dataset was used in the analysis presented in the book chapter "2.5 Using Anchoring Vignettes" (pages 58-60). 
-#' The data helps in understanding how experts from the Chapel Hill Expert Survey (CHES) placed different political parties 
-#' on various dimensions, providing a basis for calculating mean positions and standard deviations.
-#'
-#' The 2010 wave of the CHES consists of 118 parties and 224 experts across 14 European Union member countries. Over 160 experts 
-#' placed all three vignette parties, while between 8 and 17 experts placed each of the actual parties.
+#' The 2010 Chapel Hill Expert Survey (CHES) included 224 experts evaluating 
+#' parties from 14 EU member countries. Each actual party was evaluated by 
+#' 8-17 experts, while all three vignette parties were evaluated by over 160 
+#' experts. Vignette parties are hypothetical parties used as anchoring points 
+#' to calibrate expert placements and adjust for differential item functioning 
+#' (DIF).
+#' 
+#' This dataset is used to demonstrate anchoring vignette methods in spatial 
+#' analysis, as discussed in Section 2.5 (pages 58-60) of the accompanying 
+#' textbook. The vignettes allow researchers to adjust for systematic 
+#' differences in how experts use the rating scales.
 #'
 #' @source
-#' Data from the 2010 wave of the Chapel Hill Expert Survey (CHES).
+#' Bakker, R., De Vries, C., Edwards, E., Hooghe, L., Jolly, S., Marks, G., 
+#' Polk, J., Rovny, J., Steenbergen, M., & Vachudova, M. A. (2015). 
+#' Measuring party positions in Europe: The Chapel Hill expert survey trend 
+#' file, 1999-2010. \emph{Party Politics}, 21(1), 143-152. 
+#' \doi{10.1177/1354068812462931}
+#' 
+#' CHES data: \url{https://www.chesdata.eu/}
+#'
+#' @references
+#' Bakker, R., et al. (2015). Measuring party positions in Europe: The Chapel 
+#' Hill expert survey trend file, 1999-2010. \emph{Party Politics}, 21(1), 
+#' 143-152.
+#' 
+#' King, G., & Wand, J. (2007). Comparing Incomparable Survey Responses: 
+#' Evaluating and Selecting Anchoring Vignettes. \emph{Political Analysis}, 
+#' 15(1), 46-66.
 #'
 #' @usage data(ches_eu)
 #'
 #' @examples
 #' \dontrun{
 #' data(ches_eu)
+#' 
+#' # Dataset structure
+#' str(ches_eu)
+#' dim(ches_eu)  # 121 parties (118 actual + 3 vignettes)
+#' 
+#' # Separate vignettes from actual parties
+#' vignettes <- ches_eu[ches_eu$vignette == 1, ]
+#' actual_parties <- ches_eu[ches_eu$vignette == 0, ]
+#' 
+#' # Summary statistics
+#' summary(ches_eu$mean)
+#' summary(ches_eu$sd)
+#' 
+#' # Parties by country
+#' table(actual_parties$country)
+#' 
+#' # Compare uncertainty: actual parties vs. vignettes
+#' boxplot(sd ~ vignette, data = ches_eu,
+#'         names = c("Actual Parties", "Vignettes"),
+#'         ylab = "Standard Deviation",
+#'         main = "Expert Agreement: Actual vs. Vignette Parties")
+#' 
+#' # Plot party positions
+#' plot(ches_eu$mean, ches_eu$sd,
+#'      col = ifelse(ches_eu$vignette == 1, "red", "blue"),
+#'      pch = ifelse(ches_eu$vignette == 1, 17, 16),
+#'      xlab = "Mean Position", ylab = "Standard Deviation",
+#'      main = "Party Positions from CHES 2010")
+#' legend("topright", legend = c("Actual", "Vignette"),
+#'        col = c("blue", "red"), pch = c(16, 17))
 #' }
 #'
 #' @keywords datasets
-#' @name sub.europe
+#' @name ches_eu
 #' @docType data
 NULL
 
-#' Mexican Political Party Positions on Left-Right Scale (2000 & 2006)
-#'
-#' The `mexicoCSES2000` dataset contains data from the 2000 and 2006 Mexican modules of the Comparative Study of Electoral Systems (CSES).
+
+#' @encoding UTF-8
+#' @title Mexican Political Party Positions on Left-Right Scale (2000 & 2006)
+#' @description The `mexicoCSES2000` dataset contains data from the 2000 and 2006 Mexican modules of the Comparative Study of Electoral Systems (CSES).
 #' In these surveys, Mexican citizens were asked to place the major political parties on an 11-point left-right scale.
 #'
 #' @format A data frame with the following variables representing major political parties in Mexico:
@@ -878,9 +941,9 @@ NULL
 NULL
 
 
-#' Transposed Rankings Data using Blackbox Method
-#'
-#' The `original` object is created by applying the `blackbox_transpose` function to a dataset of rankings.
+#' @encoding UTF-8
+#' @title Transposed Rankings Data using Blackbox Method
+#' @description  The `original` object is created by applying the `blackbox_transpose` function to a dataset of rankings.
 #' This function is used to perform multidimensional scaling on a set of rankings, handling missing values 
 #' and using specified dimensions and scaling parameters.
 #'
@@ -917,36 +980,72 @@ NULL
 #' @docType data
 NULL
 
-#' Roll Call Voting Data from the First European Parliament (1979–1984)
+#' @encoding UTF-8
+#' @title Roll Call Voting Data from the First European Parliament (1979-1984)
+#' #' @description Roll call voting data from the first elected European Parliament (1979-1984), 
+#' assembled by Hix, Noury, and Roland (2006). Contains voting records of 
+#' Members of the European Parliament (MEPs) on 886 roll call votes.
 #'
-#' The `rcv_ep1` dataset contains roll call voting data from the first European Parliament (1979–1984), as assembled by Hix, Noury, and Roland (2006). 
-#' The dataset includes information on Members of the European Parliament (MEPs) and their votes on various issues.
-#'
-#' @format A data frame (or matrix) with the following variables:
+#' @format A data frame with 410 MEPs (rows) and 891 columns:
 #' \describe{
-#'   \item{MEPID}{Unique identifier for each Member of the European Parliament (MEP).}
-#'   \item{MEPNAME}{Name of the MEP.}
-#'   \item{MS}{Country (Member State) of the MEP.}
-#'   \item{NP}{National party affiliation of the MEP.}
-#'   \item{EPG}{European Parliament group (party) affiliation of the MEP.}
-#'   \item{V1}{Result of the first roll call vote (and so on for subsequent votes).}
-#'   \item{V2-V886}{Results of the roll call votes from the second to the 886th vote. Each column represents a specific vote, and the value indicates the MEP's vote on that issue.}
+#'   \item{MEPID}{Unique identifier for each Member of the European Parliament 
+#'         (integer)}
+#'   \item{MEPNAME}{Name of the MEP (character)}
+#'   \item{MS}{Member State (country) of the MEP (character)}
+#'   \item{NP}{National party affiliation of the MEP (character)}
+#'   \item{EPG}{European Parliament group (party) affiliation (character)}
+#'   \item{V1 through V886}{Roll call votes. 886 columns representing 
+#'         individual votes on European Parliament motions and legislation. 
+#'         Vote codes typically: 1 = For, 2 = Against, 3 = Abstain, 
+#'         0 or NA = Absent (numeric)}
 #' }
 #'
 #' @details
-#' The first five columns of the dataset are legislator-specific variables: MEPID (ID number), MEPNAME (name), MS (country), NP (national party affiliation), and EPG (European Parliament group affiliation). 
-#' The remaining columns (V1 to V886) represent the roll call votes. Each vote is represented by a column, and the value in each cell indicates how the MEP voted on that particular issue.
-#'
-#' This dataset was used to analyze voting behavior in the European Parliament during its first term. The raw data can be accessed from \url{http://personal.lse.ac.uk/hix/HixNouryRolandEPdata.htm}.
+#' This dataset covers the first directly elected European Parliament 
+#' (1979-1984), a formative period for EU legislative politics. The first 
+#' five columns contain MEP identification and affiliation variables; the 
+#' remaining 886 columns represent roll call votes.
+#' 
+#' Each row represents one MEP, and each vote column (V1 through V886) 
+#' represents a specific legislative vote. The dataset is useful for analyzing 
+#' transnational party behavior, national vs. European party loyalty, and 
+#' coalition formation in the early European Parliament.
 #'
 #' @source
-#' Data from Hix, Noury, and Roland (2006), available online at \url{http://personal.lse.ac.uk/hix/HixNouryRolandEPdata.htm}.
+#' Hix, S., Noury, A., & Roland, G. (2006). Dimensions of Politics in the 
+#' European Parliament. \emph{American Journal of Political Science}, 50(2), 
+#' 494-520. \doi{10.1111/j.1540-5907.2006.00198.x}
+#' 
+#' Original data: \url{http://personal.lse.ac.uk/hix/HixNouryRolandEPdata.htm}
+#'
+#' @references
+#' Hix, S., Noury, A., & Roland, G. (2006). Dimensions of Politics in the 
+#' European Parliament. \emph{American Journal of Political Science}, 50(2), 
+#' 494-520.
 #'
 #' @usage data(rcv_ep1)
 #'
 #' @examples
 #' \dontrun{
 #' data(rcv_ep1)
+#' 
+#' # Dataset dimensions
+#' dim(rcv_ep1)  # 410 MEPs, 891 columns
+#' 
+#' # View MEP information
+#' head(rcv_ep1[, 1:5])
+#' 
+#' # Distribution by country
+#' table(rcv_ep1$MS)
+#' 
+#' # Distribution by EP group
+#' table(rcv_ep1$EPG)
+#' 
+#' # View first few votes
+#' head(rcv_ep1[, 6:10])
+#' 
+#' # Check voting patterns
+#' summary(rcv_ep1[, 6:891])
 #' }
 #'
 #' @keywords datasets
@@ -955,9 +1054,9 @@ NULL
 NULL
 
 
-#' Roll Call Data from the 111th U.S. Senate
-#'
-#' The `hr111` dataset contains roll call voting data from the 111th U.S. Senate. This dataset is formatted as a `rollcall` object, which is typically used for analyzing voting behavior in legislative bodies.
+#' @encoding UTF-8
+#' @title Roll Call Data from the 111th U.S. Senate
+#' @description The `hr111` dataset contains roll call voting data from the 111th U.S. Senate. This dataset is formatted as a `rollcall` object, which is typically used for analyzing voting behavior in legislative bodies.
 #'
 #' @format An object of class `rollcall` with the following components:
 #' \describe{
@@ -988,9 +1087,9 @@ NULL
 #' @docType data
 NULL
 
-#' Nation Similarity Ratings Dataset
-#'
-#' The `nation` dataset contains similarity ratings between twelve nations, as collected by Wish (1971). 
+#' @encoding UTF-8
+#' @title Nation Similarity Ratings Dataset
+#' @description The `nation` dataset contains similarity ratings between twelve nations, as collected by Wish (1971). 
 #' In 1968, Wish asked 18 students in his psychological measurement class to rate the perceived similarity between each pair of twelve nations using a 9-point scale, 
 #' where '1' indicates "very different" and '9' indicates "very similar". The data in this dataset represent the average similarity ratings between these nations.
 #'
@@ -1030,9 +1129,9 @@ NULL
 #' @docType data
 NULL
 
-#' DW-NOMINATE Scores for the U.S. Congress
-#'
-#' The `rcx` dataset is a matrix containing DW-NOMINATE scores for members of the U.S. Congress. DW-NOMINATE scores are used 
+#' @encoding UTF-8
+#' @title DW-NOMINATE Scores for the U.S. Congress
+#' @description The `rcx` dataset is a matrix containing DW-NOMINATE scores for members of the U.S. Congress. DW-NOMINATE scores are used 
 #' to measure the ideological positions of legislators based on their roll-call voting behavior.
 #'
 #' @format A data frame with the following 16 variables:
@@ -1074,9 +1173,9 @@ NULL
 #' @docType data
 NULL
 
-#' French Party Placement Data from the 2009 European Election Study (EES)
-#'
-#' The `french.parties.individuals` dataset contains party placement data from the French module of the 2009 European Election Study (EES). 
+#' @encoding UTF-8
+#' @title French Party Placement Data from the 2009 European Election Study (EES)
+#' @description  The `french.parties.individuals` dataset contains party placement data from the French module of the 2009 European Election Study (EES). 
 #' This dataset was used in Chapter 2 to directly scale respondents’ placements of eight major political parties on a ten-point left-right ideological scale.
 #' 
 #' @format A matrix with 1,000 rows (representing respondents) and 8 columns (representing political parties):
@@ -1113,31 +1212,47 @@ NULL
 #' @docType data
 NULL
 
-#' 7th Legislative Yuan Roll Call Data from Taiwan (2008-2012)
+#' @encoding UTF-8
+#' @title 7th Legislative Yuan Roll Call Data from Taiwan (2008-2012)
+#' @description This dataset contains roll call voting data from the 7th Legislative Yuan 
+#' (National Congress) of Taiwan. The dataset includes the names of legislators 
+#' and their corresponding votes on various bills.
 #'
-#' This dataset contains roll call voting data from the 7th Legislative Yuan (National Congress) of Taiwan.
-#' The dataset includes the names of legislators and their corresponding votes on various bills.
-#'
-#' @format A data frame with the following variables:
+#' @format A data frame with 113 legislators and 1228 variables:
 #' \describe{
-#'   \item{legis.names}{The names of the legislators.}
-#'   \item{party}{The political party of each legislator.}
-#'   \item{\code{7-1} to \code{7-999}}{Columns representing votes on various bills, where each column corresponds to a specific bill.}
+#'   \item{party}{Character. The political party of each legislator}
+#'   \item{Vote columns}{1226 columns named \code{7-1}, \code{7-2}, ..., 
+#'         \code{7-1226}, representing individual roll call votes. 
+#'         Vote codes: 1 = Yea, 6 = Nay, 9 = Abstain/Not voting, 
+#'         NA = Absent}
 #' }
 #'
 #' @details
-#' The data captures the legislative behavior during the 7th session of the Legislative Yuan of Taiwan, 
-#' providing valuable insights into the political dynamics and decision-making processes.
+#' The data captures the legislative behavior during the 7th session of the 
+#' Legislative Yuan of Taiwan, providing valuable insights into the political 
+#' dynamics and decision-making processes. Each row represents one legislator, 
+#' and each vote column (7-1 through 7-1226) represents a specific bill or 
+#' motion voted upon.
 #'
 #' @source
-#' Yen-Chihe Liao (2024). *Electoral Reform and Fragmented Polarization: New Evidence from Taiwan Legislative Roll Call*. Legislative Studies Quarterly. 
-#' Available at: \url{https://onlinelibrary.wiley.com/doi/full/10.1111/lsq.12459}.
+#' Yen-Chieh Liao (2024). Electoral Reform and Fragmented Polarization: 
+#' New Evidence from Taiwan Legislative Roll Call. Legislative Studies Quarterly. 
+#' \doi{10.1111/lsq.12459}
 #'
 #' @usage data(legis_7th_Taiwan)
 #'
 #' @examples
 #' \dontrun{
 #' data(legis_7th_Taiwan)
+#' 
+#' # View structure
+#' str(legis_7th_Taiwan)
+#' 
+#' # First few legislators and votes
+#' head(legis_7th_Taiwan[, c(1:5, 1227:1228)])
+#' 
+#' # Summary by party
+#' table(legis_7th_Taiwan$party)
 #' }
 #'
 #' @keywords datasets
@@ -1146,9 +1261,9 @@ NULL
 NULL
 
 
-#' 90th US Senate Agreement Score Matrix (1967-1968)
-#'
-#' This dataset contains the agreement score matrix of the 90th US Senate, covering the years 1967-1968.
+#' @encoding UTF-8
+#' @title 90th US Senate Agreement Score Matrix (1967-1968)
+#' @description This dataset contains the agreement score matrix of the 90th US Senate, covering the years 1967-1968.
 #' The dataset includes 102 legislators: 100 Senators, President Lyndon Johnson (who "voted" on select bills by announcing a position),
 #' and Senator Charles Goodell (R-NY), who replaced Senator Robert F. Kennedy after his assassination in June 1968.
 #'
@@ -1264,9 +1379,8 @@ NULL
 #'   \item{hansen}{Agreement score with Senator Clifford Hansen (R-WY).}
 #'   \item{mcgee}{Agreement score with Senator Gale McGee (D-WY).}
 #' }
-
-#'
-#' @details
+#' 
+#'  @details
 #' The matrix is used to analyze the dimensions of voting behavior in the Senate during this period, with
 #' two primary dimensions identified: liberal-conservative and region/civil-rights.
 #' The data were used in the analysis by Poole and Rosenthal (1997).
@@ -1287,10 +1401,11 @@ NULL
 #' @docType data
 NULL
 
-#' Bootstrapped Blackbox Analysis Output
-#'
-#' The `outbb` object contains the results of a bootstrapped Blackbox analysis performed on the `issues.sweden` dataset. The analysis was conducted using the `boot.blackbox` function with specific parameters for handling missing data, dimensionality, scaling, and stimulus positioning. 
-#'
+
+#' @encoding UTF-8
+#' @title Bootstrapped Blackbox Analysis Output
+#' @description The `outbb` object contains the results of a bootstrapped Blackbox analysis performed on the `issues.sweden` dataset. The analysis was conducted using the `boot.blackbox` function with specific parameters for handling missing data, dimensionality, scaling, and stimulus positioning. 
+#' 
 #' The object also includes the `prerun` output, which provides preliminary diagnostics and summary statistics prior to the bootstrapping process.
 #'
 #' @format A list containing the results of the bootstrapped Blackbox analysis.
@@ -1305,9 +1420,10 @@ NULL
 #' @docType data
 NULL
 
-#' Blackbox Transpose Analysis Result for Mexico CSES 2000
-#'
-#' The `result_2000` object contains the results of a Blackbox transpose analysis performed on the `mexicoCSES2000` dataset. This analysis was conducted to explore the dimensional structure of the dataset with specific handling for missing data, scaling, and dimensionality reduction.
+
+#' @encoding UTF-8
+#' @title Blackbox Transpose Analysis Result for Mexico CSES 2000
+#' @description  The `result_2000` object contains the results of a Blackbox transpose analysis performed on the `mexicoCSES2000` dataset. This analysis was conducted to explore the dimensional structure of the dataset with specific handling for missing data, scaling, and dimensionality reduction.
 #'
 #' @format A list containing the results of the Blackbox transpose analysis, including estimated dimensions, scaling factors, and other relevant metrics.
 #'
@@ -1322,9 +1438,10 @@ NULL
 #' @docType data
 NULL
 
-#' Blackbox Transpose Analysis Result for Mexico CSES 2006
-#'
-#' The `result_2006` object contains the results of a Blackbox transpose analysis performed on the `mexicoCSES2006` dataset. This analysis was carried out to examine the dimensional structure of the dataset with specific handling for missing data, scaling, and dimensionality reduction.
+
+#' @encoding UTF-8
+#' @title Blackbox Transpose Analysis Result for Mexico CSES 2006
+#' @description The `result_2006` object contains the results of a Blackbox transpose analysis performed on the `mexicoCSES2006` dataset. This analysis was carried out to examine the dimensional structure of the dataset with specific handling for missing data, scaling, and dimensionality reduction.
 #'
 #' @format A list containing the results of the Blackbox transpose analysis, including estimated dimensions, scaling factors, and other relevant metrics.
 #'
@@ -1340,9 +1457,9 @@ NULL
 NULL
 
 
-#' Bootstrapped Blackbox Transpose Analysis Output
-#'
-#' The `outbbt` object contains the results of a bootstrapped Blackbox transpose analysis performed on the `rankings` dataset. This analysis was conducted to explore the dimensional structure of the data, handling specified missing values, and applying dimensionality reduction with bootstrapping.
+#' @encoding UTF-8
+#' @title Bootstrapped Blackbox Transpose Analysis Output
+#' @description The `outbbt` object contains the results of a bootstrapped Blackbox transpose analysis performed on the `rankings` dataset. This analysis was conducted to explore the dimensional structure of the data, handling specified missing values, and applying dimensionality reduction with bootstrapping.
 #'
 #' @format A list containing several components, typically including:
 #' \describe{
@@ -1366,48 +1483,74 @@ NULL
 NULL
 
 
-
-#' Roll Call Data from the French Fourth Republic
-#'
-#' The `france4` dataset contains roll call data from the French Fourth Republic, as analyzed by Rosenthal and Voeten (2004). 
-#' This dataset was used to estimate a party-switcher model where a separate ideal point is estimated each time a legislator 
-#' changes party affiliation. The dataset includes legislator-specific variables and roll call votes. Rosenthal and Voeten (2004) 
-#' found that the latent ideological space remained stable over the course of the French Fourth Republic, so the roll call data 
-#' is not segmented by legislative session.
-#'
-#' @format A data frame with the following variables:
+#' @encoding UTF-8
+#' @title Roll Call Data from the French Fourth Republic
+#' @description Roll call voting data from the French Fourth Republic, as analyzed by 
+#' Rosenthal and Voeten (2004). This dataset was used to estimate a 
+#' party-switcher model where a separate ideal point is estimated each time 
+#' a legislator changes party affiliation.
+#' @format A data frame with 1,416 rows and 2,177 columns. The first 5 columns 
+#'   contain legislator information, and columns 6-2177 contain roll call votes:
 #' \describe{
-#'   \item{CASEID}{Unique identifier for each deputy's party affiliation. Changes if the deputy switches parties.}
-#'   \item{MID}{Unique ID for each deputy that remains constant even if the deputy switches party.}
-#'   \item{NAME}{Name of the deputy (legislator).}
-#'   \item{PAR}{Party affiliation of the deputy.}
-#'   \item{PARSEQ}{Sequence number of the party affiliation for deputies who switched parties.}
-#'   \item{V1001, V1002, ..., V3172}{Results of the roll call votes, with each variable representing the result of a specific roll call vote.}
+#'   \item{CASEID}{Unique identifier for each deputy's party affiliation (integer)}
+#'   \item{MID}{Unique ID for each deputy, constant across party switches (integer)}
+#'   \item{NAME}{Name of the deputy/legislator (character)}
+#'   \item{PAR}{Party affiliation of the deputy (character)}
+#'   \item{PARSEQ}{Sequence number of party affiliation for deputies who switched parties (integer)}
 #' }
-#'
+#' Columns 6-2177 contain roll call votes with variable names V1001-V1365, 
+#' V2001-V2352, and V3001-V3172 (all numeric, representing individual votes 
+#' on legislative bills and motions).
 #' @details
-#' The dataset includes 1,416 separate ideal points, as each party-switching deputy has a separate entry for each party affiliation. 
-#' The first five columns of the dataset are legislator-specific variables: NAME (deputy name), MID (constant deputy ID), CASEID 
-#' (unique ID for each party affiliation), PAR (party affiliation), and PARSEQ (sequence number of party affiliations for party-switching deputies). 
-#' The remaining columns represent the roll call votes.
-#'
-#' The dataset and its extensive documentation were originally made available online by Rosenthal and Voeten (2004). 
-#' For more information and access to the original data, visit \url{http://www9.georgetown.edu/faculty/ev42/france.htm}.
+#' The dataset includes 1,416 separate ideal points, as each party-switching 
+#' deputy has a separate entry for each party affiliation. Rosenthal and 
+#' Voeten (2004) found that the latent ideological space remained stable over 
+#' the course of the French Fourth Republic, so the roll call data is not 
+#' segmented by legislative session.
+#' 
+#' The first five columns contain legislator-specific variables, and the 
+#' remaining 2,172 columns represent roll call votes. Each row represents 
+#' either a unique legislator (if they never switched parties) or a unique 
+#' legislator-party combination (if they switched parties during their tenure).
 #'
 #' @source
-#' Data from Rosenthal and Voeten (2004). The original dataset and documentation can be found online at 
-#' \url{http://www9.georgetown.edu/faculty/ev42/france.htm}.
+#' Rosenthal, H., & Voeten, E. (2004). Analyzing Roll Calls with Perfect 
+#' Spatial Voting: France 1946-1958. \emph{American Journal of Political Science}, 
+#' 48(3), 620-632. \doi{10.1111/j.0092-5853.2004.00094.x}
+#' 
+#' Original data and documentation: 
+#' \url{http://www9.georgetown.edu/faculty/ev42/france.htm}
+#'
+#' @references
+#' Rosenthal, H., & Voeten, E. (2004). Analyzing Roll Calls with Perfect 
+#' Spatial Voting: France 1946-1958. \emph{American Journal of Political Science}, 
+#' 48(3), 620-632.
 #'
 #' @usage data(france4)
 #'
 #' @examples
 #' \dontrun{
 #' data(france4)
+#' 
+#' # Dataset dimensions
+#' dim(france4)  # 1416 rows, 2177 columns
+#' 
+#' # View legislator info
+#' head(france4[, 1:5])
+#' 
+#' # Check for party switchers
+#' switchers <- france4[france4$PARSEQ > 1, ]
+#' nrow(switchers)  # Number of party-switch instances
+#' 
+#' # Party distribution
+#' table(france4$PAR)
+#' 
+#' # View first few votes
+#' head(france4[, 6:10])
 #' }
 #'
 #' @keywords datasets
 #' @name france4
 #' @docType data
 NULL
-
 

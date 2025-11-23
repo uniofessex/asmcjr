@@ -27,8 +27,13 @@ The \code{window.mcmc} function subsets a Markov Chain Monte Carlo (MCMC) object
 This function allows you to focus on a specific window of iterations within an MCMC chain. It adjusts the start and end points according to the provided values, ensuring they align with the chain's iterations. The thinning interval can also be adjusted, but it must be a multiple of the original thinning interval; otherwise, a warning is issued and the original interval is kept.
 }
 \examples{
-# Assume `mcmc_chain` is an object of class `mcmc`
-# Subset the MCMC chain to include only iterations between 500 and 1000
+\donttest{
+library(coda)
+set.seed(123)
+mcmc_chain <- mcmc(matrix(rnorm(2000), ncol = 2), start = 1, thin = 1)
+
 windowed_chain <- window.mcmc(mcmc_chain, start = 500, end = 1000, thin = 2)
 
+print(head(windowed_chain))
+}
 }

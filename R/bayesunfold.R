@@ -1,5 +1,5 @@
-#' Bayesian Unfolding with Slice Sampling and L-BFGS Optimization
-#'
+#' @title Bayesian Unfolding with Slice Sampling and L-BFGS Optimization
+#' @description
 #' The `bayesunfold` function performs Bayesian unfolding using slice sampling and L-BFGS optimization. 
 #' It estimates the positions of stimuli and individuals in a lower-dimensional space, 
 #' allowing for the analysis of preference data with missing values.
@@ -344,7 +344,8 @@ bayesunfold <- function(input, dims = 2, nsamp = 2000, burnin = 1000, cred.level
        as.integer(UNFOLD),
        as.integer(NMISSING),
        as.double(X),
-       as.double(CONSTRAINTS))
+       as.double(CONSTRAINTS),
+       PACKAGE = "asmcjr")
   }
   
   do_lbfgs <- function(kpnp, kpnq, yrotate, rmatrix) {
@@ -352,7 +353,8 @@ bayesunfold <- function(input, dims = 2, nsamp = 2000, burnin = 1000, cred.level
        as.integer(kpnp),
        as.integer(kpnq),
        as.double(yrotate),
-       as.double(rmatrix))
+       as.double(rmatrix),
+       PACKAGE = "asmcjr")
   }
   
   do_logposterior <- function(theta, XCOORDS, sumsquared, SIGMAPRIOR) {
@@ -360,7 +362,8 @@ bayesunfold <- function(input, dims = 2, nsamp = 2000, burnin = 1000, cred.level
        as.double(theta),
        as.double(XCOORDS),
        as.double(sumsquared),
-       as.double(SIGMAPRIOR))
+       as.double(SIGMAPRIOR),
+       PACKAGE = "asmcjr")
   }
   
   do_sliceu <- function(theta, thetanow2, theta1000, ssenow, XTRUE, thetaLeft, thetaRight, WW, PP, XCOORDS, SIGMAPRIOR) {
@@ -375,7 +378,8 @@ bayesunfold <- function(input, dims = 2, nsamp = 2000, burnin = 1000, cred.level
        as.double(WW),
        as.integer(PP),
        as.double(XCOORDS),
-       as.double(SIGMAPRIOR))
+       as.double(SIGMAPRIOR),
+       PACKAGE = "asmcjr")
   }
   
   # Data preprocessing

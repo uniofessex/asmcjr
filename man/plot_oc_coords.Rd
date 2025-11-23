@@ -21,7 +21,7 @@ plot_oc_coords(
 
 \item{ptSize}{Numeric. The size of the points in the plot.}
 
-\item{rotMat}{A 2x2 rotation matrix. Defaults to the identity matrix (\code{diag(2)}), which means no rotation.}
+\item{rotMat}{A 2x2 rotation matrix. Defaults to the identity matrix \code{diag(2)}, which means no rotation.}
 }
 \value{
 A ggplot object representing the OC coordinates plot.
@@ -30,6 +30,7 @@ A ggplot object representing the OC coordinates plot.
 This function plots the OC (Optimal Classification) coordinates after applying an optional rotation matrix.
 }
 \examples{
+\dontrun{
 # Example usage:
 # Assume `rc` is an object containing legislative data
 result <- oc(rc, dims=2, minvotes=20, lop=0.025, polarity=c(2,2), verbose=FALSE)
@@ -45,5 +46,7 @@ print(plot1)
 
 # Plot OC coordinates with a 45-degree rotation
 plot2 <- plot_oc_coords(result, rotMat=A)
+print(plot2)
+}
 
 }

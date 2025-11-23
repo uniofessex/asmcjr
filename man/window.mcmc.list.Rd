@@ -18,8 +18,16 @@ An object of class \code{mcmc.list} with the same structure as the input but wit
 This function applies the \code{window.mcmc} function to each chain in an MCMC list, allowing you to subset the chains based on the desired window.
 }
 \examples{
-# Assuming `mcmc_list` is an object of class `mcmc.list`
+\donttest{
+# Create example MCMC chains
+library(coda)
+set.seed(123)
+chain1 <- mcmc(matrix(rnorm(2000), ncol = 2))
+chain2 <- mcmc(matrix(rnorm(2000), ncol = 2))
+mcmc_list <- mcmc.list(chain1, chain2)
+
 # Subset the MCMC list to include only iterations between 500 and 1000
-windowed_mcmc_list <- window.mcmc.list(mcmc_list, start = 500, end = 1000)
+windowed_mcmc_list <- window(mcmc_list, start = 500, end = 1000)
+}
 
 }
