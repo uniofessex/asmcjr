@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-## asmcjr: Analyzing Spatial Models of Choice and Judgment
+## asmcjr: Analyzing Spatial Models of Choice and Judgment 
 
 <!-- <img src="man/figures/logo.png" width="165" align="right" /> <br />  -->
 

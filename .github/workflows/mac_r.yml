@@ -28,14 +28,11 @@ jobs:
           which gfortran
           gfortran --version
       
-      - name: Setup R dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: |
-            any::rcmdcheck
-            any::devtools
-            github::cran/basicspace
-          needs: check
+      - name: Verify JAGS installation
+        run: |
+          which jags
+          ls -la /usr/local/bin/jags* || ls -la /opt/homebrew/bin/jags* || echo "JAGS binary location check"
+          echo "JAGS installed successfully"
       
       - name: Configure R for gfortran
         run: |
@@ -46,8 +43,28 @@ jobs:
           echo "FLIBS = -L${GFORTRAN_LIB} -lgfortran -lquadmath -lm" >> ~/.R/Makevars
           cat ~/.R/Makevars
       
+      - name: Setup R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::rcmdcheck
+            any::devtools
+            any::remotes
+            github::cran/basicspace
+          needs: check
+      
+      - name: Verify rjags installation
+        run: |
+          Rscript -e "library(rjags); cat('rjags loaded successfully\n')"
+      
       - name: Check package
         uses: r-lib/actions/check-r-package@v2
         with:
           args: 'c("--no-manual", "--as-cran")'
-
+          
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-results
+          path: check
