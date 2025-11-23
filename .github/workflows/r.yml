@@ -34,52 +34,88 @@ jobs:
           }
         shell: powershell
       
-      - name: Set JAGS environment and copy DLLs
+      - name: Set up JAGS environment
         run: |
-          # 設定環境變數
           echo "JAGS_HOME=C:/Program Files/JAGS/JAGS-4.3.0" >> $env:GITHUB_ENV
           echo "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin" >> $env:GITHUB_PATH
           
-          # 將 JAGS DLLs 複製到 R 的 bin 目錄（確保 R 能找到）
-          $jagsbin = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
-          $rbin = "C:\R\bin\x64"
-          
-          if (Test-Path $jagsbin) {
-            Write-Output "Copying JAGS DLLs to R bin directory..."
-            Copy-Item "$jagsbin\*.dll" -Destination $rbin -Force
-            Write-Output "DLLs copied successfully"
-            Get-ChildItem "$rbin\jags*.dll"
-          }
+          # 也設定 JAGS_ROOT 供編譯使用
+          echo "JAGS_ROOT=C:/Program Files/JAGS/JAGS-4.3.0" >> $env:GITHUB_ENV
         shell: powershell
       
       - name: Verify JAGS installation
         run: |
-          if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0") {
-            Write-Output "JAGS 4.3.0 is installed"
-            Write-Output "JAGS DLLs:"
-            Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin\*.dll" | Select-Object Name
-          } else {
-            Write-Error "JAGS installation directory not found"
-            exit 1
+          Write-Output "JAGS installation check:"
+          Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64" -Recurse -Include *.dll | Select-Object FullName
+          
+          Write-Output "`nJAGS include files:"
+          if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0\x64\include") {
+            Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\include" -Recurse -Include *.h
+          }
+          
+          Write-Output "`nJAGS library files:"
+          if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0\x64\lib") {
+            Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\lib"
           }
         shell: powershell
       
-      - name: Install R dependencies
+      - name: Install R dependencies (without rjags)
         run: |
-          install.packages(c("remotes", "rcmdcheck", "devtools"))
-          remotes::install_deps(dependencies = TRUE)
+          install.packages(c("remotes", "rcmdcheck", "devtools", "coda"))
         shell: Rscript {0}
       
-      - name: Install basicspace from GitHub
+      - name: Install rjags from source
         run: |
-          remotes::install_github("cran/basicspace", force = TRUE)
-        shell: Rscript {0}
+          # 設定編譯變數
+          $env:JAGS_HOME = "C:/Program Files/JAGS/JAGS-4.3.0"
+          $env:JAGS_ROOT = "C:/Program Files/JAGS/JAGS-4.3.0"
+          $env:PATH = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin;$env:PATH"
+          
+          # 創建 Makevars 檔案來指定 JAGS 路徑
+          $makevars = @"
+JAGS_ROOT = C:/PROGRA~1/JAGS/JAGS-4.3.0
+PKG_CPPFLAGS = -I`$(JAGS_ROOT)/x64/include
+PKG_LIBS = -L`$(JAGS_ROOT)/x64/bin -L`$(JAGS_ROOT)/x64/lib -ljags
+"@
+          
+          New-Item -Path "$env:USERPROFILE\.R" -ItemType Directory -Force
+          Set-Content -Path "$env:USERPROFILE\.R\Makevars.win" -Value $makevars
+          
+          Write-Output "Makevars.win content:"
+          Get-Content "$env:USERPROFILE\.R\Makevars.win"
+          
+          # 從源碼安裝 rjags
+          Rscript -e "install.packages('rjags', type='source', INSTALL_opts='--no-multiarch')"
+        shell: powershell
+      
+      - name: Copy JAGS DLLs to R library
+        run: |
+          $rjagsDir = "D:\a\_temp\Library\rjags\libs\x64"
+          $jagsBin = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
+          
+          if (Test-Path $rjagsDir) {
+            Write-Output "Copying JAGS DLLs to rjags directory..."
+            Copy-Item "$jagsBin\*.dll" -Destination $rjagsDir -Force
+            Write-Output "DLLs in rjags directory:"
+            Get-ChildItem $rjagsDir\*.dll
+          }
+        shell: powershell
       
       - name: Verify rjags can load
         run: |
           library(rjags)
           cat('rjags loaded successfully\n')
           cat('JAGS version:', jags.version(), '\n')
+        shell: Rscript {0}
+      
+      - name: Install remaining dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+      
+      - name: Install basicspace from GitHub
+        run: |
+          remotes::install_github("cran/basicspace", force = TRUE)
         shell: Rscript {0}
       
       - name: Check package
