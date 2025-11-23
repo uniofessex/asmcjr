@@ -28,11 +28,22 @@ jobs:
           which gfortran
           gfortran --version
       
-      - name: Verify JAGS installation
+      - name: Set up JAGS environment
         run: |
-          which jags
-          ls -la /usr/local/bin/jags* 2>/dev/null || ls -la /opt/homebrew/bin/jags* 2>/dev/null || echo "JAGS binary location check"
-          echo "JAGS installed successfully"
+          # Determine Homebrew prefix (differs between Intel and Apple Silicon)
+          BREW_PREFIX=$(brew --prefix)
+          echo "Homebrew prefix: $BREW_PREFIX"
+          
+          # Add JAGS library path to environment
+          echo "JAGS_LIBDIR=${BREW_PREFIX}/lib" >> $GITHUB_ENV
+          echo "JAGS_INCLUDEDIR=${BREW_PREFIX}/include" >> $GITHUB_ENV
+          
+          # Add to dyld library path for runtime
+          echo "DYLD_FALLBACK_LIBRARY_PATH=${BREW_PREFIX}/lib:$DYLD_FALLBACK_LIBRARY_PATH" >> $GITHUB_ENV
+          
+          # Verify JAGS installation
+          ls -la ${BREW_PREFIX}/lib/libjags*
+          ls -la ${BREW_PREFIX}/bin/jags*
       
       - name: Configure R for gfortran
         run: |
@@ -52,6 +63,14 @@ jobs:
       - name: Install basicspace from GitHub
         run: |
           remotes::install_github("cran/basicspace", force = TRUE)
+        shell: Rscript {0}
+      
+      - name: Configure and install rjags
+        run: |
+          BREW_PREFIX=$(brew --prefix)
+          install.packages("rjags", 
+                          type = "source",
+                          configure.args = paste0("--with-jags-prefix=", BREW_PREFIX))
         shell: Rscript {0}
       
       - name: Verify rjags installation

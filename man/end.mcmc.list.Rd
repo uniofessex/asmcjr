@@ -17,8 +17,3 @@ The result of calling the \code{end} function on the first element of the MCMC l
 \description{
 This function returns the end time or the last element of the first chain in an MCMC list.
 }
-\examples{
-\donttest{
-end_time <- end.mcmc.list(mcmc_list)
-}
-}

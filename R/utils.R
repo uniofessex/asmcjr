@@ -1,6 +1,6 @@
-#' Generate a Gray Color Palette
+#' @title Generate a Gray Color Palette
 #'
-#' This function generates a palette of gray colors.
+#' @description This function generates a palette of gray colors.
 #'
 #' @param n Integer, the number of gray shades to generate.
 #' @param lower Numeric, the lower bound for the gray scale (default is 0.3).
@@ -10,35 +10,28 @@
 #' @examples
 #' gray.palette(5)
 #' @export
-
 gray.palette <- function(n, lower = .3, upper = .7) {
   s <- seq(lower, upper, length = n)
   rgb(matrix(rep(s, each = 3), ncol = 3, byrow = TRUE))
 }
 
 
-#' Get the End Time of an MCMC List
-#'
-#' This function returns the end time or the last element of the first chain in an MCMC list.
+#' @title Get the End Time of an MCMC List
+#' @description This function returns the end time or the last element of the first chain in an MCMC list.
 #'
 #' @param x An object of class `mcmc.list`, which is a list of MCMC chains.
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return The result of calling the `end` function on the first element of the MCMC list.
 #' 
-#' @examples
-#' \donttest{
-#' end_time <- end.mcmc.list(mcmc_list)
-#' }
 #' @export
 end.mcmc.list <- function (x, ...){
   end(x[[1]])
 }
 
 
-#' Get the Start Time of an MCMC List
-#'
-#' This function returns the start time or the first element of the first chain in an MCMC list.
+#' @title Get the Start Time of an MCMC List
+#' @description This function returns the start time or the first element of the first chain in an MCMC list.
 #'
 #' @param x An object of class `mcmc.list`, which is a list of MCMC chains.
 #' @param ... Additional arguments (currently not used).
