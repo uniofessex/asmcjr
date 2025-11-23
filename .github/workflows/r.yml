@@ -42,7 +42,13 @@ jobs:
       - name: Verify JAGS installation
         run: |
           Get-Command jags -ErrorAction Stop
-          jags --version
+          if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0") {
+            Write-Output "JAGS 4.3.0 is installed"
+            Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
+          } else {
+            Write-Error "JAGS installation directory not found"
+            exit 1
+          }
         shell: powershell
       
       - name: Install R dependencies
