@@ -22,49 +22,104 @@ jobs:
           r-version: '4.4.1'
           use-public-rspm: true
       
-      - name: Download and install JAGS
+      - name: Download and install JAGS 4.3.2
         run: |
-          curl.exe -L -o JAGS-4.3.0.exe https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe/download
-          Start-Process -FilePath ".\JAGS-4.3.0.exe" -ArgumentList '/S' -NoNewWindow -Wait
-          Write-Output "JAGS installed"
+          # 使用 JAGS 4.3.2 (更新的版本，可能與 rjags 二進位檔更相容)
+          $url = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe/download"
+          curl.exe -L -o JAGS-4.3.2.exe $url
+          if (Test-Path ".\JAGS-4.3.2.exe") {
+            Start-Process -FilePath ".\JAGS-4.3.2.exe" -ArgumentList '/S' -NoNewWindow -Wait
+            Write-Output "JAGS 4.3.2 installed successfully"
+          } else {
+            Write-Error "Failed to download JAGS"
+            exit 1
+          }
         shell: powershell
       
-      - name: Add JAGS to PATH permanently
+      - name: Configure JAGS environment
         run: |
-          $jagsPath = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
-          $currentPath = [Environment]::GetEnvironmentVariable("Path", "Machine")
-          [Environment]::SetEnvironmentVariable("Path", "$jagsPath;$currentPath", "Machine")
+          $jagsPath = "C:\Program Files\JAGS\JAGS-4.3.2\x64\bin"
+          echo $jagsPath >> $env:GITHUB_PATH
+          Write-Output "JAGS bin added to PATH for next steps"
+          
+          # 立即為當前 session 設定
           $env:Path = "$jagsPath;$env:Path"
-          Write-Output "JAGS added to PATH"
+          
+          # 驗證安裝
+          Write-Output "`nJAGS DLLs:"
+          Get-ChildItem "$jagsPath\*.dll" | Select-Object Name, Length
         shell: powershell
       
-      - name: Verify JAGS
+      - name: Create R environment setup script
         run: |
-          $env:Path = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin;$env:Path"
-          Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin\*.dll"
+          $script = @'
+          # 確保 JAGS 在 PATH 中
+          jags_path <- "C:/Program Files/JAGS/JAGS-4.3.2/x64/bin"
+          current_path <- Sys.getenv("PATH")
+          if (!grepl(jags_path, current_path, fixed = TRUE)) {
+            Sys.setenv(PATH = paste(jags_path, current_path, sep = ";"))
+          }
+          '@
+          
+          New-Item -Path ".github" -ItemType Directory -Force
+          Set-Content -Path ".github/setup.R" -Value $script
+          
+          Write-Output "Setup script created"
+          Get-Content ".github/setup.R"
         shell: powershell
       
       - name: Install R dependencies
         run: |
+          source(".github/setup.R")
           install.packages(c("remotes", "rcmdcheck", "devtools"))
           remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+      
+      - name: Install basicspace
+        run: |
+          source(".github/setup.R")
           remotes::install_github("cran/basicspace", force = TRUE)
         shell: Rscript {0}
       
-      - name: Test rjags loading
+      - name: Verify rjags with diagnostics
         run: |
-          tryCatch({
+          source(".github/setup.R")
+          
+          cat("Current PATH:\n")
+          cat(Sys.getenv("PATH"), "\n\n")
+          
+          cat("Attempting to load rjags...\n")
+          result <- tryCatch({
             library(rjags)
-            cat("rjags loaded successfully\n")
+            cat("SUCCESS: rjags loaded\n")
+            cat("JAGS version:", jags.version(), "\n")
+            TRUE
           }, error = function(e) {
-            cat("rjags load failed, trying to reinstall...\n")
-            install.packages("rjags", type = "binary")
-            library(rjags)
+            cat("ERROR loading rjags:\n")
+            cat(conditionMessage(e), "\n")
+            
+            # 嘗試診斷
+            cat("\nDiagnostics:\n")
+            cat("rjags.dll location:\n")
+            rjags_path <- system.file("libs/x64/rjags.dll", package = "rjags")
+            cat(rjags_path, "\n")
+            
+            if (file.exists(rjags_path)) {
+              cat("rjags.dll exists\n")
+            }
+            
+            FALSE
           })
+          
+          if (!result) {
+            stop("rjags failed to load")
+          }
         shell: Rscript {0}
       
       - name: Check package
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
+        run: |
+          source(".github/setup.R")
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
         shell: Rscript {0}
       
       - name: Upload check results
@@ -73,92 +128,13 @@ jobs:
         with:
           name: windows-results
           path: check
-
-# name: R Package CI for macOS
-# on:
-#   push:
-#     branches: ["main", "master"]
-#   pull_request:
-#     branches: ["main", "master"]
-# permissions:
-#   contents: read
-# jobs:
-#   build:
-#     runs-on: macos-latest
-#     env:
-#       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-#       NOT_CRAN: true
-#     
-#     steps:
-#       - uses: actions/checkout@v4
-#       
-#       - name: Set up R
-#         uses: r-lib/actions/setup-r@v2
-#         with:
-#           r-version: '4.4.1'
-#           use-public-rspm: true
-#       
-#       - name: Install system dependencies
-#         run: |
-#           brew install jags gcc
-#           which gfortran
-#           gfortran --version
-#       
-#       - name: Verify JAGS installation
-#         run: |
-#           which jags || echo "JAGS binary not found in PATH"
-#           if [ -d "/usr/local/bin" ]; then
-#             ls -la /usr/local/bin/jags* 2>/dev/null || echo "No jags in /usr/local/bin"
-#           fi
-#           if [ -d "/opt/homebrew/bin" ]; then
-#             ls -la /opt/homebrew/bin/jags* 2>/dev/null || echo "No jags in /opt/homebrew/bin"
-#           fi
-#           echo "JAGS installed successfully"
-#       
-#       - name: Configure R for gfortran
-#         run: |
-#           mkdir -p ~/.R
-#           echo "FC = $(which gfortran)" >> ~/.R/Makevars
-#           echo "F77 = $(which gfortran)" >> ~/.R/Makevars
-#           GFORTRAN_LIB=$(dirname $(gfortran -print-file-name=libgfortran.dylib))
-#           echo "FLIBS = -L${GFORTRAN_LIB} -lgfortran -lquadmath -lm" >> ~/.R/Makevars
-#           cat ~/.R/Makevars
-#       
-#       - name: Install R dependencies
-#         run: |
-#           install.packages(c("remotes", "rcmdcheck", "devtools"))
-#           remotes::install_deps(dependencies = TRUE)
-#         shell: Rscript {0}
-#       
-#       - name: Install basicspace from GitHub
-#         run: |
-#           remotes::install_github("cran/basicspace", force = TRUE)
-#         shell: Rscript {0}
-#       
-#       - name: Verify rjags installation
-#         run: |
-#           library(rjags)
-#           cat('rjags loaded successfully\n')
-#           cat('JAGS version:', jags.version(), '\n')
-#         shell: Rscript {0}
-#       
-#       - name: Check package
-#         run: |
-#           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
-#         shell: Rscript {0}
-#       
-#       - name: Upload check results
-#         if: failure()
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: macos-results
-#           path: check
-#       
-#       - name: Test package (optional)
-#         run: |
-#           if (file.exists("tests")) {
-#             devtools::test()
-#           } else {
-#             message("No tests directory found, skipping tests")
-#           }
-#         shell: Rscript {0}
+      
+      - name: Test package
+        run: |
+          source(".github/setup.R")
+          if (file.exists("tests")) {
+            devtools::test()
+          } else {
+            message("No tests directory found")
+          }
+        shell: Rscript {0}
