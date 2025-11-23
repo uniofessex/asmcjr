@@ -1,6 +1,6 @@
-#' Generate a Gray Color Palette
+#' @title Generate a Gray Color Palette
 #'
-#' This function generates a palette of gray colors.
+#' @description This function generates a palette of gray colors.
 #'
 #' @param n Integer, the number of gray shades to generate.
 #' @param lower Numeric, the lower bound for the gray scale (default is 0.3).
@@ -10,25 +10,19 @@
 #' @examples
 #' gray.palette(5)
 #' @export
-
 gray.palette <- function(n, lower = .3, upper = .7) {
   s <- seq(lower, upper, length = n)
   rgb(matrix(rep(s, each = 3), ncol = 3, byrow = TRUE))
 }
 
 
-#' Get the End Time of an MCMC List
-#'
-#' This function returns the end time or the last element of the first chain in an MCMC list.
+#' @title Get the End Time of an MCMC List
+#' @description This function returns the end time or the last element of the first chain in an MCMC list.
 #'
 #' @param x An object of class `mcmc.list`, which is a list of MCMC chains.
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return The result of calling the `end` function on the first element of the MCMC list.
-#' 
-#' @examples
-#' # Assuming `mcmc_list` is an object of class `mcmc.list`
-#' # end_time <- end.mcmc.list(mcmc_list)
 #' 
 #' @export
 end.mcmc.list <- function (x, ...){
@@ -36,9 +30,8 @@ end.mcmc.list <- function (x, ...){
 }
 
 
-#' Get the Start Time of an MCMC List
-#'
-#' This function returns the start time or the first element of the first chain in an MCMC list.
+#' @title Get the Start Time of an MCMC List
+#' @description This function returns the start time or the first element of the first chain in an MCMC list.
 #'
 #' @param x An object of class `mcmc.list`, which is a list of MCMC chains.
 #' @param ... Additional arguments (currently not used).
@@ -46,9 +39,9 @@ end.mcmc.list <- function (x, ...){
 #' @return The result of calling the `start` function on the first element of the MCMC list.
 #' 
 #' @examples
-#' # Assuming `mcmc_list` is an object of class `mcmc.list`
-#' # start_time <- start.mcmc.list(mcmc_list)
-#' 
+#' \donttest{
+#' start_time <- start.mcmc.list(mcmc_list)
+#' }
 #' @export
 start.mcmc.list <- function (x, ...){
   start(x[[1]])
@@ -65,17 +58,25 @@ start.mcmc.list <- function (x, ...){
 #' @return An object of class `mcmc.list` with the same structure as the input but with each chain windowed according to the specified parameters.
 #' 
 #' @examples
-#' # Assuming `mcmc_list` is an object of class `mcmc.list`
+#' \donttest{
+#' # Create example MCMC chains
+#' library(coda)
+#' set.seed(123)
+#' chain1 <- mcmc(matrix(rnorm(2000), ncol = 2))
+#' chain2 <- mcmc(matrix(rnorm(2000), ncol = 2))
+#' mcmc_list <- mcmc.list(chain1, chain2)
+#' 
 #' # Subset the MCMC list to include only iterations between 500 and 1000
-#' windowed_mcmc_list <- window.mcmc.list(mcmc_list, start = 500, end = 1000)
+#' windowed_mcmc_list <- window(mcmc_list, start = 500, end = 1000)
+#' }
 #' 
 #' @export
 window.mcmc.list <- function (x, ...) {
   structure(lapply(x, window.mcmc, ...), class = "mcmc.list")
 }
 
-#' Subset an MCMC Object by Specifying a Time Window
-#'
+#' @title Subset an MCMC Object by Specifying a Time Window
+#' @description  
 #' The `window.mcmc` function subsets a Markov Chain Monte Carlo (MCMC) object by selecting iterations within a specified time window.
 #'
 #' @param x An object of class `mcmc`, representing a single MCMC chain.
@@ -90,10 +91,17 @@ window.mcmc.list <- function (x, ...) {
 #' This function allows you to focus on a specific window of iterations within an MCMC chain. It adjusts the start and end points according to the provided values, ensuring they align with the chain's iterations. The thinning interval can also be adjusted, but it must be a multiple of the original thinning interval; otherwise, a warning is issued and the original interval is kept.
 #'
 #' @examples
-#' # Assume `mcmc_chain` is an object of class `mcmc`
-#' # Subset the MCMC chain to include only iterations between 500 and 1000
+#' \donttest{
+#' library(coda)
+#' set.seed(123)
+#' mcmc_chain <- mcmc(matrix(rnorm(2000), ncol = 2), start = 1, thin = 1)
+#' 
 #' windowed_chain <- window.mcmc(mcmc_chain, start = 500, end = 1000, thin = 2)
-#'
+#' 
+#' print(head(windowed_chain))
+#' }
+#' @importFrom coda mcpar niter
+#' @importFrom stats time
 #' @export
 window.mcmc <- function (x, start, end, thin, ...) {
   ts.eps <- getOption("ts.eps")

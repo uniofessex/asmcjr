@@ -18,7 +18,7 @@ The result of calling the \code{start} function on the first element of the MCMC
 This function returns the start time or the first element of the first chain in an MCMC list.
 }
 \examples{
-# Assuming `mcmc_list` is an object of class `mcmc.list`
-# start_time <- start.mcmc.list(mcmc_list)
-
+\donttest{
+start_time <- start.mcmc.list(mcmc_list)
+}
 }

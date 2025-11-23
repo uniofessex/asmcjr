@@ -1,10 +1,10 @@
 ---
-title: "Analyzing Issue Scales"
+title: "Similarities and Dissimilarities Data"
 # author: "Yen-Chieh Liao"
 # date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Analyzing Issue Scales}
+  %\VignetteIndexEntry{Similarities and Dissimilarities Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

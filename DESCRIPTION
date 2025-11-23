@@ -1,43 +1,52 @@
 Package: asmcjr
 Type: Package
-Title: 2nd Edition Analyzing Spatial Models of Choice and Judgment (2024)
+Title: Analyzing Spatial Models of Choice and Judgment (2nd Edition, 2024)
 Version: 1.0.2
-Authors@R: c(person("Dave", "Armstrong", role = c("aut", "cre"), email = "dave@quantoid.net"), 
-             person("Royce", "Carroll", role = "aut"), 
-             person("Chris", "Hare", role = "aut"), 
-             person("Ryan", "Bakker", role = "aut"), 
-             person("Keith", "Poole", role="ctb"), 
-             person("Howard", "Rosenthal", role="ctb"),
-             person("Yen-Chieh", "Liao", role=c("ctb", "aut"),  comment = c(ORCID = "0000-0002-2465-3749"), email = "davidycliao@gmail.com"))
-Description: Supports the book - 2nd Edition Analyzing Spatial Models of Choice and Judgment, CRC Press (2020). 
-Depends: R (>= 3.6.0)
+Authors@R: c(
+    person("Dave", "Armstrong", role = c("aut", "cre"), 
+           email = "dave@quantoid.net"),
+    person("Royce", "Carroll", role = "aut"),
+    person("Chris", "Hare", role = "aut"),
+    person("Ryan", "Bakker", role = "aut"),
+    person("Keith", "Poole", role = "ctb"),
+    person("Howard", "Rosenthal", role = "ctb"),
+    person("Yen-Chieh", "Liao", role = c("ctb", "aut"), 
+           email = "davidycliao@gmail.com",
+           comment = c(ORCID = "0000-0002-2465-3749"))
+    )
+Description: Supports the book 'Analyzing Spatial Models of Choice and Judgment' 
+    (2nd Edition), CRC Press (2024). Provides tools for spatial analysis of 
+    political choice and judgment data, including scaling methods and 
+    diagnostic tools for multidimensional analysis.
+Depends: 
+    R (>= 3.6.0)
 Remotes: 
-    cran/basicspace,
-    wmay/dwnominate,
+    cran/basicspace, 
+    wmay/dwnominate, 
     tzuliu/ooc
-Imports:
-    rjags,
-    stats,
-    smacof,
-    basicspace,
-    boot,
-    coda,
-    ggplot2,
-    grDevices,
-    MASS,
-    utils,
-    ellipse,
-    plyr,
+Imports: 
+    rjags, 
+    stats, 
+    smacof, 
+    basicspace, 
+    boot, 
+    coda, 
+    ggplot2, 
+    grDevices, 
+    MASS, 
+    utils, 
+    ellipse, 
+    plyr, 
     vegan
-Suggests:
-    car,
+Suggests: 
+    car, 
     ooc,
-    wnominate,
-    pscl,
-    knitr,
-    perm,
-    rmarkdown,
-    testthat (>= 3.0.0)    
+    wnominate, 
+    pscl, 
+    knitr, 
+    perm, 
+    rmarkdown, 
+    testthat (>= 3.0.0)
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
@@ -48,6 +57,5 @@ URL: https://github.com/uniofessex/asmcjr
 BugReports: https://github.com/uniofessex/asmcjr/issues
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
-SystemRequirements: pandoc (>= 1.14) - http://pandoc.org
-
+SystemRequirements: GNU make, C++11
 

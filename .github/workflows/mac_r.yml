@@ -1,91 +1,102 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-#
-# See https://github.com/r-lib/actions/tree/master/examples#readme for
-# additional example workflows available for the R community.
-name: R Package CI for Windows
-
+name: R Package CI for macOS
 on:
   push:
-    branches: [ "master" ]
+    branches: ["main", "master"]
   pull_request:
-    branches: [ "master" ]
-
+    branches: ["main", "master"]
 permissions:
-  contents: read 
-
+  contents: read
 jobs:
   build:
-    runs-on: windows-latest
-    strategy:
-      matrix:
-        os: [windows-latest]
-        r-version: ['4.1.1']
-
+    runs-on: macos-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      NOT_CRAN: true
+    
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install system dependencies on Windows
-        run: |
-          choco install jags
-          choco install miktex
-          choco install rtools
-          choco install gfortran
-        shell: cmd
-
-      - name: Update MiKTeX package database
-        run: |
-          mpm --update-db
-          mpm --update
-        shell: cmd
-
-      - name: Set up R ${{ matrix.r-version }}
+      
+      - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
-          r-version: ${{ matrix.r-version }}
-
-      - name: Install remotes package
+          r-version: '4.4.1'
+          use-public-rspm: true
+      
+      - name: Install system dependencies
         run: |
-          Rscript -e "install.packages('remotes')"
-        shell: Rscript {0}
-
-      - name: Install package dependencies
+          brew install jags gcc
+          which gfortran
+          gfortran --version
+      
+      - name: Set up JAGS environment
         run: |
-          Rscript -e "install.packages(c('smacof', 'ellipse', 'plyr', 'vegan'))"
+          # Determine Homebrew prefix (differs between Intel and Apple Silicon)
+          BREW_PREFIX=$(brew --prefix)
+          echo "Homebrew prefix: $BREW_PREFIX"
+          
+          # Add JAGS library path to environment
+          echo "JAGS_LIBDIR=${BREW_PREFIX}/lib" >> $GITHUB_ENV
+          echo "JAGS_INCLUDEDIR=${BREW_PREFIX}/include" >> $GITHUB_ENV
+          
+          # Add to dyld library path for runtime
+          echo "DYLD_FALLBACK_LIBRARY_PATH=${BREW_PREFIX}/lib:$DYLD_FALLBACK_LIBRARY_PATH" >> $GITHUB_ENV
+          
+          # Verify JAGS installation
+          ls -la ${BREW_PREFIX}/lib/libjags*
+          ls -la ${BREW_PREFIX}/bin/jags*
+      
+      - name: Configure R for gfortran
+        run: |
+          mkdir -p ~/.R
+          echo "FC = $(which gfortran)" >> ~/.R/Makevars
+          echo "F77 = $(which gfortran)" >> ~/.R/Makevars
+          GFORTRAN_LIB=$(dirname $(gfortran -print-file-name=libgfortran.dylib))
+          echo "FLIBS = -L${GFORTRAN_LIB} -lgfortran -lquadmath -lm" >> ~/.R/Makevars
+          cat ~/.R/Makevars
+      
+      - name: Install R dependencies
+        run: |
+          install.packages(c("remotes", "rcmdcheck", "devtools"))
+          remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
-
+      
       - name: Install basicspace from GitHub
-        env:
-          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
         run: |
-          Rscript -e "remotes::install_github('cran/basicspace', force = TRUE)"
+          remotes::install_github("cran/basicspace", force = TRUE)
         shell: Rscript {0}
-
-      - name: Set CRAN mirror and install other R package dependencies
-        env:
-          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
+      
+      - name: Configure and install rjags
         run: |
-          Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org/')); install.packages(c('rjags', 'ggplot2', 'knitr'));"
+          BREW_PREFIX=$(brew --prefix)
+          install.packages("rjags", 
+                          type = "source",
+                          configure.args = paste0("--with-jags-prefix=", BREW_PREFIX))
         shell: Rscript {0}
-
-      - name: Install rcmdcheck package
+      
+      - name: Verify rjags installation
         run: |
-          Rscript -e "install.packages('rcmdcheck')"
+          library(rjags)
+          cat('rjags loaded successfully\n')
+          cat('JAGS version:', jags.version(), '\n')
         shell: Rscript {0}
-
-      - name: Check
+      
+      - name: Check package
         run: |
-          Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
         shell: Rscript {0}
-
-      - name: Test (optional)
+          
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-results
+          path: check
+      
+      - name: Test package (optional)
         run: |
-          Rscript -e "devtools::test()"
+          if (file.exists("tests")) {
+            devtools::test()
+          } else {
+            message("No tests directory found, skipping tests")
+          }
         shell: Rscript {0}
-
-    env:
-      TZ: UTC
-      _R_CHECK_SYSTEM_CLOCK_: FALSE
-      NOT_CRAN: true

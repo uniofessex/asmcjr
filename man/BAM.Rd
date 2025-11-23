@@ -2,7 +2,7 @@
 % Please edit documentation in R/BAM.R
 \name{BAM}
 \alias{BAM}
-\title{Bayesian Aldrich-McKelvey (BAM) Scaling}
+\title{Bayesian Aldrich-McKelvey Scaling}
 \usage{
 BAM(
   data,
@@ -15,7 +15,7 @@ BAM(
 )
 }
 \arguments{
-\item{data}{A dataset prepared using the \code{bamPrep} function.}
+\item{data}{A dataset prepared using the \code{\link{bamPrep}} function.}
 
 \item{polarity}{Integer specifying the column number of the stimulus used to set the polarity.}
 
@@ -27,18 +27,20 @@ BAM(
 
 \item{n.sample}{Integer, the number of MCMC samples to draw (default is 2500).}
 
-\item{...}{Additional arguments passed to \code{jags.model}.}
+\item{...}{Additional arguments passed to \code{\link[rjags]{jags.model}}.}
 }
 \value{
 A list containing posterior samples and summaries for the estimated parameters.
 }
 \description{
-This function performs Bayesian Aldrich-McKelvey (BAM) scaling using JAGS to estimate ideal points and optionally save intermediate parameters.
+This function performs Bayesian Aldrich-McKelvey (BAM) scaling using JAGS
+to estimate ideal points and optionally save intermediate parameters.
 }
 \examples{
-\dontrun{
+\donttest{
 data(bamdata)
 bam.france <- BAM(bamdata, polarity=2, n.adapt=2500, n.sample=5000,
                   zhatSave=TRUE, abSave=TRUE, resp.idealpts=TRUE)
 }
+
 }

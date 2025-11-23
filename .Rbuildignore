@@ -10,5 +10,6 @@
 ^docs$
 ^pkgdown$
 ^README\.Rmd$
-=======
->>>>>>> 0b2980cdabe5a79011e3b114b64229a3923ad087
+^src/.*\.gcno$
+^src/.*\.gcda$
+src/lbfgs_bu3\.(c|o|f)$
