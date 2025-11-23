@@ -58,7 +58,7 @@ jobs:
         run: |
           library(rjags)
           cat('rjags loaded successfully\n')
-          cat('JAGS version:', jags.version(), '\n')
+          cat('JAGS version:', as.character(jags.version()), '\n')
         shell: Rscript {0}
       
       - name: Check package
