@@ -22,137 +22,37 @@ jobs:
           r-version: '4.4.1'
           use-public-rspm: true
       
-      - name: Install JAGS using Chocolatey
-        run: |
-          choco install jags -y --version=4.3.0 --force
-          if ($LASTEXITCODE -ne 0) {
-            Write-Output "Chocolatey installation failed, trying manual installation..."
-            
-            # 備用方案：使用 wget 下載
-            $wc = New-Object System.Net.WebClient
-            $wc.Headers.Add("User-Agent", "Mozilla/5.0")
-            
-            try {
-              $url = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe"
-              Write-Output "Downloading from: $url"
-              $wc.DownloadFile($url, "JAGS-4.3.0.exe")
-              
-              $fileSize = (Get-Item "JAGS-4.3.0.exe").Length / 1MB
-              Write-Output "File size: $fileSize MB"
-              
-              if ($fileSize -gt 5) {
-                Start-Process -FilePath ".\JAGS-4.3.0.exe" -ArgumentList '/S' -NoNewWindow -Wait
-              } else {
-                throw "Downloaded file too small"
-              }
-            } catch {
-              Write-Error "All installation methods failed: $_"
-              exit 1
-            }
-          }
-          
-          # 驗證安裝
-          $jagsPaths = @(
-            "C:\Program Files\JAGS\JAGS-4.3.0",
-            "C:\ProgramData\chocolatey\lib\jags"
-          )
-          
-          $installed = $false
-          foreach ($path in $jagsPaths) {
-            if (Test-Path $path) {
-              Write-Output "JAGS found at: $path"
-              $installed = $true
-              break
-            }
-          }
-          
-          if (-not $installed) {
-            Write-Error "JAGS installation verification failed"
-            exit 1
-          }
-        shell: powershell
+      - name: Install system dependencies including JAGS
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::rcmdcheck
+            any::devtools
+            any::remotes
+            any::rjags
+            github::cran/basicspace
+          needs: check
       
-      - name: Find and configure JAGS
+      - name: Verify JAGS and rjags
         run: |
-          # 尋找 JAGS 安裝位置
-          $jagsPaths = @(
-            "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin",
-            "C:\Program Files (x86)\JAGS\JAGS-4.3.0\x64\bin",
-            "C:\ProgramData\chocolatey\lib\jags\tools\x64\bin"
-          )
-          
-          $jagsPath = $null
-          foreach ($path in $jagsPaths) {
-            if (Test-Path $path) {
-              $jagsPath = $path
-              Write-Output "JAGS bin found at: $path"
-              break
-            }
-          }
-          
-          if ($null -eq $jagsPath) {
-            Write-Error "JAGS bin directory not found"
-            exit 1
-          }
-          
-          # 加入 PATH
-          echo $jagsPath >> $env:GITHUB_PATH
-          
-          # 列出 DLL
-          Write-Output "`nJAGS DLLs:"
-          Get-ChildItem "$jagsPath\*.dll" | Select-Object Name, Length
-          
-          # 儲存 JAGS 路徑供後續使用
-          $jagsHome = Split-Path (Split-Path $jagsPath)
-          echo "JAGS_HOME=$jagsHome" >> $env:GITHUB_ENV
-        shell: powershell
-      
-      - name: Install R dependencies
-        run: |
-          install.packages(c("remotes", "rcmdcheck", "devtools"))
-          remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
-      
-      - name: Install basicspace
-        run: |
-          remotes::install_github("cran/basicspace", force = TRUE)
-        shell: Rscript {0}
-      
-      - name: Test rjags loading
-        run: |
-          # 從環境變數讀取 JAGS 路徑
-          jags_home <- Sys.getenv("JAGS_HOME")
-          if (jags_home != "") {
-            jags_bin <- file.path(jags_home, "x64", "bin")
-            cat("Using JAGS from:", jags_bin, "\n")
-            Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
-          }
-          
-          # 嘗試載入 rjags
-          result <- tryCatch({
+          cat("Testing rjags installation...\n")
+          tryCatch({
             library(rjags)
             cat("SUCCESS: rjags loaded\n")
             cat("JAGS version:", jags.version(), "\n")
-            TRUE
           }, error = function(e) {
-            cat("ERROR:", conditionMessage(e), "\n")
-            FALSE
+            cat("ERROR: rjags failed to load\n")
+            cat("Error message:", conditionMessage(e), "\n")
+            cat("\nSystem info:\n")
+            print(sessionInfo())
+            stop("rjags installation failed")
           })
-          
-          if (!result) {
-            stop("Failed to load rjags")
-          }
         shell: Rscript {0}
       
       - name: Check package
-        run: |
-          jags_home <- Sys.getenv("JAGS_HOME")
-          if (jags_home != "") {
-            jags_bin <- file.path(jags_home, "x64", "bin")
-            Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
-          }
-          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
-        shell: Rscript {0}
+        uses: r-lib/actions/check-r-package@v2
+        with:
+          args: 'c("--no-manual", "--as-cran")'
       
       - name: Upload check results
         if: failure()
