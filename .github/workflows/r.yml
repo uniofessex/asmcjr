@@ -24,7 +24,7 @@ jobs:
       
       - name: Download and install JAGS
         run: |
-          curl -L -o JAGS-4.3.0.exe https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe/download
+          curl.exe -L -o JAGS-4.3.0.exe https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe/download
           if (Test-Path -Path ".\JAGS-4.3.0.exe") {
             Start-Process -FilePath ".\JAGS-4.3.0.exe" -ArgumentList '/S' -NoNewWindow -Wait
             Write-Output "JAGS installed successfully"
