@@ -22,27 +22,66 @@ jobs:
           r-version: '4.4.1'
           use-public-rspm: true
       
+      - name: Cache JAGS installation
+        id: cache-jags
+        uses: actions/cache@v4
+        with:
+          path: C:\Program Files\JAGS
+          key: jags-4.3.0-windows
+      
       - name: Download and install JAGS
+        if: steps.cache-jags.outputs.cache-hit != 'true'
         run: |
-          # 使用 Invoke-WebRequest 而不是 curl，處理重定向更好
           $ProgressPreference = 'SilentlyContinue'
-          $url = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe/download"
+          
+          # 嘗試多個鏡像源
+          $mirrors = @(
+            "https://downloads.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.0.exe",
+            "https://versaweb.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.0.exe",
+            "https://managedway.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.0.exe"
+          )
+          
           $output = "JAGS-4.3.0.exe"
+          $downloaded = $false
           
-          Write-Output "Downloading JAGS..."
-          Invoke-WebRequest -Uri $url -OutFile $output -UseBasicParsing -MaximumRedirection 5
+          foreach ($url in $mirrors) {
+            try {
+              Write-Output "Trying mirror: $url"
+              Invoke-WebRequest -Uri $url -OutFile $output -UseBasicParsing -TimeoutSec 60
+              
+              $fileSize = (Get-Item $output).Length / 1MB
+              Write-Output "Downloaded file size: $fileSize MB"
+              
+              if ($fileSize -gt 10) {
+                Write-Output "Download successful!"
+                $downloaded = $true
+                break
+              } else {
+                Write-Output "File too small, trying next mirror..."
+                Remove-Item $output -ErrorAction SilentlyContinue
+              }
+            } catch {
+              Write-Output "Failed with this mirror: $_"
+              Remove-Item $output -ErrorAction SilentlyContinue
+            }
+          }
           
-          $fileSize = (Get-Item $output).Length / 1MB
-          Write-Output "Downloaded file size: $fileSize MB"
-          
-          if ($fileSize -lt 1) {
-            Write-Error "Downloaded file is too small, likely corrupted"
+          if (-not $downloaded) {
+            Write-Error "All download attempts failed"
             exit 1
           }
           
           Write-Output "Installing JAGS..."
           Start-Process -FilePath ".\$output" -ArgumentList '/S' -NoNewWindow -Wait
           Write-Output "JAGS installed successfully"
+          
+          # 驗證安裝
+          if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0") {
+            Write-Output "JAGS installation verified"
+          } else {
+            Write-Error "JAGS installation failed"
+            exit 1
+          }
         shell: powershell
       
       - name: Configure JAGS environment
@@ -50,13 +89,9 @@ jobs:
           $jagsPath = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
           echo $jagsPath >> $env:GITHUB_PATH
           
-          # 驗證安裝
           if (Test-Path $jagsPath) {
-            Write-Output "JAGS installation verified"
+            Write-Output "JAGS DLLs:"
             Get-ChildItem "$jagsPath\*.dll" | Select-Object Name, Length
-          } else {
-            Write-Error "JAGS installation not found"
-            exit 1
           }
         shell: powershell
       
@@ -71,44 +106,47 @@ jobs:
           remotes::install_github("cran/basicspace", force = TRUE)
         shell: Rscript {0}
       
-      - name: Test rjags with PATH setup
+      - name: Test rjags loading
         run: |
-          # 在 R 內部設定 PATH
+          # 設定 PATH
           jags_bin <- "C:/Program Files/JAGS/JAGS-4.3.0/x64/bin"
-          old_path <- Sys.getenv("PATH")
-          Sys.setenv(PATH = paste(jags_bin, old_path, sep = ";"))
+          Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
           
-          cat("Attempting to load rjags...\n")
+          cat("PATH:", Sys.getenv("PATH"), "\n\n")
+          
+          # 嘗試載入
           tryCatch({
             library(rjags)
             cat("SUCCESS: rjags loaded\n")
             cat("JAGS version:", jags.version(), "\n")
           }, error = function(e) {
-            cat("ERROR:", conditionMessage(e), "\n")
-            cat("\nAttempting to load dependencies manually...\n")
+            cat("ERROR:", conditionMessage(e), "\n\n")
             
-            # 嘗試手動載入 JAGS DLL
+            # 診斷資訊
+            cat("Trying to manually load jags.dll...\n")
             jags_dll <- file.path(jags_bin, "jags.dll")
+            
             if (file.exists(jags_dll)) {
-              cat("Found jags.dll at:", jags_dll, "\n")
-              dyn.load(jags_dll)
-              cat("Manually loaded jags.dll\n")
-              
-              # 再次嘗試載入 rjags
-              library(rjags)
-              cat("SUCCESS after manual DLL load\n")
+              tryCatch({
+                dyn.load(jags_dll)
+                cat("Manually loaded jags.dll\n")
+                library(rjags)
+                cat("SUCCESS after manual load\n")
+              }, error = function(e2) {
+                cat("Manual load also failed:", conditionMessage(e2), "\n")
+                stop("Cannot load rjags")
+              })
             } else {
-              stop("Cannot find jags.dll")
+              cat("jags.dll not found at:", jags_dll, "\n")
+              stop("JAGS DLL missing")
             }
           })
         shell: Rscript {0}
       
       - name: Check package
         run: |
-          # 設定 PATH
           jags_bin <- "C:/Program Files/JAGS/JAGS-4.3.0/x64/bin"
           Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
-          
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
         shell: Rscript {0}
       
@@ -123,7 +161,6 @@ jobs:
         run: |
           jags_bin <- "C:/Program Files/JAGS/JAGS-4.3.0/x64/bin"
           Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
-          
           if (file.exists("tests")) {
             devtools::test()
           } else {
