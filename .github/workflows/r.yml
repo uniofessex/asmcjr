@@ -22,77 +22,89 @@ jobs:
           r-version: '4.4.1'
           use-public-rspm: true
       
-      - name: Cache JAGS installation
-        id: cache-jags
-        uses: actions/cache@v4
-        with:
-          path: C:\Program Files\JAGS
-          key: jags-4.3.0-windows
-      
-      - name: Download and install JAGS
-        if: steps.cache-jags.outputs.cache-hit != 'true'
+      - name: Install JAGS using Chocolatey
         run: |
-          $ProgressPreference = 'SilentlyContinue'
-          
-          # 嘗試多個鏡像源
-          $mirrors = @(
-            "https://downloads.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.0.exe",
-            "https://versaweb.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.0.exe",
-            "https://managedway.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.0.exe"
-          )
-          
-          $output = "JAGS-4.3.0.exe"
-          $downloaded = $false
-          
-          foreach ($url in $mirrors) {
+          choco install jags -y --version=4.3.0 --force
+          if ($LASTEXITCODE -ne 0) {
+            Write-Output "Chocolatey installation failed, trying manual installation..."
+            
+            # 備用方案：使用 wget 下載
+            $wc = New-Object System.Net.WebClient
+            $wc.Headers.Add("User-Agent", "Mozilla/5.0")
+            
             try {
-              Write-Output "Trying mirror: $url"
-              Invoke-WebRequest -Uri $url -OutFile $output -UseBasicParsing -TimeoutSec 60
+              $url = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe"
+              Write-Output "Downloading from: $url"
+              $wc.DownloadFile($url, "JAGS-4.3.0.exe")
               
-              $fileSize = (Get-Item $output).Length / 1MB
-              Write-Output "Downloaded file size: $fileSize MB"
+              $fileSize = (Get-Item "JAGS-4.3.0.exe").Length / 1MB
+              Write-Output "File size: $fileSize MB"
               
-              if ($fileSize -gt 10) {
-                Write-Output "Download successful!"
-                $downloaded = $true
-                break
+              if ($fileSize -gt 5) {
+                Start-Process -FilePath ".\JAGS-4.3.0.exe" -ArgumentList '/S' -NoNewWindow -Wait
               } else {
-                Write-Output "File too small, trying next mirror..."
-                Remove-Item $output -ErrorAction SilentlyContinue
+                throw "Downloaded file too small"
               }
             } catch {
-              Write-Output "Failed with this mirror: $_"
-              Remove-Item $output -ErrorAction SilentlyContinue
+              Write-Error "All installation methods failed: $_"
+              exit 1
             }
           }
           
-          if (-not $downloaded) {
-            Write-Error "All download attempts failed"
-            exit 1
+          # 驗證安裝
+          $jagsPaths = @(
+            "C:\Program Files\JAGS\JAGS-4.3.0",
+            "C:\ProgramData\chocolatey\lib\jags"
+          )
+          
+          $installed = $false
+          foreach ($path in $jagsPaths) {
+            if (Test-Path $path) {
+              Write-Output "JAGS found at: $path"
+              $installed = $true
+              break
+            }
           }
           
-          Write-Output "Installing JAGS..."
-          Start-Process -FilePath ".\$output" -ArgumentList '/S' -NoNewWindow -Wait
-          Write-Output "JAGS installed successfully"
-          
-          # 驗證安裝
-          if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0") {
-            Write-Output "JAGS installation verified"
-          } else {
-            Write-Error "JAGS installation failed"
+          if (-not $installed) {
+            Write-Error "JAGS installation verification failed"
             exit 1
           }
         shell: powershell
       
-      - name: Configure JAGS environment
+      - name: Find and configure JAGS
         run: |
-          $jagsPath = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
+          # 尋找 JAGS 安裝位置
+          $jagsPaths = @(
+            "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin",
+            "C:\Program Files (x86)\JAGS\JAGS-4.3.0\x64\bin",
+            "C:\ProgramData\chocolatey\lib\jags\tools\x64\bin"
+          )
+          
+          $jagsPath = $null
+          foreach ($path in $jagsPaths) {
+            if (Test-Path $path) {
+              $jagsPath = $path
+              Write-Output "JAGS bin found at: $path"
+              break
+            }
+          }
+          
+          if ($null -eq $jagsPath) {
+            Write-Error "JAGS bin directory not found"
+            exit 1
+          }
+          
+          # 加入 PATH
           echo $jagsPath >> $env:GITHUB_PATH
           
-          if (Test-Path $jagsPath) {
-            Write-Output "JAGS DLLs:"
-            Get-ChildItem "$jagsPath\*.dll" | Select-Object Name, Length
-          }
+          # 列出 DLL
+          Write-Output "`nJAGS DLLs:"
+          Get-ChildItem "$jagsPath\*.dll" | Select-Object Name, Length
+          
+          # 儲存 JAGS 路徑供後續使用
+          $jagsHome = Split-Path (Split-Path $jagsPath)
+          echo "JAGS_HOME=$jagsHome" >> $env:GITHUB_ENV
         shell: powershell
       
       - name: Install R dependencies
@@ -108,45 +120,37 @@ jobs:
       
       - name: Test rjags loading
         run: |
-          # 設定 PATH
-          jags_bin <- "C:/Program Files/JAGS/JAGS-4.3.0/x64/bin"
-          Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
+          # 從環境變數讀取 JAGS 路徑
+          jags_home <- Sys.getenv("JAGS_HOME")
+          if (jags_home != "") {
+            jags_bin <- file.path(jags_home, "x64", "bin")
+            cat("Using JAGS from:", jags_bin, "\n")
+            Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
+          }
           
-          cat("PATH:", Sys.getenv("PATH"), "\n\n")
-          
-          # 嘗試載入
-          tryCatch({
+          # 嘗試載入 rjags
+          result <- tryCatch({
             library(rjags)
             cat("SUCCESS: rjags loaded\n")
             cat("JAGS version:", jags.version(), "\n")
+            TRUE
           }, error = function(e) {
-            cat("ERROR:", conditionMessage(e), "\n\n")
-            
-            # 診斷資訊
-            cat("Trying to manually load jags.dll...\n")
-            jags_dll <- file.path(jags_bin, "jags.dll")
-            
-            if (file.exists(jags_dll)) {
-              tryCatch({
-                dyn.load(jags_dll)
-                cat("Manually loaded jags.dll\n")
-                library(rjags)
-                cat("SUCCESS after manual load\n")
-              }, error = function(e2) {
-                cat("Manual load also failed:", conditionMessage(e2), "\n")
-                stop("Cannot load rjags")
-              })
-            } else {
-              cat("jags.dll not found at:", jags_dll, "\n")
-              stop("JAGS DLL missing")
-            }
+            cat("ERROR:", conditionMessage(e), "\n")
+            FALSE
           })
+          
+          if (!result) {
+            stop("Failed to load rjags")
+          }
         shell: Rscript {0}
       
       - name: Check package
         run: |
-          jags_bin <- "C:/Program Files/JAGS/JAGS-4.3.0/x64/bin"
-          Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
+          jags_home <- Sys.getenv("JAGS_HOME")
+          if (jags_home != "") {
+            jags_bin <- file.path(jags_home, "x64", "bin")
+            Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
+          }
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
         shell: Rscript {0}
       
@@ -156,14 +160,3 @@ jobs:
         with:
           name: windows-results
           path: check
-      
-      - name: Test package
-        run: |
-          jags_bin <- "C:/Program Files/JAGS/JAGS-4.3.0/x64/bin"
-          Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
-          if (file.exists("tests")) {
-            devtools::test()
-          } else {
-            message("No tests directory found")
-          }
-        shell: Rscript {0}
