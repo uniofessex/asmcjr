@@ -6,17 +6,126 @@
 \alias{ches_eu}
 \title{CHES EU Dataset: Party Positions from Chapel Hill Expert Survey}
 \format{
-A data frame with 121 rows (118 actual parties + 3 vignettes) and
-5 variables:
+A data frame with 118 variables:
 \describe{
-\item{party}{Name or identifier of the political party (character)}
-\item{mean}{Mean party placement across all experts who evaluated this
-party (numeric)}
-\item{sd}{Standard deviation of party placements across experts (numeric)}
-\item{country}{Country where the party is based. ISO country codes or
-full country names (character)}
-\item{vignette}{Indicator for vignette parties: 1 = vignette party used
-for anchoring, 0 = actual political party (numeric or logical)}
+\item{1001}{Variable 1001}
+\item{1002}{Variable 1002}
+\item{1003}{Variable 1003}
+\item{1004}{Variable 1004}
+\item{1005}{Variable 1005}
+\item{1014}{Variable 1014}
+\item{1016}{Variable 1016}
+\item{1017}{Variable 1017}
+\item{1018}{Variable 1018}
+\item{1019}{Variable 1019}
+\item{102}{Variable 102}
+\item{103}{Variable 103}
+\item{104}{Variable 104}
+\item{105}{Variable 105}
+\item{106}{Variable 106}
+\item{107}{Variable 107}
+\item{108}{Variable 108}
+\item{109}{Variable 109}
+\item{110}{Variable 110}
+\item{1101}{Variable 1101}
+\item{1102}{Variable 1102}
+\item{1104}{Variable 1104}
+\item{1105}{Variable 1105}
+\item{1106}{Variable 1106}
+\item{1107}{Variable 1107}
+\item{1108}{Variable 1108}
+\item{1109}{Variable 1109}
+\item{112}{Variable 112}
+\item{113}{Variable 113}
+\item{114}{Variable 114}
+\item{115}{Variable 115}
+\item{116}{Variable 116}
+\item{1301}{Variable 1301}
+\item{1302}{Variable 1302}
+\item{1303}{Variable 1303}
+\item{1304}{Variable 1304}
+\item{1307}{Variable 1307}
+\item{1401}{Variable 1401}
+\item{1402}{Variable 1402}
+\item{1403}{Variable 1403}
+\item{1404}{Variable 1404}
+\item{1405}{Variable 1405}
+\item{1406}{Variable 1406}
+\item{1408}{Variable 1408}
+\item{1409}{Variable 1409}
+\item{1601}{Variable 1601}
+\item{1602}{Variable 1602}
+\item{1603}{Variable 1603}
+\item{1604}{Variable 1604}
+\item{1605}{Variable 1605}
+\item{1606}{Variable 1606}
+\item{1607}{Variable 1607}
+\item{1609}{Variable 1609}
+\item{1610}{Variable 1610}
+\item{2001}{Variable 2001}
+\item{2002}{Variable 2002}
+\item{2003}{Variable 2003}
+\item{2004}{Variable 2004}
+\item{2007}{Variable 2007}
+\item{2008}{Variable 2008}
+\item{2009}{Variable 2009}
+\item{201}{Variable 201}
+\item{2010}{Variable 2010}
+\item{202}{Variable 202}
+\item{203}{Variable 203}
+\item{206}{Variable 206}
+\item{2101}{Variable 2101}
+\item{2102}{Variable 2102}
+\item{2103}{Variable 2103}
+\item{2104}{Variable 2104}
+\item{2107}{Variable 2107}
+\item{2109}{Variable 2109}
+\item{211}{Variable 211}
+\item{2110}{Variable 2110}
+\item{213}{Variable 213}
+\item{215}{Variable 215}
+\item{218}{Variable 218}
+\item{2201}{Variable 2201}
+\item{2202}{Variable 2202}
+\item{2203}{Variable 2203}
+\item{2204}{Variable 2204}
+\item{2206}{Variable 2206}
+\item{2207}{Variable 2207}
+\item{2301}{Variable 2301}
+\item{2302}{Variable 2302}
+\item{2303}{Variable 2303}
+\item{2304}{Variable 2304}
+\item{2307}{Variable 2307}
+\item{2308}{Variable 2308}
+\item{2309}{Variable 2309}
+\item{2601}{Variable 2601}
+\item{2603}{Variable 2603}
+\item{2604}{Variable 2604}
+\item{2605}{Variable 2605}
+\item{2606}{Variable 2606}
+\item{2607}{Variable 2607}
+\item{2611}{Variable 2611}
+\item{2612}{Variable 2612}
+\item{301}{Variable 301}
+\item{302}{Variable 302}
+\item{303}{Variable 303}
+\item{304}{Variable 304}
+\item{306}{Variable 306}
+\item{308}{Variable 308}
+\item{501}{Variable 501}
+\item{502}{Variable 502}
+\item{504}{Variable 504}
+\item{505}{Variable 505}
+\item{506}{Variable 506}
+\item{507}{Variable 507}
+\item{511}{Variable 511}
+\item{513}{Variable 513}
+\item{517}{Variable 517}
+\item{520}{Variable 520}
+\item{523}{Variable 523}
+\item{a}{Variable a}
+\item{b}{Variable b}
+\item{c}{Variable c}
 }
 }
 \source{

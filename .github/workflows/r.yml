@@ -12,6 +12,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       NOT_CRAN: true
+      JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
     
     steps:
       - uses: actions/checkout@v4
@@ -34,8 +35,9 @@ jobs:
           }
         shell: powershell
       
-      - name: Add JAGS to PATH
+      - name: Set JAGS environment variables
         run: |
+          echo "JAGS_HOME=C:/Program Files/JAGS/JAGS-4.3.0" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           echo "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         shell: powershell
       
@@ -44,6 +46,7 @@ jobs:
           Get-Command jags -ErrorAction Stop
           if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0") {
             Write-Output "JAGS 4.3.0 is installed"
+            Write-Output "JAGS_HOME: $env:JAGS_HOME"
             Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
           } else {
             Write-Error "JAGS installation directory not found"
@@ -57,12 +60,21 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
       
+      - name: Install and verify rjags
+        run: |
+          install.packages("rjags")
+          library(rjags)
+          cat("rjags loaded successfully\n")
+        shell: Rscript {0}
+      
       - name: Install basicspace from GitHub
         run: |
           remotes::install_github("cran/basicspace", force = TRUE)
         shell: Rscript {0}
       
       - name: Check package
+        env:
+          JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
         run: |
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
         shell: Rscript {0}
