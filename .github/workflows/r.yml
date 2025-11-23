@@ -22,103 +22,93 @@ jobs:
           r-version: '4.4.1'
           use-public-rspm: true
       
-      - name: Download and install JAGS 4.3.2
+      - name: Download and install JAGS
         run: |
-          # 使用 JAGS 4.3.2 (更新的版本，可能與 rjags 二進位檔更相容)
-          $url = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe/download"
-          curl.exe -L -o JAGS-4.3.2.exe $url
-          if (Test-Path ".\JAGS-4.3.2.exe") {
-            Start-Process -FilePath ".\JAGS-4.3.2.exe" -ArgumentList '/S' -NoNewWindow -Wait
-            Write-Output "JAGS 4.3.2 installed successfully"
-          } else {
-            Write-Error "Failed to download JAGS"
+          # 使用 Invoke-WebRequest 而不是 curl，處理重定向更好
+          $ProgressPreference = 'SilentlyContinue'
+          $url = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe/download"
+          $output = "JAGS-4.3.0.exe"
+          
+          Write-Output "Downloading JAGS..."
+          Invoke-WebRequest -Uri $url -OutFile $output -UseBasicParsing -MaximumRedirection 5
+          
+          $fileSize = (Get-Item $output).Length / 1MB
+          Write-Output "Downloaded file size: $fileSize MB"
+          
+          if ($fileSize -lt 1) {
+            Write-Error "Downloaded file is too small, likely corrupted"
             exit 1
           }
+          
+          Write-Output "Installing JAGS..."
+          Start-Process -FilePath ".\$output" -ArgumentList '/S' -NoNewWindow -Wait
+          Write-Output "JAGS installed successfully"
         shell: powershell
       
       - name: Configure JAGS environment
         run: |
-          $jagsPath = "C:\Program Files\JAGS\JAGS-4.3.2\x64\bin"
+          $jagsPath = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
           echo $jagsPath >> $env:GITHUB_PATH
-          Write-Output "JAGS bin added to PATH for next steps"
-          
-          # 立即為當前 session 設定
-          $env:Path = "$jagsPath;$env:Path"
           
           # 驗證安裝
-          Write-Output "`nJAGS DLLs:"
-          Get-ChildItem "$jagsPath\*.dll" | Select-Object Name, Length
-        shell: powershell
-      
-      - name: Create R environment setup script
-        run: |
-          $script = @'
-          # 確保 JAGS 在 PATH 中
-          jags_path <- "C:/Program Files/JAGS/JAGS-4.3.2/x64/bin"
-          current_path <- Sys.getenv("PATH")
-          if (!grepl(jags_path, current_path, fixed = TRUE)) {
-            Sys.setenv(PATH = paste(jags_path, current_path, sep = ";"))
+          if (Test-Path $jagsPath) {
+            Write-Output "JAGS installation verified"
+            Get-ChildItem "$jagsPath\*.dll" | Select-Object Name, Length
+          } else {
+            Write-Error "JAGS installation not found"
+            exit 1
           }
-          '@
-          
-          New-Item -Path ".github" -ItemType Directory -Force
-          Set-Content -Path ".github/setup.R" -Value $script
-          
-          Write-Output "Setup script created"
-          Get-Content ".github/setup.R"
         shell: powershell
       
       - name: Install R dependencies
         run: |
-          source(".github/setup.R")
           install.packages(c("remotes", "rcmdcheck", "devtools"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
       
       - name: Install basicspace
         run: |
-          source(".github/setup.R")
           remotes::install_github("cran/basicspace", force = TRUE)
         shell: Rscript {0}
       
-      - name: Verify rjags with diagnostics
+      - name: Test rjags with PATH setup
         run: |
-          source(".github/setup.R")
-          
-          cat("Current PATH:\n")
-          cat(Sys.getenv("PATH"), "\n\n")
+          # 在 R 內部設定 PATH
+          jags_bin <- "C:/Program Files/JAGS/JAGS-4.3.0/x64/bin"
+          old_path <- Sys.getenv("PATH")
+          Sys.setenv(PATH = paste(jags_bin, old_path, sep = ";"))
           
           cat("Attempting to load rjags...\n")
-          result <- tryCatch({
+          tryCatch({
             library(rjags)
             cat("SUCCESS: rjags loaded\n")
             cat("JAGS version:", jags.version(), "\n")
-            TRUE
           }, error = function(e) {
-            cat("ERROR loading rjags:\n")
-            cat(conditionMessage(e), "\n")
+            cat("ERROR:", conditionMessage(e), "\n")
+            cat("\nAttempting to load dependencies manually...\n")
             
-            # 嘗試診斷
-            cat("\nDiagnostics:\n")
-            cat("rjags.dll location:\n")
-            rjags_path <- system.file("libs/x64/rjags.dll", package = "rjags")
-            cat(rjags_path, "\n")
-            
-            if (file.exists(rjags_path)) {
-              cat("rjags.dll exists\n")
+            # 嘗試手動載入 JAGS DLL
+            jags_dll <- file.path(jags_bin, "jags.dll")
+            if (file.exists(jags_dll)) {
+              cat("Found jags.dll at:", jags_dll, "\n")
+              dyn.load(jags_dll)
+              cat("Manually loaded jags.dll\n")
+              
+              # 再次嘗試載入 rjags
+              library(rjags)
+              cat("SUCCESS after manual DLL load\n")
+            } else {
+              stop("Cannot find jags.dll")
             }
-            
-            FALSE
           })
-          
-          if (!result) {
-            stop("rjags failed to load")
-          }
         shell: Rscript {0}
       
       - name: Check package
         run: |
-          source(".github/setup.R")
+          # 設定 PATH
+          jags_bin <- "C:/Program Files/JAGS/JAGS-4.3.0/x64/bin"
+          Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
+          
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
         shell: Rscript {0}
       
@@ -131,7 +121,9 @@ jobs:
       
       - name: Test package
         run: |
-          source(".github/setup.R")
+          jags_bin <- "C:/Program Files/JAGS/JAGS-4.3.0/x64/bin"
+          Sys.setenv(PATH = paste(jags_bin, Sys.getenv("PATH"), sep = ";"))
+          
           if (file.exists("tests")) {
             devtools::test()
           } else {

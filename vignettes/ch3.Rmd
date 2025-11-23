@@ -407,24 +407,24 @@ library(asmcjr)
 # Load the ches_eu dataset
 data(ches_eu)
 
-# Calculate the column means of sub.europe, ignoring NA values
-means <- colMeans(sub.europe, na.rm = TRUE)
+# Calculate the column means of ches_eu, ignoring NA values
+means <- colMeans(ches_eu, na.rm = TRUE)
 
-# Calculate the standard deviations of the columns in sub.europe, ignoring NA values
-sds2 <- apply(sub.europe, 2, sd, na.rm = TRUE)
+# Calculate the standard deviations of the columns in ches_eu, ignoring NA values
+sds2 <- apply(ches_eu, 2, sd, na.rm = TRUE)
 
-# Convert sub.europe to a matrix
-sub.europe <- as.matrix(sub.europe)
+# Convert ches_eu to a matrix
+ches_eu <- as.matrix(ches_eu)
 
-# Ensure the mode of sub.europe is numeric
-mode(sub.europe) <- "numeric"
+# Ensure the mode of ches_eu is numeric
+mode(ches_eu) <- "numeric"
 
 ```
 
 Call the blackbox_transpose 
 ```{r}
 library(basicspace)
-result <- blackbox_transpose(sub.europe,dims=3,
+result <- blackbox_transpose(ches_eu,dims=3,
                              minscale=5,verbose=TRUE)
 ```
 
@@ -434,7 +434,7 @@ europe.dat <- data.frame(
   x = -result$stimuli[[2]][,2],  # Negate the second column of stimuli and assign to x
   y = result$stimuli[[2]][,3],   # Use the third column of stimuli for y
   means = means,                 # Add the means calculated earlier
-  party = colnames(sub.europe),  # Use the column names of sub.europe as party names
+  party = colnames(ches_eu),  # Use the column names of ches_eu as party names
   type = car:::recode(means,     # Recode means into categories: Left, Moderate, and Right
     "lo:3 = 'Left'; 3:7 = 'Moderate'; 7:hi = 'Right'",
     as.factor = TRUE)
