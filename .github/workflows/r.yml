@@ -12,7 +12,6 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       NOT_CRAN: true
-      JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
     
     steps:
       - uses: actions/checkout@v4
@@ -35,61 +34,50 @@ jobs:
           }
         shell: powershell
       
-      - name: Set JAGS environment variables
+      - name: Add JAGS to system PATH
         run: |
-          echo "JAGS_HOME=C:/Program Files/JAGS/JAGS-4.3.0" >> $env:GITHUB_ENV
           echo "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin" >> $env:GITHUB_PATH
-          # 將 JAGS bin 加入當前 session 的 PATH
-          $env:Path = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin;$env:Path"
         shell: powershell
       
       - name: Verify JAGS installation
         run: |
-          $env:Path = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin;$env:Path"
           if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0") {
             Write-Output "JAGS 4.3.0 is installed"
-            Write-Output "JAGS_HOME: $env:JAGS_HOME"
             Write-Output "Checking JAGS bin directory:"
             Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
-            Write-Output "`nChecking for JAGS DLL files:"
-            Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin\*.dll"
           } else {
             Write-Error "JAGS installation directory not found"
             exit 1
           }
         shell: powershell
       
-      - name: Install R dependencies (except rjags)
+      - name: Install R dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck", "devtools", "coda"))
+          install.packages(c("remotes", "rcmdcheck", "devtools"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
-      
-      - name: Install rjags with JAGS in PATH
-        run: |
-          $env:Path = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin;$env:Path"
-          $env:JAGS_HOME = "C:/Program Files/JAGS/JAGS-4.3.0"
-          Rscript -e "install.packages('rjags', type='binary')"
-        shell: powershell
-      
-      - name: Verify rjags installation
-        run: |
-          $env:Path = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin;$env:Path"
-          $env:JAGS_HOME = "C:/Program Files/JAGS/JAGS-4.3.0"
-          Rscript -e "library(rjags); cat('rjags loaded successfully\n')"
-        shell: powershell
+        env:
+          JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
       
       - name: Install basicspace from GitHub
         run: |
           remotes::install_github("cran/basicspace", force = TRUE)
         shell: Rscript {0}
       
+      - name: Verify rjags can load
+        run: |
+          library(rjags)
+          cat('rjags loaded successfully\n')
+        shell: Rscript {0}
+        env:
+          JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
+      
       - name: Check package
         run: |
-          $env:Path = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin;$env:Path"
-          $env:JAGS_HOME = "C:/Program Files/JAGS/JAGS-4.3.0"
-          Rscript -e "rcmdcheck::rcmdcheck(args = c('--no-manual', '--as-cran'), error_on = 'error', check_dir = 'check')"
-        shell: powershell
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
+        shell: Rscript {0}
+        env:
+          JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
       
       - name: Upload check results
         if: failure()
@@ -100,6 +88,11 @@ jobs:
       
       - name: Test package (optional)
         run: |
-          $env:Path = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin;$env:Path"
-          Rscript -e "if (file.exists('tests')) { devtools::test() } else { message('No tests directory found, skipping tests') }"
-        shell: powershell
+          if (file.exists("tests")) {
+            devtools::test()
+          } else {
+            message("No tests directory found, skipping tests")
+          }
+        shell: Rscript {0}
+        env:
+          JAGS_HOME: "C:/Program Files/JAGS/JAGS-4.3.0"
