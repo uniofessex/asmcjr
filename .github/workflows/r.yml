@@ -1,4 +1,4 @@
-name: R Package CI for Windows
+name: R Package CI for macOS
 on:
   push:
     branches: ["main", "master"]
@@ -8,7 +8,7 @@ permissions:
   contents: read
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: macos-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       NOT_CRAN: true
@@ -22,84 +22,48 @@ jobs:
           r-version: '4.4.1'
           use-public-rspm: true
       
-      - name: Download and install JAGS
+      - name: Install system dependencies
         run: |
-          curl.exe -L -o JAGS-4.3.0.exe https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe/download
-          if (Test-Path -Path ".\JAGS-4.3.0.exe") {
-            Start-Process -FilePath ".\JAGS-4.3.0.exe" -ArgumentList '/S' -NoNewWindow -Wait
-            Write-Output "JAGS installed successfully"
-          } else {
-            Write-Error "Failed to download JAGS installer"
-            exit 1
-          }
-        shell: powershell
-      
-      - name: Set up JAGS environment
-        run: |
-          echo "JAGS_HOME=C:/Program Files/JAGS/JAGS-4.3.0" >> $env:GITHUB_ENV
-          echo "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin" >> $env:GITHUB_PATH
-          echo "JAGS_ROOT=C:/Program Files/JAGS/JAGS-4.3.0" >> $env:GITHUB_ENV
-        shell: powershell
+          brew install jags gcc
+          which gfortran
+          gfortran --version
       
       - name: Verify JAGS installation
         run: |
-          Write-Output "JAGS installation check:"
-          Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64" -Recurse -Include *.dll | Select-Object FullName
-          Write-Output "`nJAGS include files:"
-          if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0\x64\include") {
-            Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\include" -Recurse -Include *.h
-          }
-          Write-Output "`nJAGS library files:"
-          if (Test-Path "C:\Program Files\JAGS\JAGS-4.3.0\x64\lib") {
-            Get-ChildItem "C:\Program Files\JAGS\JAGS-4.3.0\x64\lib"
-          }
-        shell: powershell
+          which jags || echo "JAGS binary not found in PATH"
+          if [ -d "/usr/local/bin" ]; then
+            ls -la /usr/local/bin/jags* 2>/dev/null || echo "No jags in /usr/local/bin"
+          fi
+          if [ -d "/opt/homebrew/bin" ]; then
+            ls -la /opt/homebrew/bin/jags* 2>/dev/null || echo "No jags in /opt/homebrew/bin"
+          fi
+          echo "JAGS installed successfully"
       
-      - name: Install R dependencies (without rjags)
+      - name: Configure R for gfortran
         run: |
-          install.packages(c("remotes", "rcmdcheck", "devtools", "coda"))
-        shell: Rscript {0}
+          mkdir -p ~/.R
+          echo "FC = $(which gfortran)" >> ~/.R/Makevars
+          echo "F77 = $(which gfortran)" >> ~/.R/Makevars
+          GFORTRAN_LIB=$(dirname $(gfortran -print-file-name=libgfortran.dylib))
+          echo "FLIBS = -L${GFORTRAN_LIB} -lgfortran -lquadmath -lm" >> ~/.R/Makevars
+          cat ~/.R/Makevars
       
-      - name: Install rjags from source
+      - name: Install R dependencies
         run: |
-          $env:JAGS_HOME = "C:/Program Files/JAGS/JAGS-4.3.0"
-          $env:JAGS_ROOT = "C:/Program Files/JAGS/JAGS-4.3.0"
-          $env:PATH = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin;$env:PATH"
-          $makevarsContent = "JAGS_ROOT = C:/PROGRA~1/JAGS/JAGS-4.3.0`nPKG_CPPFLAGS = -I`$(JAGS_ROOT)/x64/include`nPKG_LIBS = -L`$(JAGS_ROOT)/x64/bin -L`$(JAGS_ROOT)/x64/lib -ljags"
-          New-Item -Path "$env:USERPROFILE\.R" -ItemType Directory -Force
-          Set-Content -Path "$env:USERPROFILE\.R\Makevars.win" -Value $makevarsContent
-          Write-Output "Makevars.win content:"
-          Get-Content "$env:USERPROFILE\.R\Makevars.win"
-          Rscript -e "install.packages('rjags', type='source', INSTALL_opts='--no-multiarch')"
-        shell: powershell
-      
-      - name: Copy JAGS DLLs to R library
-        run: |
-          $rjagsDir = "D:\a\_temp\Library\rjags\libs\x64"
-          $jagsBin = "C:\Program Files\JAGS\JAGS-4.3.0\x64\bin"
-          if (Test-Path $rjagsDir) {
-            Write-Output "Copying JAGS DLLs to rjags directory..."
-            Copy-Item "$jagsBin\*.dll" -Destination $rjagsDir -Force
-            Write-Output "DLLs in rjags directory:"
-            Get-ChildItem $rjagsDir\*.dll
-          }
-        shell: powershell
-      
-      - name: Verify rjags can load
-        run: |
-          library(rjags)
-          cat('rjags loaded successfully\n')
-          cat('JAGS version:', jags.version(), '\n')
-        shell: Rscript {0}
-      
-      - name: Install remaining dependencies
-        run: |
+          install.packages(c("remotes", "rcmdcheck", "devtools"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
       
       - name: Install basicspace from GitHub
         run: |
           remotes::install_github("cran/basicspace", force = TRUE)
+        shell: Rscript {0}
+      
+      - name: Verify rjags installation
+        run: |
+          library(rjags)
+          cat('rjags loaded successfully\n')
+          cat('JAGS version:', jags.version(), '\n')
         shell: Rscript {0}
       
       - name: Check package
@@ -111,7 +75,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: windows-results
+          name: macos-results
           path: check
       
       - name: Test package (optional)
